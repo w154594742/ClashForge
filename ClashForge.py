@@ -1822,12 +1822,6 @@ def start_clash():
                 return clash_process
 
 
-        if not_started:
-            clash_process.kill()
-            continue
-        return clash_process
-
-
 def is_clash_api_running():
     try:
         url = f"http://{CLASH_API_HOST}:{CLASH_API_PORTS[0]}/configs"
@@ -2332,61 +2326,72 @@ def work(links,check=False,allowed_types=[],only_check=False):
         print(f"程序执行失败: {e}")
         sys.exit(1)
 
+def get_subscription_with_retry(url, max_retries=3):
+    for i in range(max_retries):
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            if response.status_code == 200:
+                return response.text
+        except Exception as e:
+            if i == max_retries - 1:
+                print(f"重试 {max_retries} 次后仍然失败: {url}")
+                raise e
+            time.sleep(2 ** i)  # 指数退避
+    return None
 
 if __name__ == '__main__':
     links = ["https://slink.ltd/https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/Roywaller/clash_subscription/refs/heads/main/clash_subscription.txt",
-      "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc0.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc1.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc2.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc3.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc4.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/xiaoji235/airport-free/refs/heads/main/clash/naidounode.txt",
-      "https://slink.ltd/https://raw.githubusercontent.com/xiaoer8867785/jddy5/refs/heads/main/data/{Y_m_d}/{x}.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/LogInfo.txt|links",
-      "https://slink.ltd/https://raw.githubusercontent.com/tglaoshiji/nodeshare/refs/heads/main/{Y}/{m}/{Ymd}.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/SSAggregator/master/sub/sub_merge_yaml.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/Eternity.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/vxiaov/free_proxies/main/clash/clash.provider.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/wangyingbo/yb_clashgithub_sub/main/clash_sub.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/ljlfct01/ljlfct01.github.io/refs/heads/main/节点",
-      "https://slink.ltd/https://raw.githubusercontent.com/snakem982/proxypool/main/source/clash-meta.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/leetomlee123/freenode/refs/heads/main/README.md",
-      "https://slink.ltd/https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/ermaozi/get_subscribe/main/subscribe/clash.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/zhangkaiitugithub/passcro/main/speednodes.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/skka3134/test/refs/heads/main/clash.yaml|links",
-      "https://slink.ltd/https://raw.githubusercontent.com/mgit0001/test_clash/refs/heads/main/heima.txt",
-      "https://slink.ltd/https://raw.githubusercontent.com/mai19950/clashgithub_com/refs/heads/main/site",
-      "https://slink.ltd/https://raw.githubusercontent.com/aiboboxx/clashfree/refs/heads/main/clash.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/aiboboxx/v2rayfree/refs/heads/main/README.md",
-      "https://slink.ltd/https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub",
-      "https://slink.ltd/https://raw.githubusercontent.com/shahidbhutta/Clash/refs/heads/main/Router",
-      "https://slink.ltd/https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.meta.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/skka3134/test/refs/heads/main/test.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/anaer/Sub/refs/heads/main/clash.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/a2470982985/getNode/main/clash.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/free18/v2ray/refs/heads/main/c.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.yml",
-      "https://slink.ltd/https://raw.githubusercontent.com/mfbpn/tg_mfbpn_sub/main/trial.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/Ruk1ng001/freeSub/main/clash.yaml",
-      "https://raw.githubusercontent.com/SoliSpirit/v2ray-configs/main/all_configs.txt|links"
-      "https://slink.ltd/https://raw.githubusercontent.com/ripaojiedian/freenode/main/clash",
-      "https://slink.ltd/https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml",
-      "https://slink.ltd/https://raw.githubusercontent.com/mfuu/v2ray/master/clash.yaml",
-      "https://api.mxlweb.xyz/sub?target=clash&url=https://www.xrayvip.com/free.yaml&insert=false",
-      "https://api.mxlweb.xyz/sub?target=clash&url=https://mxlsub.me/free&insert=false",
-      "https://www.freeclashnode.com/uploads/{Y}/{m}/0-{Ymd}.yaml",
-      "https://www.freeclashnode.com/uploads/{Y}/{m}/1-{Ymd}.yaml",
-      "https://clashgithub.com/wp-content/uploads/rss/{Ymd}.yml",
-      "https://sub.reajason.eu.org/clash.yaml",
-      "https://clash.221207.xyz/pubclashyaml",
-      "https://clash.llleman.com/clach.yml",
-      "https://proxypool.link/trojan/sub",
-      "https://proxypool.link/ss/sub|ss",
-      "https://proxypool.link/vmess/sub",
-      "https://mxlsub.me/newfull",
-      "https://igdux.top/5Hna",
+        "https://slink.ltd/https://raw.githubusercontent.com/Roywaller/clash_subscription/refs/heads/main/clash_subscription.txt",
+        "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc0.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc1.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc2.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc3.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/Q3dlaXpoaQ/V2rayN_Clash_Node_Getter/refs/heads/main/APIs/sc4.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/xiaoji235/airport-free/refs/heads/main/clash/naidounode.txt",
+        "https://slink.ltd/https://raw.githubusercontent.com/xiaoer8867785/jddy5/refs/heads/main/data/{Y_m_d}/{x}.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/LogInfo.txt|links",
+        "https://slink.ltd/https://raw.githubusercontent.com/tglaoshiji/nodeshare/refs/heads/main/{Y}/{m}/{Ymd}.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/SSAggregator/master/sub/sub_merge_yaml.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/Eternity.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/vxiaov/free_proxies/main/clash/clash.provider.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/wangyingbo/yb_clashgithub_sub/main/clash_sub.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/ljlfct01/ljlfct01.github.io/refs/heads/main/节点",
+        "https://slink.ltd/https://raw.githubusercontent.com/snakem982/proxypool/main/source/clash-meta.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/leetomlee123/freenode/refs/heads/main/README.md",
+        "https://slink.ltd/https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/ermaozi/get_subscribe/main/subscribe/clash.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/zhangkaiitugithub/passcro/main/speednodes.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/skka3134/test/refs/heads/main/clash.yaml|links",
+        "https://slink.ltd/https://raw.githubusercontent.com/mgit0001/test_clash/refs/heads/main/heima.txt",
+        "https://slink.ltd/https://raw.githubusercontent.com/mai19950/clashgithub_com/refs/heads/main/site",
+        "https://slink.ltd/https://raw.githubusercontent.com/aiboboxx/clashfree/refs/heads/main/clash.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/aiboboxx/v2rayfree/refs/heads/main/README.md",
+        "https://slink.ltd/https://raw.githubusercontent.com/Pawdroid/Free-servers/refs/heads/main/sub",
+        "https://slink.ltd/https://raw.githubusercontent.com/shahidbhutta/Clash/refs/heads/main/Router",
+        "https://slink.ltd/https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.meta.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/skka3134/test/refs/heads/main/test.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/anaer/Sub/refs/heads/main/clash.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/a2470982985/getNode/main/clash.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/free18/v2ray/refs/heads/main/c.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.yml",
+        "https://slink.ltd/https://raw.githubusercontent.com/mfbpn/tg_mfbpn_sub/main/trial.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/Ruk1ng001/freeSub/main/clash.yaml",
+        "https://raw.githubusercontent.com/SoliSpirit/v2ray-configs/main/all_configs.txt|links"
+        "https://slink.ltd/https://raw.githubusercontent.com/ripaojiedian/freenode/main/clash",
+        "https://slink.ltd/https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml",
+        "https://slink.ltd/https://raw.githubusercontent.com/mfuu/v2ray/master/clash.yaml",
+        "https://api.mxlweb.xyz/sub?target=clash&url=https://www.xrayvip.com/free.yaml&insert=false",
+        "https://api.mxlweb.xyz/sub?target=clash&url=https://mxlsub.me/free&insert=false",
+        "https://www.freeclashnode.com/uploads/{Y}/{m}/0-{Ymd}.yaml",
+        "https://www.freeclashnode.com/uploads/{Y}/{m}/1-{Ymd}.yaml",
+        "https://clashgithub.com/wp-content/uploads/rss/{Ymd}.yml",
+        "https://sub.reajason.eu.org/clash.yaml",
+        "https://clash.221207.xyz/pubclashyaml",
+        "https://clash.llleman.com/clach.yml",
+        "https://proxypool.link/trojan/sub",
+        "https://proxypool.link/ss/sub|ss",
+        "https://proxypool.link/vmess/sub",
+        "https://mxlsub.me/newfull",
+        "https://igdux.top/5Hna",
     ]
-    
     work(links, check=True, only_check=False, allowed_types=["ss","hysteria2","hy2","vless","vmess","trojan"])
