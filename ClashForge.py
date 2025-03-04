@@ -2130,6 +2130,7 @@ async def proxy_clean():
     print(f"并发数量: {MAX_CONCURRENT_TESTS}")
     print(f"超时时间: {TIMEOUT}秒")
     print(f"保留节点：最多保留{LIMIT}个延迟最小的有效节点")
+    print(f"下载测速：测试延迟最小的前100个节点，每个节点测试5秒")
 
     # 加载配置
     print(f'加载配置文件{CONFIG_FILE}')
