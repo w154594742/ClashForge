@@ -1411,47 +1411,34 @@ def process_url(url):
             content = response.content.decode('utf-8')
             if 'proxies:' in content:
                 # YAML格式
-                yaml_data = yaml.safe_load(content)
-                if 'proxies' in yaml_data:
-                    isyaml = True
-                    proxies = yaml_data['proxies'] if yaml_data['proxies'] else []
-                    return proxies,isyaml
-            else:
-                # 尝试Base64解码
                 try:
-                    decoded_bytes = base64.b64decode(content)
-                    decoded_content = decoded_bytes.decode('utf-8')
-                    decoded_content = urllib.parse.unquote(decoded_content)
-                    return decoded_content.splitlines(),isyaml
-                except Exception as e:
+                    yaml_data = yaml.safe_load(content)
+                    if 'proxies' in yaml_data:
+                        isyaml = True
+                        proxies = yaml_data['proxies'] if yaml_data['proxies'] else []
+                        return proxies,isyaml
+                except yaml.YAMLError as e:
+                    print(f"YAML解析错误，尝试其他解析方式: {e}")
+                    # 尝试使用正则表达式提取节点信息
                     try:
-                        res = js_render(url)
-                        if 'external-controller' in res.html.text:
-                            # YAML格式
-                            try:
-                                yaml_data = yaml.safe_load(res.html.text)
-                            except Exception as e:
-                                yaml_data = match_nodes(res.html.text)
-                            finally:
-                                if 'proxies' in yaml_data:
-                                    isyaml = True
-                                    return yaml_data['proxies'], isyaml
-
-                        else:
-                            pattern = r'([A-Za-z0-9_+/\-]+={0,2})'
-                            matches = re.findall(pattern, res.html.text)
-                            stdout = matches[-1] if matches else []
-                            decoded_bytes = base64.b64decode(stdout)
-                            decoded_content = decoded_bytes.decode('utf-8')
-                            return decoded_content.splitlines(), isyaml
+                        yaml_data = match_nodes(content)
+                        if 'proxies' in yaml_data:
+                            isyaml = True
+                            return yaml_data['proxies'], isyaml
                     except Exception as e:
-                        # 如果不是Base64编码，直接按行处理
-                        return [],isyaml
+                        print(f"节点提取失败: {e}")
+                        return [], isyaml
+            
+            # ... 其余代码保持不变 ...
+
         else:
-            print(f"Failed to retrieve data from {url}, status code: {response.status_code}")
+            print(f"获取数据失败: {url}, 状态码: {response.status_code}")
             return [],isyaml
     except requests.RequestException as e:
-        print(f"An error occurred while requesting {url}: {e}")
+        print(f"请求错误: {url}: {e}")
+        return [],isyaml
+    except Exception as e:
+        print(f"处理URL时发生错误: {url}: {e}")
         return [],isyaml
 
 # 解析不同的代理链接
