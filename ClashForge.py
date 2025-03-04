@@ -1405,7 +1405,7 @@ def process_url(url):
     isyaml = False
     try:
         # 发送GET请求
-        response = requests.get(url, headers=headers, verify=False, allow_redirects=True)
+        response = requests.get(url, headers=headers, verify=False, allow_redirects=True, timeout=30)
         # 确保响应状态码为200
         if response.status_code == 200:
             content = response.content.decode('utf-8')
@@ -1418,28 +1418,60 @@ def process_url(url):
                         proxies = yaml_data['proxies'] if yaml_data['proxies'] else []
                         return proxies,isyaml
                 except yaml.YAMLError as e:
-                    print(f"YAML解析错误，尝试其他解析方式: {e}")
-                    # 尝试使用正则表达式提取节点信息
+                    print(f"YAML解析错误 {url}: {e}")
                     try:
+                        # 使用正则表达式提取节点信息
                         yaml_data = match_nodes(content)
-                        if 'proxies' in yaml_data:
+                        if yaml_data and 'proxies' in yaml_data:
                             isyaml = True
                             return yaml_data['proxies'], isyaml
-                    except Exception as e:
-                        print(f"节点提取失败: {e}")
-                        return [], isyaml
+                    except Exception as e2:
+                        print(f"节点提取失败 {url}: {e2}")
+                except Exception as e:
+                    print(f"处理YAML内容时出错 {url}: {e}")
             
-            # ... 其余代码保持不变 ...
-
+            # 尝试Base64解码
+            try:
+                decoded_bytes = base64.b64decode(content)
+                decoded_content = decoded_bytes.decode('utf-8')
+                decoded_content = urllib.parse.unquote(decoded_content)
+                return decoded_content.splitlines(), isyaml
+            except Exception as e:
+                try:
+                    res = js_render(url)
+                    if res and 'external-controller' in res.html.text:
+                        try:
+                            clean_content = re.sub(r'<[^>]+>', '', res.html.text)
+                            yaml_data = yaml.safe_load(clean_content)
+                            if yaml_data and 'proxies' in yaml_data:
+                                isyaml = True
+                                return yaml_data['proxies'], isyaml
+                        except Exception as e:
+                            yaml_data = match_nodes(res.html.text)
+                            if yaml_data and 'proxies' in yaml_data:
+                                isyaml = True
+                                return yaml_data['proxies'], isyaml
+                    else:
+                        pattern = r'([A-Za-z0-9_+/\-]+={0,2})'
+                        matches = re.findall(pattern, res.html.text)
+                        if matches:
+                            try:
+                                stdout = matches[-1]
+                                decoded_bytes = base64.b64decode(stdout)
+                                decoded_content = decoded_bytes.decode('utf-8')
+                                return decoded_content.splitlines(), isyaml
+                            except Exception as e:
+                                print(f"Base64解码失败 {url}: {e}")
+                except Exception as e:
+                    print(f"JS渲染失败 {url}: {e}")
         else:
-            print(f"获取数据失败: {url}, 状态码: {response.status_code}")
-            return [],isyaml
+            print(f"获取数据失败 {url}, 状态码: {response.status_code}")
     except requests.RequestException as e:
-        print(f"请求错误: {url}: {e}")
-        return [],isyaml
+        print(f"请求错误 {url}: {e}")
     except Exception as e:
-        print(f"处理URL时发生错误: {url}: {e}")
-        return [],isyaml
+        print(f"处理URL时发生未知错误 {url}: {e}")
+    
+    return [], isyaml
 
 # 解析不同的代理链接
 def parse_proxy_link(link):
@@ -1551,46 +1583,63 @@ def generate_clash_config(links,load_nodes):
 
     # 名称已存在的节点加随机后缀
     def resolve_name_conflicts(node):
-        name = str(node["name"])
-        if not_contains(name):
-            if name in existing_names:
-                name = add_random_suffix(name, existing_names)
-            existing_names.add(name)
-            node["name"] = name
-            final_nodes.append(node)
+        try:
+            name = str(node["name"])
+            if not_contains(name):
+                if name in existing_names:
+                    name = add_random_suffix(name, existing_names)
+                existing_names.add(name)
+                node["name"] = name
+                final_nodes.append(node)
+        except Exception as e:
+            print(f"处理节点名称时出错: {e}")
 
+    # 处理已加载的节点
     for node in load_nodes:
-        resolve_name_conflicts(node)
-
-
-    for link in links:
-        if link.startswith(("hysteria2://", "hy2://","trojan://", "ss://", "vless://", "vmess://")):
-            node = parse_proxy_link(link)
-            if not node:
-                continue
+        try:
             resolve_name_conflicts(node)
-        else:
-            if '|links' in link or '.md' in link:
-                link = link.replace('|links', '')
-                new_links = parse_md_link(link)
-                handle_links(new_links,resolve_name_conflicts)
-            if '|ss' in link:
-                link = link.replace('|ss', '')
-                new_links = parse_ss_sub(link)
-                for node in new_links:
-                    resolve_name_conflicts(node)
-            if '{' in link:
-                link = resolve_template_url(link)
-            print(f'当前正在处理link: {link}')
-            # 处理非特定协议的链接
-            new_links,isyaml = process_url(link)
-            if isyaml:
-                for node in new_links:
-                    resolve_name_conflicts(node)
-            else:
-                handle_links(new_links, resolve_name_conflicts)
+        except Exception as e:
+            print(f"处理加载节点时出错: {e}")
+            continue
 
-    final_nodes = deduplicate_proxies(final_nodes)
+    # 处理链接
+    for link in links:
+        try:
+            print(f'当前正在处理link: {link}')
+            if link.startswith(("hysteria2://", "hy2://", "trojan://", "ss://", "vless://", "vmess://")):
+                node = parse_proxy_link(link)
+                if not node:
+                    continue
+                resolve_name_conflicts(node)
+            else:
+                if '|links' in link or '.md' in link:
+                    link = link.replace('|links', '')
+                    new_links = parse_md_link(link)
+                    handle_links(new_links, resolve_name_conflicts)
+                elif '|ss' in link:
+                    link = link.replace('|ss', '')
+                    new_links = parse_ss_sub(link)
+                    for node in new_links:
+                        resolve_name_conflicts(node)
+                elif '{' in link:
+                    link = resolve_template_url(link)
+                
+                new_links, isyaml = process_url(link)
+                if isyaml:
+                    for node in new_links:
+                        resolve_name_conflicts(node)
+                else:
+                    handle_links(new_links, resolve_name_conflicts)
+        except Exception as e:
+            print(f"处理链接时出错 {link}: {e}")
+            continue
+
+    try:
+        final_nodes = deduplicate_proxies(final_nodes)
+        # ... 其余代码保持不变 ...
+    except Exception as e:
+        print(f"处理最终节点时出错: {e}")
+        raise
 
     for node in final_nodes:
         name = str(node["name"])
@@ -2279,28 +2328,32 @@ def resolve_template_url(template_url):
 
     return resolved_url
 
-def work(links,check=False,allowed_types=[],only_check=False):
+def work(links, check=False, allowed_types=[], only_check=False):
     try:
         if not only_check:
             load_nodes = read_yaml_files(folder_path=INPUT)
             if allowed_types:
-                load_nodes = filter_by_types_alt(allowed_types,nodes=load_nodes)
+                load_nodes = filter_by_types_alt(allowed_types, nodes=load_nodes)
             links = merge_lists(read_txt_files(folder_path=INPUT), links)
             if links or load_nodes:
-                generate_clash_config(links,load_nodes)
+                try:
+                    generate_clash_config(links, load_nodes)
+                except Exception as e:
+                    print(f"生成配置文件时出错: {e}")
+                    # 不要直接退出，继续执行后续操作
+                    if not check and not only_check:
+                        return
 
         if check or only_check:
             clash_process = None
             try:
-                # 启动clash
                 print(f"===================启动clash并初始化配置======================")
                 clash_process = start_clash()
-                # 切换节点到'节点选择-DIRECT'
                 switch_proxy('DIRECT')
                 asyncio.run(proxy_clean())
                 print(f'批量检测完毕')
             except Exception as e:
-                print("Error calling Clash API:", e)
+                print(f"Clash API 调用错误: {e}")
             finally:
                 print(f'关闭Clash API')
                 if clash_process is not None:
@@ -2310,8 +2363,9 @@ def work(links,check=False,allowed_types=[],only_check=False):
         print("\n用户中断执行")
         sys.exit(0)
     except Exception as e:
-        print(f"程序执行失败: {e}")
-        sys.exit(1)
+        print(f"程序执行出现错误: {e}")
+        # 不要直接退出
+        return
 
 def get_subscription_with_retry(url, max_retries=3):
     for i in range(max_retries):
