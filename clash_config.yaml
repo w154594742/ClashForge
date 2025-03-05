@@ -39,13 +39,6 @@ proxies:
   password: 5d335ddf-2ae7-4331-835d-6f9593fe8287
   udp: true
   sni: hinet.mjt000.com
-- name: 澳大利亚AU-T
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 5d335ddf-2ae7-4331-835d-6f9593fe8287
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-Rvm8
   type: trojan
   server: jp.mjt000.com
@@ -61,13 +54,6 @@ proxies:
   password: 79b25abf-8730-426a-ab47-7e92c6a68007
   udp: true
   sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-QzUC
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 79b25abf-8730-426a-ab47-7e92c6a68007
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-ZtHY
   type: trojan
   server: jp.mjt000.com
@@ -83,13 +69,6 @@ proxies:
   password: 796c46f8-82a3-44e4-9937-0e5da73895dc
   udp: true
   sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-FTDp
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 796c46f8-82a3-44e4-9937-0e5da73895dc
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-CjtL
   type: trojan
   server: jp.mjt000.com
@@ -98,34 +77,6 @@ proxies:
   udp: true
   sni: jp.mjt000.com
   skip-cert-verify: true
-- name: 越南VN-T-7IHa
-  type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: a9cda9d0-5802-400a-97da-66ceca68e8a2
-  udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-zgZq
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: a9cda9d0-5802-400a-97da-66ceca68e8a2
-  udp: true
-  sni: au.mjt000.com
-- name: 台湾WAP-T-GPT-Orqz
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: d384ad6d-d259-45eb-ba2e-1799fa426ed4
-  udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-ulWr
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: d384ad6d-d259-45eb-ba2e-1799fa426ed4
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-oUJn
   type: trojan
   server: jp.mjt000.com
@@ -134,20 +85,6 @@ proxies:
   udp: true
   sni: jp.mjt000.com
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-IPsy
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: a6f0acd5-0852-432a-b191-854658db6a92
-  udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-3ZjF
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: a6f0acd5-0852-432a-b191-854658db6a92
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-TzPC
   type: trojan
   server: jp.mjt000.com
@@ -156,20 +93,6 @@ proxies:
   udp: true
   sni: jp.mjt000.com
   skip-cert-verify: true
-- name: 越南VN-T-sNz8
-  type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: 06322978-709f-423e-b10b-fc2a845d9564
-  udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-vXXU
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 06322978-709f-423e-b10b-fc2a845d9564
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-7fs6
   type: trojan
   server: jp.mjt000.com
@@ -185,20 +108,6 @@ proxies:
   password: 5adfc828-440d-4022-9571-0299a905b98e
   udp: true
   sni: hinet.mjt000.com
-- name: 越南VN-T-3peq
-  type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: 5adfc828-440d-4022-9571-0299a905b98e
-  udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-WtWF
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 5adfc828-440d-4022-9571-0299a905b98e
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-KwGS
   type: trojan
   server: jp.mjt000.com
@@ -214,13 +123,6 @@ proxies:
   password: b6e5e633-a297-4614-88d5-49f94cda618f
   udp: true
   sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-CdpO
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: b6e5e633-a297-4614-88d5-49f94cda618f
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-SiE6
   type: trojan
   server: jp.mjt000.com
@@ -229,27 +131,6 @@ proxies:
   udp: true
   sni: jp.mjt000.com
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-OMOZ
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: f89748f5-cee5-44dd-89fd-f6d49645d060
-  udp: true
-  sni: hinet.mjt000.com
-- name: 越南VN-T-DdWP
-  type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: f89748f5-cee5-44dd-89fd-f6d49645d060
-  udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-B4AQ
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: f89748f5-cee5-44dd-89fd-f6d49645d060
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-pR3s
   type: trojan
   server: jp.mjt000.com
@@ -258,20 +139,6 @@ proxies:
   udp: true
   sni: jp.mjt000.com
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-OuC9
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: 14c564dd-aad6-4bf7-b6bb-02a360132dbf
-  udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-Ue1W
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 14c564dd-aad6-4bf7-b6bb-02a360132dbf
-  udp: true
-  sni: au.mjt000.com
 - name: 日本JP-T-gEwa
   type: trojan
   server: jp.mjt000.com
@@ -287,20 +154,6 @@ proxies:
   password: 258e9750-51ef-4a49-9035-8409cc4649f8
   udp: true
   sni: hinet.mjt000.com
-- name: 越南VN-T-Al51
-  type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: 258e9750-51ef-4a49-9035-8409cc4649f8
-  udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-gcKK
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 258e9750-51ef-4a49-9035-8409cc4649f8
-  udp: true
-  sni: au.mjt000.com
 proxy-groups:
 - name: 节点选择
   type: select
@@ -313,43 +166,22 @@ proxy-groups:
   type: url-test
   exclude-filter: (?i)中国|China|CN|电信|移动|联通
   proxies:
-  - 日本JP-T-TzPC
-  - 日本JP-T-SiE6
-  - 日本JP-T-Rvm8
-  - 日本JP-T-KwGS
-  - 日本JP-T-CjtL
-  - 日本JP-T-ZtHY
-  - 日本JP-T-gEwa
-  - 台湾WAP-T-GPT-IPsy
-  - 台湾WAP-T-GPT-OMOZ
-  - 台湾WAP-T-GPT-OuC9
-  - 台湾WAP-T-GPT-Orqz
-  - 台湾WAP-T-GPT-gfRi
-  - 台湾WAP-T-GPT-D5GQ
-  - 日本JP-T-7fs6
-  - 台湾WAP-T-GPT-PMfx
-  - 日本JP-T-pR3s
-  - 台湾WAP-T-GPT-7DFd
-  - 日本JP-T-oUJn
   - 台湾WAP-T-GPT-YsHI
+  - 台湾WAP-T-GPT-PMfx
+  - 台湾WAP-T-GPT-gfRi
+  - 台湾WAP-T-GPT-7DFd
+  - 台湾WAP-T-GPT-D5GQ
   - 台湾WAP-T-GPT
-  - 越南VN-T-DdWP
-  - 澳大利亚AU-T-zgZq
-  - 澳大利亚AU-T-ulWr
-  - 澳大利亚AU-T-QzUC
-  - 澳大利亚AU-T-FTDp
-  - 澳大利亚AU-T
-  - 澳大利亚AU-T-Ue1W
-  - 澳大利亚AU-T-B4AQ
-  - 澳大利亚AU-T-WtWF
-  - 澳大利亚AU-T-CdpO
-  - 越南VN-T-sNz8
-  - 越南VN-T-Al51
-  - 越南VN-T-7IHa
-  - 越南VN-T-3peq
-  - 澳大利亚AU-T-vXXU
-  - 澳大利亚AU-T-gcKK
-  - 澳大利亚AU-T-3ZjF
+  - 日本JP-T-gEwa
+  - 日本JP-T-SiE6
+  - 日本JP-T-7fs6
+  - 日本JP-T-Rvm8
+  - 日本JP-T-oUJn
+  - 日本JP-T-TzPC
+  - 日本JP-T-ZtHY
+  - 日本JP-T-CjtL
+  - 日本JP-T-pR3s
+  - 日本JP-T-KwGS
   url: http://www.pinterest.com
   interval: 300
   tolerance: 50
@@ -357,85 +189,43 @@ proxy-groups:
   type: fallback
   exclude-filter: (?i)中国|China|CN|电信|移动|联通
   proxies:
-  - 日本JP-T-TzPC
-  - 日本JP-T-SiE6
-  - 日本JP-T-Rvm8
-  - 日本JP-T-KwGS
-  - 日本JP-T-CjtL
-  - 日本JP-T-ZtHY
-  - 日本JP-T-gEwa
-  - 台湾WAP-T-GPT-IPsy
-  - 台湾WAP-T-GPT-OMOZ
-  - 台湾WAP-T-GPT-OuC9
-  - 台湾WAP-T-GPT-Orqz
-  - 台湾WAP-T-GPT-gfRi
-  - 台湾WAP-T-GPT-D5GQ
-  - 日本JP-T-7fs6
-  - 台湾WAP-T-GPT-PMfx
-  - 日本JP-T-pR3s
-  - 台湾WAP-T-GPT-7DFd
-  - 日本JP-T-oUJn
   - 台湾WAP-T-GPT-YsHI
+  - 台湾WAP-T-GPT-PMfx
+  - 台湾WAP-T-GPT-gfRi
+  - 台湾WAP-T-GPT-7DFd
+  - 台湾WAP-T-GPT-D5GQ
   - 台湾WAP-T-GPT
-  - 越南VN-T-DdWP
-  - 澳大利亚AU-T-zgZq
-  - 澳大利亚AU-T-ulWr
-  - 澳大利亚AU-T-QzUC
-  - 澳大利亚AU-T-FTDp
-  - 澳大利亚AU-T
-  - 澳大利亚AU-T-Ue1W
-  - 澳大利亚AU-T-B4AQ
-  - 澳大利亚AU-T-WtWF
-  - 澳大利亚AU-T-CdpO
-  - 越南VN-T-sNz8
-  - 越南VN-T-Al51
-  - 越南VN-T-7IHa
-  - 越南VN-T-3peq
-  - 澳大利亚AU-T-vXXU
-  - 澳大利亚AU-T-gcKK
-  - 澳大利亚AU-T-3ZjF
+  - 日本JP-T-gEwa
+  - 日本JP-T-SiE6
+  - 日本JP-T-7fs6
+  - 日本JP-T-Rvm8
+  - 日本JP-T-oUJn
+  - 日本JP-T-TzPC
+  - 日本JP-T-ZtHY
+  - 日本JP-T-CjtL
+  - 日本JP-T-pR3s
+  - 日本JP-T-KwGS
   url: http://www.pinterest.com
   interval: 300
 - name: 手动选择
   type: select
   proxies:
-  - 日本JP-T-TzPC
-  - 日本JP-T-SiE6
-  - 日本JP-T-Rvm8
-  - 日本JP-T-KwGS
-  - 日本JP-T-CjtL
-  - 日本JP-T-ZtHY
-  - 日本JP-T-gEwa
-  - 台湾WAP-T-GPT-IPsy
-  - 台湾WAP-T-GPT-OMOZ
-  - 台湾WAP-T-GPT-OuC9
-  - 台湾WAP-T-GPT-Orqz
-  - 台湾WAP-T-GPT-gfRi
-  - 台湾WAP-T-GPT-D5GQ
-  - 日本JP-T-7fs6
-  - 台湾WAP-T-GPT-PMfx
-  - 日本JP-T-pR3s
-  - 台湾WAP-T-GPT-7DFd
-  - 日本JP-T-oUJn
   - 台湾WAP-T-GPT-YsHI
+  - 台湾WAP-T-GPT-PMfx
+  - 台湾WAP-T-GPT-gfRi
+  - 台湾WAP-T-GPT-7DFd
+  - 台湾WAP-T-GPT-D5GQ
   - 台湾WAP-T-GPT
-  - 越南VN-T-DdWP
-  - 澳大利亚AU-T-zgZq
-  - 澳大利亚AU-T-ulWr
-  - 澳大利亚AU-T-QzUC
-  - 澳大利亚AU-T-FTDp
-  - 澳大利亚AU-T
-  - 澳大利亚AU-T-Ue1W
-  - 澳大利亚AU-T-B4AQ
-  - 澳大利亚AU-T-WtWF
-  - 澳大利亚AU-T-CdpO
-  - 越南VN-T-sNz8
-  - 越南VN-T-Al51
-  - 越南VN-T-7IHa
-  - 越南VN-T-3peq
-  - 澳大利亚AU-T-vXXU
-  - 澳大利亚AU-T-gcKK
-  - 澳大利亚AU-T-3ZjF
+  - 日本JP-T-gEwa
+  - 日本JP-T-SiE6
+  - 日本JP-T-7fs6
+  - 日本JP-T-Rvm8
+  - 日本JP-T-oUJn
+  - 日本JP-T-TzPC
+  - 日本JP-T-ZtHY
+  - 日本JP-T-CjtL
+  - 日本JP-T-pR3s
+  - 日本JP-T-KwGS
 rules:
 - DOMAIN,app.adjust.com,DIRECT
 - DOMAIN,bdtj.tagtic.cn,DIRECT
