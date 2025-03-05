@@ -38,7 +38,8 @@ CLASH_API_SECRET = ""
 TIMEOUT = 1
 MAX_CONCURRENT_TESTS = 100
 LIMIT = 10000 # 最多保留LIMIT个节点
-CONFIG_FILE = 'clash_config.yaml'
+CLASH_CONFIG_FILE = 'clash.yaml' # Clash配置文件
+V2RAY_CONFIG_FILE = 'v2ray.txt' # V2ray订阅文件
 INPUT = "input" # 从文件中加载代理节点，支持yaml/yml、txt(每条代理链接占一行)
 BAN = ["中国", "China", "CN", "电信", "移动", "联通"]
 headers = {
@@ -1719,23 +1720,22 @@ def generate_clash_config(links,load_nodes):
     config["proxies"] = final_nodes
     if config["proxies"]:
         # 生成clash配置(仅yaml格式)
-        with open(CONFIG_FILE, "w", encoding="utf-8") as f:
+        with open(CLASH_CONFIG_FILE, "w", encoding="utf-8") as f:
             yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
             
         try:
             # 生成v2ray订阅
             v2ray_sub = generate_v2ray_subscription(config["proxies"])
             if v2ray_sub:
-                v2ray_sub_file = "v2ray_sub.txt"
-                with open(v2ray_sub_file, "w", encoding="utf-8") as f:
+                with open(V2RAY_CONFIG_FILE, "w", encoding="utf-8") as f:
                     f.write(v2ray_sub)
-                print(f"已经生成V2ray订阅文件{v2ray_sub_file}")
+                print(f"已经生成V2ray订阅文件{V2RAY_CONFIG_FILE}")
             else:
                 print("生成V2ray订阅失败")
-            print(f"已经生成Clash配置文件{CONFIG_FILE}")
+            print(f"已经生成Clash配置文件{CLASH_CONFIG_FILE}")
         except Exception as e:
             print(f"生成V2ray订阅时出错: {e}")
-            print(f"已经生成Clash配置文件{CONFIG_FILE}")
+            print(f"已经生成Clash配置文件{CLASH_CONFIG_FILE}")
     else:
         print('没有节点数据更新')
 
@@ -1900,12 +1900,12 @@ def start_clash():
 
     not_started = True
 
-    global CONFIG_FILE
-    CONFIG_FILE = f'{CONFIG_FILE}.json' if os.path.exists(f'{CONFIG_FILE}.json') else CONFIG_FILE
+    global CLASH_CONFIG_FILE
+    CLASH_CONFIG_FILE = f'{CLASH_CONFIG_FILE}.json' if os.path.exists(f'{CLASH_CONFIG_FILE}.json') else CLASH_CONFIG_FILE
     while not_started:
-        # print(f'加载配置{CONFIG_FILE}')
+        # print(f'加载配置{CLASH_CONFIG_FILE}')
         clash_process = subprocess.Popen(
-            [clash_binary, '-f', CONFIG_FILE],
+            [clash_binary, '-f', CLASH_CONFIG_FILE],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -1932,7 +1932,7 @@ def start_clash():
                         return clash_process
 
                 if "Parse config error" in output_lines[-1]:
-                    if handle_clash_error(output_lines[-1], CONFIG_FILE):
+                    if handle_clash_error(output_lines[-1], CLASH_CONFIG_FILE):
                         clash_process.kill()
                         output_lines = []
             if is_clash_api_running():
@@ -2203,18 +2203,18 @@ async def test_group_proxies(clash_api: ClashAPI, proxies: List[str]) -> List[Pr
 
 async def proxy_clean():
     # 更新全局配置
-    global MAX_CONCURRENT_TESTS, TIMEOUT, CLASH_API_SECRET, LIMIT, CONFIG_FILE
-    CONFIG_FILE = f'{CONFIG_FILE}.json' if os.path.exists(f'{CONFIG_FILE}.json') else CONFIG_FILE
+    global MAX_CONCURRENT_TESTS, TIMEOUT, CLASH_API_SECRET, LIMIT, CLASH_CONFIG_FILE
+    CLASH_CONFIG_FILE = f'{CLASH_CONFIG_FILE}.json' if os.path.exists(f'{CLASH_CONFIG_FILE}.json') else CLASH_CONFIG_FILE
     print(f"===================节点批量检测基本信息======================")
-    print(f"配置文件: {CONFIG_FILE}")
+    print(f"配置文件: {CLASH_CONFIG_FILE}")
     print(f"API 端口: {CLASH_API_PORTS[0]}")
     print(f"并发数量: {MAX_CONCURRENT_TESTS}")
     print(f"超时时间: {TIMEOUT}秒")
     print(f"保留节点：最多保留{LIMIT}个延迟最小的有效节点")
 
     # 加载配置
-    print(f'加载配置文件{CONFIG_FILE}')
-    config = ClashConfig(CONFIG_FILE)
+    print(f'加载配置文件{CLASH_CONFIG_FILE}')
+    config = ClashConfig(CLASH_CONFIG_FILE)
     available_groups = config.get_group_names()[1:]
 
     # 确定要测试的策略组
