@@ -1,26 +1,11 @@
-port: 7890
-socks-port: 7891
-redir-port: 7892
 allow-lan: true
-mode: rule
-log-level: info
-external-controller: 127.0.0.1:9090
-geodata-mode: true
-geox-url:
-  geoip: https://slink.ltd/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat
-  mmdb: https://slink.ltd/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-Country.mmdb
 dns:
-  enable: true
-  ipv6: false
   default-nameserver:
   - 223.5.5.5
   - 119.29.29.29
+  enable: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
-  use-hosts: true
-  nameserver:
-  - https://dns.alidns.com/dns-query
-  - https://doh.pub/dns-query
   fallback:
   - https://doh.dns.sb/dns-query
   - https://dns.cloudflare.com/dns-query
@@ -31,411 +16,4642 @@ dns:
     ipcidr:
     - 240.0.0.0/4
     - 0.0.0.0/32
+  ipv6: false
+  nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+  use-hosts: true
+external-controller: 127.0.0.1:9090
+geodata-mode: true
+geox-url:
+  geoip: https://gitdl.cn/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat
+  mmdb: https://gitdl.cn/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-Country.mmdb
+log-level: info
+mode: rule
+port: 7890
 proxies:
-- name: 台湾WAP-T-GPT
-  type: trojan
-  server: hinet.mjt000.com
+- ip-version: dual
+  name: 🇺🇸_US_美国_2
+  password: 2cba4104747d49d18319e5ade1b93ab5
   port: 443
-  password: 5d335ddf-2ae7-4331-835d-6f9593fe8287
-  udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 5d335ddf-2ae7-4331-835d-6f9593fe8287
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-Rvm8
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: 79b25abf-8730-426a-ab47-7e92c6a68007
-  udp: true
-  sni: jp.mjt000.com
+  server: 161.35.34.48
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-YsHI
+  sni: yourjobnavigator.online
   type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: 79b25abf-8730-426a-ab47-7e92c6a68007
   udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-QzUC
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 79b25abf-8730-426a-ab47-7e92c6a68007
+- alterId: 0
+  cipher: auto
+  ip-version: dual
+  name: 🇺🇸_US_美国_3
+  network: ws
+  port: 80
+  server: 151.101.194.168
+  type: vmess
   udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-ZtHY
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: 796c46f8-82a3-44e4-9937-0e5da73895dc
-  udp: true
-  sni: jp.mjt000.com
+  uuid: 7dc78582-88a8-4b4c-9e3e-50831d672766
+  ws-opts:
+    headers:
+      host: amd.al
+    path: /XESALISTHEBEST?ed=2048
+- ip-version: dual
+  name: 🇺🇸_US_美国->🇨🇦_CA_加拿大
+  password: ypDt8RkT7J
+  port: 43118
+  server: 89.187.181.179
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-D5GQ
+  sni: wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc
   type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: 796c46f8-82a3-44e4-9937-0e5da73895dc
   udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-FTDp
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 796c46f8-82a3-44e4-9937-0e5da73895dc
+- alterId: 0
+  cipher: auto
+  ip-version: dual
+  name: 🇺🇸_US_美国->🇩🇪_DE_德国
+  network: ws
+  port: 80
+  server: 151.101.66.168
+  sni: ''
+  type: vmess
   udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-CjtL
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: a9cda9d0-5802-400a-97da-66ceca68e8a2
+  uuid: 7dc78582-88a8-4b4c-9e3e-50831d672766
+  ws-opts:
+    headers:
+      host: amd.al
+    path: /XESALISTHEBEST?ed=2048
+- cipher: chacha20-ietf-poly1305
+  name: 剩余流量：568.18 MB
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36141
+  server: free.2weradf.xyz
+  type: ss
   udp: true
-  sni: jp.mjt000.com
+- cipher: chacha20-ietf-poly1305
+  name: 🇭🇰 香港 02 | 1x HK
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36143
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇭🇰 香港住宅IP 03 | 1x HK
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36145
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇹🇼 台湾 01 | 1x TW
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36241
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇹🇼 台湾 02 | 1x TW
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36243
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇹🇼 台湾 03 | 1x TW
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36245
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇯🇵 日本 01 | 1x JP
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36111
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇯🇵 日本 03 | 1x JP
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36115
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇸🇬 新加坡 01 | 1x SG
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36171
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇸🇬 新加坡 03 | 1x SG
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36175
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇰🇷 韩国 01 | 1x KR
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36311
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇰🇷 韩国 02 | 1x KR
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36313
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇵🇭 菲律宾 01 | 1x PH
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36341
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇺🇸 美国 01 | 1x US Los Angeles
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36211
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇺🇸 美国住宅IP 02 | 1x US Los Angeles
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36213
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇺🇸 美国 03 | 1x US Washington
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36215
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇬🇧 英国住宅IP 01 | 1x UK
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36271
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇲🇾马来西亚 01 | 1x MY
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36721
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇹🇭泰国 01 | 1x TH
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36731
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇦🇺 澳大利亚 01 | 1x AU
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36411
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇨🇦 加拿大 01 | 1x CA
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36441
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇹🇷 土耳其 01 | 1x TR
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36571
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇻🇳 越南 01 | 1x VN
+  password: fc45304d-e531-4ee7-8c94-c96e5de286e7
+  port: 36641
+  server: free.2weradf.xyz
+  type: ss
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: US美国(mibei77.com 米贝节点分享)
+  port: 53902
+  server: 183.236.51.38
   skip-cert-verify: true
-- name: 越南VN-T-7IHa
-  type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: a9cda9d0-5802-400a-97da-66ceca68e8a2
+  tls: false
+  type: vmess
   udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-zgZq
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: a9cda9d0-5802-400a-97da-66ceca68e8a2
-  udp: true
-  sni: au.mjt000.com
-- name: 台湾WAP-T-GPT-Orqz
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: d384ad6d-d259-45eb-ba2e-1799fa426ed4
-  udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-ulWr
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: d384ad6d-d259-45eb-ba2e-1799fa426ed4
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-oUJn
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: a6f0acd5-0852-432a-b191-854658db6a92
-  udp: true
-  sni: jp.mjt000.com
+  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+- alterId: 0
+  cipher: auto
+  name: US美国(mibei77.com 米贝节点分享) 2
+  port: 42120
+  server: 183.236.51.38
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-IPsy
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: a6f0acd5-0852-432a-b191-854658db6a92
+  tls: false
+  type: vmess
   udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-3ZjF
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: a6f0acd5-0852-432a-b191-854658db6a92
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-TzPC
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: 06322978-709f-423e-b10b-fc2a845d9564
-  udp: true
-  sni: jp.mjt000.com
+  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+- alterId: 0
+  cipher: auto
+  name: US美国(mibei77.com 米贝节点分享) 8
+  port: 44014
+  server: 120.198.71.219
   skip-cert-verify: true
-- name: 越南VN-T-sNz8
-  type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: 06322978-709f-423e-b10b-fc2a845d9564
+  tls: false
+  type: vmess
   udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-vXXU
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 06322978-709f-423e-b10b-fc2a845d9564
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-7fs6
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: 61339b6c-df0c-423c-93a6-84d7d4e234d1
-  udp: true
-  sni: jp.mjt000.com
+  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+- alterId: 0
+  cipher: auto
+  name: US美国(mibei77.com 米贝节点分享) 14
+  port: 50095
+  server: 120.198.71.219
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-7DFd
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: 5adfc828-440d-4022-9571-0299a905b98e
+  tls: false
+  type: vmess
   udp: true
-  sni: hinet.mjt000.com
-- name: 越南VN-T-3peq
-  type: trojan
-  server: vn.mjt000.com
+  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+- name: xiaoer886_US_63
+  network: ws
   port: 443
-  password: 5adfc828-440d-4022-9571-0299a905b98e
-  udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-WtWF
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 5adfc828-440d-4022-9571-0299a905b98e
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-KwGS
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: b6e5e633-a297-4614-88d5-49f94cda618f
-  udp: true
-  sni: jp.mjt000.com
+  server: 104.21.43.145
+  servername: sinavm_sinavm.sinabigo.ir
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-PMfx
-  type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: b6e5e633-a297-4614-88d5-49f94cda618f
+  tls: true
+  type: vless
   udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-CdpO
-  type: trojan
-  server: au.mjt000.com
+  uuid: c4258f50-fe5d-4b6c-9f09-5a193b7d34ef
+  ws-opts:
+    headers:
+      host: sinavm_sinavm.sinabigo.ir
+    path: /@ln2ray?ed=2560
+- cipher: aes-256-cfb
+  name: 🇯🇵JP-57.180.54.251-0326
+  password: amazonskr05
   port: 443
-  password: b6e5e633-a297-4614-88d5-49f94cda618f
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-SiE6
-  type: trojan
-  server: jp.mjt000.com
+  server: 57.180.54.251
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇯🇵JP-13.115.246.98-0333
+  password: amazonskr05
   port: 443
-  password: f89748f5-cee5-44dd-89fd-f6d49645d060
+  server: 13.115.246.98
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇯🇵JP-54.95.114.157-0335
+  password: amazonskr05
+  port: 443
+  server: 54.95.114.157
+  type: ss
+- name: 🇸🇪SE-13.53.219.38-0736
+  password: telegram-id-privatevpns
+  port: 22222
+  server: 13.53.219.38
+  skip-cert-verify: false
+  sni: trojan.burgerip.co.uk
+  type: trojan
+- alterId: 0
+  cipher: auto
+  name: 🏁RELAY-104.18.24.41-0740
+  network: ws
+  port: 443
+  server: 104.18.24.41
+  servername: server9-3.998877.best
+  skip-cert-verify: false
+  tls: true
+  type: vmess
+  uuid: 9accf73f-7372-4403-b31e-0f83d86feb98
+  ws-opts:
+    headers:
+      Host: server9-3.998877.best
+    path: /rksdnuhgteb?ed=2560
+- name: 🏁RELAY-104.17.148.22-0741
+  network: ws
+  password: Pooria
+  port: 443
+  server: 104.17.148.22
+  skip-cert-verify: false
+  sni: 301.pOORiAm.ir
+  type: trojan
+  ws-opts:
+    headers:
+      Host: 301.pOORiAm.ir
+    path: /trPyOrWMfkHd15oxiI?ed=1520
+- cipher: aes-256-cfb
+  name: 🇰🇷KR-52.78.87.5-0752
+  password: amazonskr05
+  port: 443
+  server: 52.78.87.5
+  type: ss
+- name: 🇭🇰HK-43.154.83.213-0784
+  password: Vad3.123a%29asd1234-asdasd.asdazzS.123
+  port: 443
+  server: 43.154.83.213
+  skip-cert-verify: false
+  sni: xx.tc.hk.go.107421.xyz
+  type: trojan
+- cipher: aes-256-cfb
+  name: 🇸🇬SG-13.229.110.23-0802
+  password: amazonskr05
+  port: 443
+  server: 13.229.110.23
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇸🇬SG-54.179.221.27-0803
+  password: amazonskr05
+  port: 443
+  server: 54.179.221.27
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇯🇵JP-13.230.110.170-6022
+  password: amazonskr05
+  port: 443
+  server: 13.230.110.170
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇯🇵JP-18.179.10.10-6023
+  password: amazonskr05
+  port: 443
+  server: 18.179.10.10
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇯🇵JP-18.183.232.26-6024
+  password: amazonskr05
+  port: 443
+  server: 18.183.232.26
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇸🇬SG-54.255.230.67-6060
+  password: amazonskr05
+  port: 443
+  server: 54.255.230.67
+  type: ss
+- name: 🇫🇷FR-13.38.180.105-6142
+  password: telegram-id-privatevpns
+  port: 22222
+  server: 13.38.180.105
+  skip-cert-verify: false
+  sni: trojan.burgerip.co.uk
+  type: trojan
+- name: 🇮🇪IE-54.228.251.216-6146
+  password: telegram-id-privatevpns
+  port: 22222
+  server: 54.228.251.216
+  skip-cert-verify: false
+  sni: trojan.burgerip.co.uk
+  type: trojan
+- cipher: chacha20-ietf
+  name: 🇭🇰HK-103.149.182.61-6189
+  password: asd123456
+  port: 8388
+  server: 103.149.182.61
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇰🇷KR-3.35.20.107-6201
+  password: amazonskr05
+  port: 443
+  server: 3.35.20.107
+  type: ss
+- cipher: chacha20-ietf-poly1305
+  name: 🇸🇬SG-188.166.177.201-6206
+  password: EDEIso0hfMvZhdgWxqgZ2q
+  port: 9758
+  server: 188.166.177.201
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇸🇬SG-54.255.224.231-6208
+  password: amazonskr05
+  port: 443
+  server: 54.255.224.231
+  type: ss
+- cipher: aes-256-cfb
+  name: 🇺🇸US-34.219.164.232-6211
+  password: amazonskr05
+  port: 443
+  server: 34.219.164.232
+  type: ss
+- cipher: aes-256-cfb
+  name: SSR-丹麦-NF解锁丹麦自制剧-ChatGPT-TikTok-YouTube-185.186.79.53:989
+  obfs: plain
+  password: f8f7aCzcPKbsF8p3
+  port: 989
+  protocol: origin
+  server: 185.186.79.53
+  type: ssr
+- cipher: aes-256-cfb
+  name: SSR-美国-NF解锁自制剧-ChatGPT-TikTok-YouTube-34.219.164.232:443
+  obfs: plain
+  password: amazonskr05
+  port: 443
+  protocol: origin
+  server: 34.219.164.232
+  type: ssr
+- name: 香港1
+  password: exaxgqkKkd0TAMrCxeonWg==
+  port: 443
+  server: hkre1-cdn-route.couldflare-cdn.com
+  skip-cert-verify: false
+  tls: true
+  type: http
+  username: mrwdfNTD8M79LCukCieldrqZWqs=
+- name: NL_16e67_0029
+  network: ws
+  port: 2052
+  server: 45.149.12.183
+  servername: redw.pooriam.ir
+  skip-cert-verify: false
+  tls: false
+  type: vless
   udp: true
-  sni: jp.mjt000.com
+  uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+  ws-opts:
+    headers:
+      Host: redw.pooriam.ir
+    path: /TABRIZ.NET@AZARBAYJAB1@AZARBAYJAB1@AZARBAYJAB1?ed=2560
+- name: SC_16e67_0050
+  network: ws
+  port: 8880
+  server: 154.83.2.230
+  servername: redw.pooriam.ir
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  udp: true
+  uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+  ws-opts:
+    headers:
+      Host: redw.pooriam.ir
+    path: /@AZARBAYJAB1@AZARBAYJAB1@AZARBAYJAB1@AZARBAYJAB1@AZARBAYJAB1@AZARBAYJAB1?ed=2560
+- name: US_16e67_0069
+  network: ws
+  port: 80
+  server: 172.67.73.163
+  servername: a.xn--i-sx6a60i.us.kg.
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  udp: true
+  uuid: d342d11e-d424-4583-b36e-524ab1f0afa4
+  ws-opts:
+    headers:
+      Host: a.xn--i-sx6a60i.us.kg.
+    path: /?ed=2560
+- cipher: chacha20-ietf-poly1305
+  client-fingerprint: chrome
+  name: 15|🇹🇼 台湾|@ripaojiedian
+  password: t0srmdxrm3xyjnvqz9ewlxb2myq7rjuv
+  plugin: obfs
+  plugin-opts:
+    host: d6cb3d6.dl.microsoft.lt:47299
+    mode: tls
+  port: 2377
+  server: 221.215.48.118
+  tfo: false
+  type: ss
+- client-fingerprint: chrome
+  name: 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 9c979cfe-e2f8-4f5a-bc39-e86c4be6dd52
+  port: 443
+  server: 103.224.212.211
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-OMOZ
+  sni: jp-csjc.syjd.xyz
   type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: f89748f5-cee5-44dd-89fd-f6d49645d060
   udp: true
-  sni: hinet.mjt000.com
-- name: 越南VN-T-DdWP
-  type: trojan
-  server: vn.mjt000.com
+- alpn:
+  - http/1.1
+  client-fingerprint: chrome
+  name: 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: d1478689-439c-4590-b7ce-36e786a02dc3
   port: 443
-  password: f89748f5-cee5-44dd-89fd-f6d49645d060
-  udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-B4AQ
-  type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: f89748f5-cee5-44dd-89fd-f6d49645d060
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-pR3s
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: 14c564dd-aad6-4bf7-b6bb-02a360132dbf
-  udp: true
-  sni: jp.mjt000.com
+  server: 103.224.212.213
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-OuC9
+  sni: youtube-bai-piao-wang-zhe-usa.98848.xyz
   type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: 14c564dd-aad6-4bf7-b6bb-02a360132dbf
   udp: true
-  sni: hinet.mjt000.com
-- name: 澳大利亚AU-T-Ue1W
-  type: trojan
-  server: au.mjt000.com
+- client-fingerprint: chrome
+  name: 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_4
+  network: tcp
+  password: 9KogHwaY7hVD
   port: 443
-  password: 14c564dd-aad6-4bf7-b6bb-02a360132dbf
-  udp: true
-  sni: au.mjt000.com
-- name: 日本JP-T-gEwa
-  type: trojan
-  server: jp.mjt000.com
-  port: 443
-  password: 258e9750-51ef-4a49-9035-8409cc4649f8
-  udp: true
-  sni: jp.mjt000.com
+  server: 103.224.212.212
   skip-cert-verify: true
-- name: 台湾WAP-T-GPT-gfRi
+  sni: eu-east-ruo.openssl3.com
   type: trojan
-  server: hinet.mjt000.com
-  port: 443
-  password: 258e9750-51ef-4a49-9035-8409cc4649f8
   udp: true
-  sni: hinet.mjt000.com
-- name: 越南VN-T-Al51
+- client-fingerprint: chrome
+  name: 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_9
+  network: tcp
+  password: 066771f4-b7f5-426a-bbb2-5fecfe9190f5
+  port: 443
+  server: 103.224.212.216
+  skip-cert-verify: true
+  sni: free.vproxy.us
   type: trojan
-  server: vn.mjt000.com
-  port: 443
-  password: 258e9750-51ef-4a49-9035-8409cc4649f8
   udp: true
-  sni: vn.mjt000.com
-- name: 澳大利亚AU-T-gcKK
+- client-fingerprint: chrome
+  name: 🇦🇺 Australia - Sydney 🌏 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: ef81a036-1db9-45ed-a3aa-f932a4750066
+  port: 443
+  server: 194.195.254.50
+  skip-cert-verify: true
+  sni: cdn.qchwnd.moe
   type: trojan
-  server: au.mjt000.com
-  port: 443
-  password: 258e9750-51ef-4a49-9035-8409cc4649f8
   udp: true
-  sni: au.mjt000.com
+- client-fingerprint: chrome
+  name: 🇨🇦 Canada - Toronto 🌎 TR-TCP-TLS 4⃣_5
+  network: tcp
+  password: 5612c06f-d0c1-4c86-aacf-10e1bfaa4254
+  port: 443
+  server: 137.184.173.48
+  skip-cert-verify: true
+  sni: vietnamobile.com.vn
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 0515f391-29d3-4561-8d53-154d51094ff9
+  port: 443
+  server: 172.104.157.236
+  skip-cert-verify: true
+  sni: de3-full.privateip.net
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_5
+  network: tcp
+  password: b4b043c0-1eed-4018-a018-a4919efeba24
+  port: 443
+  server: 139.59.130.9
+  skip-cert-verify: true
+  sni: de2-full.privateip.net
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_6
+  network: tcp
+  password: df68f678-62c3-4799-91a8-4d301e8cf565
+  port: 443
+  server: 165.227.133.55
+  skip-cert-verify: true
+  sni: speedtest.net
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇩🇪 Germany - NA 🌍 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: 41bec492-cd79-4b57-9a15-7d2bb00fcfca
+  port: 443
+  server: 217.79.184.22
+  skip-cert-verify: true
+  sni: 18-140-66-207.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇩🇰 Denmark - Copenhagen 🌍 TR-TCP-TLS 4⃣
+  network: tcp
+  password: c5691b8f-d833-41e4-9295-769f3edb4cd2
+  port: 443
+  server: 95.164.85.39
+  skip-cert-verify: true
+  sni: customer-95-164-85-39.stark-industries.solutions
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇫🇮 Finland - Helsinki 🌍 TR-TCP-TLS 4⃣
+  network: tcp
+  password: c5691b8f-d833-41e4-9295-769f3edb4cd2
+  port: 443
+  server: 185.231.206.12
+  skip-cert-verify: true
+  sni: customer-185-231-206-12.stark-industries.solutions
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_10
+  network: tcp
+  password: e1c12e6f-a555-4ff8-b071-1e09dd5d91e6
+  port: 443
+  server: 51.91.96.97
+  skip-cert-verify: true
+  sni: t3.teslacdn2.live
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_18
+  network: tcp
+  password: d6cbceb1-901e-44e1-b68e-0199063eb35f
+  port: 443
+  server: 141.95.74.53
+  skip-cert-verify: true
+  sni: google.com.progt.cf
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇫🇷 France - Paris 🌍 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 8c749204-23dc-4506-ac70-69ef6bd151a8
+  port: 443
+  server: 172.232.43.7
+  skip-cert-verify: true
+  sni: sourceforge.net
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇬🇧 United Kingdom - Coventry 🌍 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: opentunnel.net-thjfrhhny
+  port: 443
+  server: 45.89.63.200
+  skip-cert-verify: true
+  sni: www.baidu.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 6d5ac563-6609-43f8-b1b5-5437b83b630d
+  port: 443
+  server: 20.205.37.136
+  skip-cert-verify: true
+  sni: data-hk.efpan.one
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: fa9a512a-eab5-4cdf-b559-14922eb3948e
+  port: 443
+  server: 43.198.91.90
+  skip-cert-verify: true
+  sni: cdn-65135431546231.78321.xyz
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_4
+  network: tcp
+  password: 77891e6750
+  port: 443
+  server: 27.0.232.204
+  skip-cert-verify: true
+  sni: 27.0.232.204
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: 3817daf8-0f2b-412f-b87b-3efa585423e8
+  port: 443
+  server: 45.158.22.33
+  skip-cert-verify: true
+  sni: us2.vpn.ong
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: 4aeda200-44c9-4168-8f2a-a00a72176d35
+  port: 443
+  server: 16.163.102.234
+  skip-cert-verify: true
+  sni: data.amazon-azure.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_7
+  network: tcp
+  password: 72d8e820-7926-4ce3-a87c-b6969f425c79
+  port: 443
+  server: 103.235.46.40
+  skip-cert-verify: true
+  sni: www.baidu.com
+  type: trojan
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: 🇮🇱 Israel - Tel Aviv 🌏 SS-TCP-NA 4⃣
+  password: 6IVOuzMfH5ROpgwtRTcNJKYJvYe9FDVaU7wAYYh8PRLxxZs6
+  port: 31348
+  server: 188.191.147.127
+  type: ss
+  udp: true
+- client-fingerprint: chrome
+  name: 🇮🇳 India - Bengaluru 🌏 TR-TCP-TLS 4⃣
+  network: tcp
+  password: 057177db-f003-40dc-a14b-488e8ceefcaa
+  port: 443
+  server: 143.110.242.131
+  skip-cert-verify: true
+  sni: dl.kgvn.garenanow.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Osaka 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 7a566d21dfcd0f12490275fd3dd3cfc4
+  port: 443
+  server: 133.18.200.127
+  skip-cert-verify: true
+  sni: trs01.bolab.net
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 9bb27128-e6d2-4cac-bbd3-beb46c4417f8
+  port: 443
+  server: 74.226.136.204
+  skip-cert-verify: true
+  sni: tw02.trojanyyds.xyz
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_7
+  network: tcp
+  password: 8zlR8O7E3S8uqex4xYnpp8O6C3lZejBCZO53eYD7XIAaaTBRC3Cj9SCFxlAwKAwD2yyN3
+  port: 443
+  server: 54.249.161.173
+  skip-cert-verify: true
+  sni: sniffle.meijireform.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_81
+  network: tcp
+  password: b5fc9fa9-796d-4185-a316-395ecac04a85
+  port: 443
+  server: 176.119.150.104
+  skip-cert-verify: true
+  sni: www.gomacau.gq
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_84
+  network: tcp
+  password: 18844%40zxcvbn
+  port: 443
+  server: 153.121.52.154
+  skip-cert-verify: true
+  sni: tk-tr-4.cats22.net
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_87
+  network: tcp
+  password: ca2daa1f-484b-49db-b088-f25b6a398d8c
+  port: 443
+  server: 54.249.79.45
+  skip-cert-verify: true
+  sni: 18-140-66-207.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_89
+  network: tcp
+  password: bd23a31e-7a2c-4065-8ca4-cd2d5d2bf5ba
+  port: 443
+  server: 35.77.86.138
+  skip-cert-verify: true
+  sni: 18-140-66-207.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_90
+  network: tcp
+  password: c68e3c20-da73-4791-b4d8-7011a98ba06b
+  port: 443
+  server: 57.180.54.3
+  skip-cert-verify: true
+  sni: 4-193-105-141.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_91
+  network: tcp
+  password: e62db6f7-88ea-425d-90de-a9ba7770b1d6
+  port: 443
+  server: 3.113.26.243
+  skip-cert-verify: true
+  sni: 16-163-218-240.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_98
+  network: tcp
+  password: PJUKhmVpDDqtAvMHDvmMpoQYChiuwjgv
+  port: 889
+  server: 103.168.155.40
+  skip-cert-verify: true
+  sni: cdn.cjhh.lol
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_99
+  network: tcp
+  password: an70aOaIjcCF43gOlSB6eKER53Z38DYDx8l9RCSCpYTwXS3pueyAqyFZx2zDNA
+  port: 443
+  server: 154.31.114.10
+  skip-cert-verify: true
+  sni: plowman.meijireform.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_100
+  network: tcp
+  password: db4fb0e6-0e5b-4b12-95ac-03e60f5685d7
+  port: 443
+  server: 13.115.149.193
+  skip-cert-verify: true
+  sni: 20-212-60-88.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_101
+  network: tcp
+  password: PJUKhmVpDDqtAvMHDvmMpoQYChiuwjgv
+  port: 889
+  server: 103.168.155.26
+  skip-cert-verify: true
+  sni: cdn.cjhh.lol
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_133
+  network: tcp
+  password: 9995cc0e-2e9d-4c80-8c81-4fdbb6322a3a
+  port: 443
+  server: 20.89.130.227
+  skip-cert-verify: true
+  sni: fscus.fscloud123456789.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_140
+  network: tcp
+  password: 7d0f1f83-0f2f-4b90-930e-de44ac233fef
+  port: 443
+  server: 20.210.234.145
+  skip-cert-verify: true
+  sni: in.stablize.top
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_148
+  network: tcp
+  password: c8fb9d20-d89b-4f20-93f6-acd04aeb586b
+  port: 443
+  server: 20.210.220.4
+  skip-cert-verify: true
+  sni: static.jaaar.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_155
+  network: tcp
+  password: 924745fa-8b63-458a-b6b5-1686e3701141
+  port: 443
+  server: 52.195.222.89
+  skip-cert-verify: true
+  sni: 13-251-128-188.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 96983eb4-c8f1-316e-ab00-500014ed3d8b
+  port: 8443
+  server: 203.210.16.78
+  skip-cert-verify: true
+  sni: official.seoulcitygovernment.com.ua
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: 96983eb4-c8f1-316e-ab00-500014ed3d8b
+  port: 2053
+  server: 203.210.16.78
+  skip-cert-verify: true
+  sni: official.seoulcityhall.com.ua
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇲🇩 Moldova, Republic of - Chisinau 🌍 TR-TCP-TLS 4⃣
+  network: tcp
+  password: c5691b8f-d833-41e4-9295-769f3edb4cd2
+  port: 443
+  server: 45.67.229.222
+  skip-cert-verify: true
+  sni: customer-45-67-229-222.stark-industries.solutions
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇳🇱 Netherlands - Amsterdam 🌍 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 94af0550-902b-11eb-b135-1239d0255272
+  port: 443
+  server: 163.172.211.74
+  skip-cert-verify: true
+  sni: nl-trojan.bonds.id
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇳🇴 Norway - Oslo 🌍 TR-TCP-TLS 4⃣
+  network: tcp
+  password: c5691b8f-d833-41e4-9295-769f3edb4cd2
+  port: 443
+  server: 95.164.38.151
+  skip-cert-verify: true
+  sni: customer-95-164-38-151.stark-industries.solutions
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇷🇺 Russian Federation - NA 🌍 TR-TCP-NONE 4⃣_1
+  network: tcp
+  password: R4WQwVBuuR
+  port: 443
+  server: 193.233.114.58
+  skip-cert-verify: true
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇷🇺 Russian Federation - NA 🌍 TR-TCP-TLS 4⃣
+  network: tcp
+  password: 18e513fe-f7f4-353d-84ca-bc9646fb2528mielink
+  port: 443
+  server: 185.135.81.207
+  skip-cert-verify: true
+  sni: t.me/vpnhat
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇪 Sweden - Stockholm 🌍 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: c5691b8f-d833-41e4-9295-769f3edb4cd2
+  port: 443
+  server: 94.131.115.71
+  skip-cert-verify: true
+  sni: customer-94-131-115-71.stark-industries.solutions
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - NA 🌏 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: KNUeu77hRDzYEb0pEIccDQ
+  port: 443
+  server: 152.42.250.151
+  skip-cert-verify: true
+  sni: vkvd127.mycdn.me
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: 0ac1a0a8-2a02-4ec8-acbe-704a13a471ab
+  port: 443
+  server: 18.140.18.90
+  skip-cert-verify: true
+  sni: fscca.fscloud123456789.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_8
+  network: tcp
+  password: 5f9a5d8c-a57b-4da6-baff-490fe4cf8d60
+  port: 443
+  server: 13.214.71.102
+  skip-cert-verify: true
+  sni: tlsdata.cnamazon.sbs
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_13
+  network: tcp
+  password: opentunnel.net-9singa34
+  port: 443
+  server: 149.28.131.42
+  skip-cert-verify: true
+  sni: www.yahoo.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_18
+  network: tcp
+  password: 47258c2d-6b4c-444c-9085-5131bf0aff64
+  port: 443
+  server: 18.143.155.63
+  skip-cert-verify: true
+  sni: 18-140-66-207.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_21
+  network: tcp
+  password: 04cd6d53-be65-4739-a5b1-26a6f947d5dd
+  port: 443
+  server: 18.143.189.141
+  skip-cert-verify: true
+  sni: 18-140-66-207.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_28
+  network: tcp
+  password: 924745fa-8b63-458a-b6b5-1686e3701141
+  port: 443
+  server: 13.212.177.68
+  skip-cert-verify: true
+  sni: 13-251-128-188.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_29
+  network: tcp
+  password: 8db1b560-019d-11ed-8bdf-1239d0255272
+  port: 443
+  server: 172.104.179.213
+  skip-cert-verify: true
+  sni: trojan3.udpgw.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_30
+  network: tcp
+  password: 924745fa-8b63-458a-b6b5-1686e3701141
+  port: 443
+  server: 13.212.99.237
+  skip-cert-verify: true
+  sni: 13-251-128-188.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_34
+  network: tcp
+  password: 924745fa-8b63-458a-b6b5-1686e3701141
+  port: 443
+  server: 3.0.57.90
+  skip-cert-verify: true
+  sni: 13-251-128-188.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_47
+  network: tcp
+  password: 03c13693-e3d1-429f-918e-9207e2ffe098
+  port: 443
+  server: 13.215.209.200
+  skip-cert-verify: true
+  sni: data.amazon-azure.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_49
+  network: tcp
+  password: 924745fa-8b63-458a-b6b5-1686e3701141
+  port: 443
+  server: 54.251.22.62
+  skip-cert-verify: true
+  sni: 13-251-128-188.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_50
+  network: tcp
+  password: 35f59fa7-10ed-40da-a91c-ed5ab9ea13b9
+  port: 443
+  server: 13.215.59.106
+  skip-cert-verify: true
+  sni: download.xn--mes358a9urctx.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_53
+  network: tcp
+  password: 3ddbffcb-bdbb-49c0-a7fe-5c3b0c58e9be
+  port: 443
+  server: 47.128.69.232
+  skip-cert-verify: true
+  sni: 18-140-66-207.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_55
+  network: tcp
+  password: 2e31a75e-ce52-4d2c-95e1-41c8acdbc80c
+  port: 443
+  server: 18.143.249.188
+  skip-cert-verify: true
+  sni: fscus.fscloud123456789.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_58
+  network: tcp
+  password: 3ddbffcb-bdbb-49c0-a7fe-5c3b0c58e9be
+  port: 443
+  server: 18.140.233.161
+  skip-cert-verify: true
+  sni: 18-140-66-207.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_62
+  network: tcp
+  password: c68e3c20-da73-4791-b4d8-7011a98ba06b
+  port: 443
+  server: 18.143.77.27
+  skip-cert-verify: true
+  sni: kbawssg2.aiopen.cfd
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_67
+  network: tcp
+  password: a185ed4c-2b5c-4a6f-a674-4b67f9c3bfbc
+  port: 443
+  server: 159.65.132.147
+  skip-cert-verify: true
+  sni: dl.kgvn.garenanow.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 96983eb4-c8f1-316e-ab00-500014ed3d8b
+  port: 8443
+  server: 60.250.152.209
+  skip-cert-verify: true
+  sni: official.taipeicitygovernment.biz.ua
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: 96983eb4-c8f1-316e-ab00-500014ed3d8b
+  port: 8443
+  server: 60.250.152.229
+  skip-cert-verify: true
+  sni: official.taipeicitygovernment.ivano-frankivsk.ua
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 96983eb4-c8f1-316e-ab00-500014ed3d8b
+  port: 8443
+  server: 60.248.240.223
+  skip-cert-verify: true
+  sni: 207.148.100.75
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: 96983eb4-c8f1-316e-ab00-500014ed3d8b
+  port: 8443
+  server: 59.125.131.163
+  skip-cert-verify: true
+  sni: official.taipeicitygovernment.dp.ua
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: 96983eb4-c8f1-316e-ab00-500014ed3d8b
+  port: 8443
+  server: 211.20.245.139
+  skip-cert-verify: true
+  sni: official.taipeicitygovernment.com.ua
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Ashburn 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: d1478689-439c-4590-b7ce-36e786a02dc3
+  port: 443
+  server: 70.32.1.32
+  skip-cert-verify: true
+  sni: youtube-bai-piao-wang-zhe-usa.98848.xyz
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Fremont 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: ad8bab9c-f5e2-4957-96fa-3f59e7e4007b
+  port: 443
+  server: 104.237.153.228
+  skip-cert-verify: true
+  sni: 206.237.5.220
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Los Angeles 🌎 TR-TCP-NONE 4⃣_1
+  network: tcp
+  password: Ll419801
+  port: 443
+  server: 74.120.169.165
+  skip-cert-verify: true
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 9c979cfe-e2f8-4f5a-bc39-e86c4be6dd52
+  port: 443
+  server: 216.73.156.30
+  skip-cert-verify: true
+  sni: jp-zs01.78321.xyz
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: wkmY1R4EcP
+  port: 443
+  server: 45.63.59.167
+  skip-cert-verify: true
+  sni: vkvd127.mycdn.me
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_4
+  network: tcp
+  password: TD7FKA3CZSyRgCeXp60xjaEa3uSzFaS5BOpC2lY3y9cYRA884qZOI3wxlNDneD
+  port: 443
+  server: 154.17.14.35
+  skip-cert-verify: true
+  sni: enfuego.missionsec.io
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_5
+  network: tcp
+  password: Z3FSA9weaaRYpN89weaaRYpN89weaaRYpN80CDYFOxS5TSBqlCyAaXzaXzc7ZpngISBqlCyAaXzc7Zp
+  port: 443
+  server: 154.17.31.53
+  skip-cert-verify: true
+  sni: tubular.wireshop.net
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_6
+  network: tcp
+  password: YA3aEKa6lSDxRB3X5SOwCTNDZjIpyDeepC3gOlcY4a2nZ837zyxR089qAFCFuS
+  port: 443
+  server: 154.26.186.78
+  skip-cert-verify: true
+  sni: chapter.freetrade.link
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - NA 🌎 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: 5c777277-17f2-4272-ae65-7bd00fa4fbaa
+  port: 443
+  server: 18.65.190.65
+  skip-cert-verify: true
+  sni: wel-jp.optage.moe
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - North Bergen 🌎 TR-TCP-TLS 4⃣
+  network: tcp
+  password: 5612c06f-d0c1-4c86-aacf-10e1bfaa4254
+  port: 443
+  server: 24.199.92.121
+  skip-cert-verify: true
+  sni: vietnamobile.com.vn
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: tune7jerky7HAYRICK
+  port: 443
+  server: 72.14.185.43
+  skip-cert-verify: true
+  sni: ap-northeast-1.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_2
+  network: tcp
+  password: tune7jerky7HAYRICK
+  port: 443
+  server: 173.255.194.134
+  skip-cert-verify: true
+  sni: ap-northeast-1.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: tune7jerky7HAYRICK
+  port: 443
+  server: 45.33.30.197
+  skip-cert-verify: true
+  sni: ap-northeast-1.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_4
+  network: tcp
+  password: tune7jerky7HAYRICK
+  port: 443
+  server: 45.33.20.235
+  skip-cert-verify: true
+  sni: ap-northeast-1.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_5
+  network: tcp
+  password: 9KogHwaY7hVD
+  port: 443
+  server: 96.126.123.244
+  skip-cert-verify: true
+  sni: eu-east-ruo.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_6
+  network: tcp
+  password: 9KogHwaY7hVD
+  port: 443
+  server: 45.33.18.44
+  skip-cert-verify: true
+  sni: eu-east-ruo.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_8
+  network: tcp
+  password: tune7jerky7HAYRICK
+  port: 443
+  server: 45.33.23.183
+  skip-cert-verify: true
+  sni: ap-northeast-1.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_9
+  network: tcp
+  password: tune7jerky7HAYRICK
+  port: 443
+  server: 45.79.19.196
+  skip-cert-verify: true
+  sni: ap-northeast-1.openssl3.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 6593b778-e45e-4f94-b5ae-641d4b7b02ae
+  port: 443
+  server: 103.224.182.210
+  skip-cert-verify: true
+  sni: 21.earths.team
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: c68e3c20-da73-4791-b4d8-7011a98ba06b
+  port: 443
+  server: 103.224.182.208
+  skip-cert-verify: true
+  sni: 4-193-105-141.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - San Jose 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 640e3ef0-9c44-49a8-98f6-0895b11eecd6
+  port: 443
+  server: 54.67.99.40
+  skip-cert-verify: true
+  sni: t03.ssrsub.com.xyz
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: ad8bab9c-f5e2-4957-96fa-3f59e7e4007b
+  port: 443
+  server: 157.245.224.23
+  skip-cert-verify: true
+  sni: us2.lvwf8n-hh8e-2300-nmoo-d2e9naobeacn.9d8f269f96b25232-759cbb36d6548597.kaufen
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_3
+  network: tcp
+  password: 312d6c9a-a39b-4581-9c04-b27be91e47a2
+  port: 443
+  server: 167.172.216.61
+  skip-cert-verify: true
+  sni: 13-231-155-134.nhost.00cdn.com
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇺🇸 United States - Staten Island 🌎 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: opentunnel.net-jthhhbtn
+  port: 443
+  server: 198.98.52.107
+  skip-cert-verify: true
+  sni: wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc
+  type: trojan
+  udp: true
+- client-fingerprint: chrome
+  name: 🇻🇳 Vietnam - NA 🌏 TR-TCP-TLS 4⃣_1
+  network: tcp
+  password: 057177db-f003-40dc-a14b-488e8ceefcaa
+  port: 443
+  server: 103.74.102.192
+  skip-cert-verify: true
+  sni: dl.kgvn.garenanow.com
+  type: trojan
+  udp: true
+- name: 11|🇺🇸美国 加利福尼亚州 圣克拉拉 DIGITALOCEAN-...
+  password: iMqY3uG_5pgEj3hCfyHB-0vB
+  port: 443
+  server: 143.198.235.49
+  skip-cert-verify: true
+  tls: false
+  type: hysteria2
+- name: 美国 049
+  network: ws
+  port: 80
+  server: 104.24.37.192
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 9a2680ff-c5d5-410a-9108-8d6b10e4ea1e
+  ws-opts:
+    headers:
+      Host: ppal03.dolobe7975.workers.dev
+    path: /?ed=2560
+- name: 美国 069
+  network: ws
+  port: 2052
+  server: 172.67.135.195
+  skip-cert-verify: true
+  type: vless
+  udp: true
+  uuid: 0d710c53-876d-401f-97f0-6bd1a8db941a
+  ws-opts:
+    headers:
+      Host: sWEeT-DIsK-b69d.TUdTudtrUHtRU.wOrkERS.dev
+      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/51.0.2704.63 Safari/537.36
+    path: /J61hhknxUXEwJZLq/MTU5LjY5LjE1My4xMTQ=?ed=2560
+  xudp: true
+- client-fingerprint: chrome
+  name: 美国 074
+  network: ws
+  port: 80
+  server: 104.24.248.204
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 2370f4d8-6694-4e51-8c72-b2782ae96a59
+  ws-opts:
+    headers:
+      Host: withered-wave-ee0b-ppal03.faxip46069.workers.dev
+    path: /?ed=2560
+- client-fingerprint: chrome
+  name: 美国 078
+  network: ws
+  port: 80
+  server: 104.24.186.156
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 6ff4726f-3650-4803-95eb-50b240f6ac75
+  ws-opts:
+    headers:
+      Host: red-math-7092-ppal03.mewoco2522.workers.dev
+    path: /?ed=2560
+- client-fingerprint: chrome
+  name: 美国 010
+  network: ws
+  port: 80
+  server: 104.17.148.22
+  servername: redw.pooriam.ir
+  tls: false
+  type: vless
+  uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+  ws-opts:
+    headers:
+      Host: redw.pooriam.ir
+    path: /LwW5jwrnymnOdqki?ed=2560
+- client-fingerprint: chrome
+  name: 美国 011
+  network: ws
+  port: 80
+  server: 104.16.1.47
+  servername: flat-bread-ddb6-ppal03.joriy39169.workers.dev
+  tls: false
+  type: vless
+  uuid: b550a101-63fe-4862-bfd3-8b87bb4168dd
+  ws-opts:
+    headers:
+      Host: flat-bread-ddb6-ppal03.joriy39169.workers.dev
+    path: /?ed=2560
+- client-fingerprint: firefox
+  grpc-opts:
+    grpc-service-name: vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl-vpnowl
+  name: 意大利 001
+  network: grpc
+  port: 443
+  reality-opts:
+    public-key: gH_h3-mo0stXouQX61J22W14N9-RlRjwo6BQgAcUay4
+    short-id: c5508bd7
+  server: 209.227.230.243
+  servername: wordpress.org
+  skip-cert-verify: false
+  tls: true
+  type: vless
+  uuid: 253f59da-b708-4404-cebe-3854aad88880
+- name: 荷兰 001
+  network: ws
+  port: 80
+  server: 45.131.5.111
+  servername: feng4.l1ut8bi9.workers.dev
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: d6ff33a6-03bf-4338-8a63-62ab284a9466
+  ws-opts:
+    headers:
+      Host: feng4.l1ut8bi9.workers.dev
+    path: /Telegram
+- name: 美国 012
+  network: ws
+  port: 80
+  server: 104.16.188.41
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 89b3cbba-e6ac-485a-9481-976a0415eab9
+  ws-opts:
+    headers:
+      Host: proud-queen-55500071.cexonoc962.workers.dev
+    path: /?ed=2560
+- name: 美国 067
+  network: ws
+  port: 80
+  server: 172.67.168.60
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 5335d16e-7e42-4c9b-93a3-9e83bfd3073d
+  ws-opts:
+    headers:
+      Host: workerr.johnstoner.workers.dev
+    path: /?ed=2048
+- name: 美国 109
+  network: ws
+  port: 8880
+  server: 66.235.200.94
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 5faa94c6-ea27-4ea0-9e39-2de3d6ea9be1
+  ws-opts:
+    headers:
+      Host: channel-falcunargo.efa180b5d7.workers.Dev
+    path: /✦❰+𝗝𝗼𝗶𝗻+➪+
+- name: 美国 115
+  network: ws
+  port: 80
+  server: 104.21.24.112
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 65b3cbba-e6ac-485a-9481-976a0415eab9
+  ws-opts:
+    headers:
+      Host: bLue-sNoW-a243.GeleNE5962.wOrKeRS.dEV
+    path: /Fvy0Y7NJ7uucUDha?ed=2560
+- name: 美国 124
+  network: ws
+  port: 80
+  server: 172.67.189.174
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 19b3cbba-e6ac-485a-9481-926a0415eab2
+  ws-opts:
+    headers:
+      Host: sHrill-tErm-639b.TageLIT414.workeRs.dEv
+    path: /
+- client-fingerprint: chrome
+  name: 美国 150
+  network: ws
+  port: 80
+  server: 104.16.182.65
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: f86586c2-3a4c-49c9-83ec-5ae43786d4f7
+  ws-opts:
+    headers:
+      Host: dark-bonus-0f2f-ppal03.yapeyef825.workers.dev
+    path: /Telegram
+- client-fingerprint: chrome
+  name: 美国 158
+  network: ws
+  port: 80
+  server: 104.16.86.2
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 9f0eae34-97c1-4c07-8a55-438379981334
+  ws-opts:
+    headers:
+      Host: snowy-bush-4df8-ppal03.toxebex651.workers.dev
+    path: /?ed=2560
+- client-fingerprint: chrome
+  name: 日本 006
+  network: ws
+  port: 2095
+  server: 156.238.18.163
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+  ws-opts:
+    headers:
+      Host: redw.pooriam.ir
+    path: /TM-AZARBAYJAB1TM-AZARBAYJAB1TM-AZARBAYJAB1
+- client-fingerprint: chrome
+  name: 日本 007
+  network: ws
+  port: 2052
+  server: 156.238.18.165
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: 53fa8faf-ba4b-4322-9c69-a3e5b1555049
+  ws-opts:
+    headers:
+      Host: redw.pooriam.ir
+    path: /TM-AZARBAYJAB1TM-AZARBAYJAB1TM-AZARBAYJAB1
+- name: 美国 016
+  network: ws
+  port: 2095
+  server: 104.18.21.69
+  skip-cert-verify: false
+  tls: false
+  type: vless
+  uuid: d342d11e-d424-4583-b36e-524ab1f0afa4
+  ws-opts:
+    headers:
+      Host: fuckingxijinping.xijinpingbigsb.workers.dev
+    path: /?ed=2560
+- delay: 681
+  name: 新加坡 001
+  network: ws
+  port: 8192
+  server: 54.255.217.120
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      Host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- delay: 1319
+  name: 美国 023
+  network: ws
+  port: 8443
+  server: 129.151.225.228
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      Host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- delay: 1570
+  name: 美国 024
+  network: ws
+  port: 443
+  server: 192.9.180.162
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      Host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 订阅随时会失效，请加电报群防止失联
+  network: ws
+  port: 443
+  server: 8.223.15.4
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_1
+  network: ws
+  port: 443
+  server: 47.76.218.163
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_2
+  network: ws
+  port: 80
+  server: 47.76.35.146
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇸🇬_新加坡_1
+  network: ws
+  port: 443
+  server: 124.156.202.172
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_5
+  network: ws
+  port: 443
+  server: 162.159.153.159
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_7
+  network: ws
+  port: 443
+  server: 172.67.79.211
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_8
+  network: ws
+  port: 443
+  server: 162.159.153.155
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_9
+  network: ws
+  port: 443
+  server: 162.159.152.61
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_10
+  network: ws
+  port: 443
+  server: 162.159.153.190
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_13
+  network: ws
+  port: 443
+  server: 162.159.152.25
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_16
+  network: ws
+  port: 443
+  server: 162.159.153.177
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_17
+  network: ws
+  port: 443
+  server: 162.159.153.254
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_18
+  network: ws
+  port: 443
+  server: 162.159.153.127
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_19
+  network: ws
+  port: 443
+  server: 162.159.153.222
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇸🇬_新加坡_6
+  network: ws
+  port: 443
+  server: 52.77.97.162
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_20
+  network: ws
+  port: 443
+  server: 162.159.153.207
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_22
+  network: ws
+  port: 443
+  server: 162.159.153.249
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_23
+  network: ws
+  port: 443
+  server: 162.159.133.85
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_24
+  network: ws
+  port: 443
+  server: 162.159.153.183
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_25
+  network: ws
+  port: 443
+  server: 162.159.153.60
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_26
+  network: ws
+  port: 8443
+  server: 162.159.129.67
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇰🇷_韩国_1
+  network: ws
+  port: 12000
+  server: 58.126.82.44
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇰🇷_韩国_3
+  network: ws
+  port: 18022
+  server: 118.45.113.48
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇰🇷_韩国_8
+  network: ws
+  port: 50000
+  server: 210.99.119.3
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇰🇷_韩国_10
+  network: ws
+  port: 12345
+  server: 121.176.35.127
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇰🇷_韩国_11
+  network: ws
+  port: 16047
+  server: 59.31.235.90
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇰🇷_韩国_13
+  network: ws
+  port: 30012
+  server: 121.176.15.93
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_30
+  network: ws
+  port: 443
+  server: 156.230.12.71
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_31
+  network: ws
+  port: 443
+  server: 104.16.152.163
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_36
+  network: ws
+  port: 36532
+  server: 154.21.90.72
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_38
+  network: ws
+  port: 443
+  server: 104.16.154.41
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_40
+  network: ws
+  port: 443
+  server: 104.16.144.239
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_42
+  network: ws
+  port: 443
+  server: 104.17.124.174
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_44
+  network: ws
+  port: 2096
+  server: 104.17.128.1
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_47
+  network: ws
+  port: 443
+  server: 104.16.146.187
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_48
+  network: ws
+  port: 443
+  server: 104.17.68.85
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_55
+  network: ws
+  port: 2083
+  server: 104.16.134.27
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_61
+  network: ws
+  port: 2083
+  server: 172.67.187.145
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_63
+  network: ws
+  port: 443
+  server: 104.17.156.127
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_65
+  network: ws
+  port: 443
+  server: 152.70.57.182
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_66
+  network: ws
+  port: 443
+  server: 104.17.146.152
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_67
+  network: ws
+  port: 443
+  server: 104.17.189.210
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_70
+  network: ws
+  port: 443
+  server: 172.67.181.209
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇩🇪_德国_1
+  network: ws
+  port: 443
+  server: 185.16.110.103
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_71
+  network: ws
+  port: 2096
+  server: 104.21.31.221
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇦_乌克兰_1
+  network: ws
+  port: 443
+  server: 45.67.215.117
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_72
+  network: ws
+  port: 443
+  server: 104.17.71.31
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_75
+  network: ws
+  port: 443
+  server: 198.62.62.4
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_79
+  network: ws
+  port: 443
+  server: 135.84.76.105
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_80
+  network: ws
+  port: 443
+  server: 104.16.144.216
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_81
+  network: ws
+  port: 443
+  server: 104.16.144.176
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_82
+  network: ws
+  port: 443
+  server: 172.67.49.134
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇳🇱_荷兰_1
+  network: ws
+  port: 443
+  server: 185.133.35.160
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_84
+  network: ws
+  port: 443
+  server: 63.141.128.241
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇦🇹_奥地利_1
+  network: ws
+  port: 443
+  server: 212.183.88.176
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_87
+  network: ws
+  port: 443
+  server: 63.141.128.209
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_88
+  network: ws
+  port: 443
+  server: 130.250.137.19
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇳🇱_荷兰_2
+  network: ws
+  port: 443
+  server: 185.133.35.245
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_91
+  network: ws
+  port: 443
+  server: 104.17.142.12
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇬🇧_英国_1
+  network: ws
+  port: 443
+  server: 217.163.76.99
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_96
+  network: ws
+  port: 443
+  server: 130.250.137.94
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_97
+  network: ws
+  port: 443
+  server: 160.79.105.99
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇦🇹_奥地利_2
+  network: ws
+  port: 443
+  server: 212.183.88.24
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇦🇹_奥地利_3
+  network: ws
+  port: 443
+  server: 212.183.88.43
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_98
+  network: ws
+  port: 443
+  server: 104.16.150.133
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_99
+  network: ws
+  port: 2087
+  server: 104.25.254.4
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_101
+  network: ws
+  port: 443
+  server: 192.0.54.137
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_102
+  network: ws
+  port: 443
+  server: 63.141.128.163
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇳🇱_荷兰_3
+  network: ws
+  port: 443
+  server: 185.133.35.237
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_106
+  network: ws
+  port: 443
+  server: 162.159.36.104
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇷🇺_俄罗斯_1
+  network: ws
+  port: 8443
+  server: 92.243.74.180
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇨🇭_瑞士_1
+  network: ws
+  port: 443
+  server: 140.238.212.95
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_113
+  network: ws
+  port: 443
+  server: 172.67.243.218
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇬🇧_英国_2
+  network: ws
+  port: 443
+  server: 217.163.76.97
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_118
+  network: ws
+  port: 443
+  server: 172.67.120.0
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🏳️_未知
+  network: ws
+  port: 443
+  server: 103.160.204.59
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_123
+  network: ws
+  port: 443
+  server: 172.64.152.251
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇦_乌克兰_2
+  network: ws
+  port: 443
+  server: 45.67.215.0
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_126
+  network: ws
+  port: 443
+  server: 172.67.106.26
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_127
+  network: ws
+  port: 443
+  server: 172.67.95.24
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇳🇿_新西兰
+  network: ws
+  port: 443
+  server: 202.37.33.80
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇳🇱_荷兰_4
+  network: ws
+  port: 443
+  server: 185.133.35.103
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_130
+  network: ws
+  port: 443
+  server: 162.159.44.48
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_133
+  network: ws
+  port: 443
+  server: 104.18.47.177
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_134
+  network: ws
+  port: 443
+  server: 63.141.128.218
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_140
+  network: ws
+  port: 443
+  server: 198.62.62.156
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇷🇺_俄罗斯_2
+  network: ws
+  port: 443
+  server: 194.76.18.83
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_144
+  network: ws
+  port: 443
+  server: 172.67.110.232
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_145
+  network: ws
+  port: 443
+  server: 138.2.107.107
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_146
+  network: ws
+  port: 443
+  server: 104.18.46.81
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇦🇹_奥地利_4
+  network: ws
+  port: 443
+  server: 212.183.88.200
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇳🇱_荷兰_5
+  network: ws
+  port: 4001
+  server: 45.154.98.237
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇩🇪_德国_2
+  network: ws
+  port: 443
+  server: 185.16.110.0
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_168
+  network: ws
+  port: 50080
+  server: 193.9.46.181
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_174
+  network: ws
+  port: 443
+  server: 155.248.196.123
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_178
+  network: ws
+  port: 27149
+  server: 23.94.213.132
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_188
+  network: ws
+  port: 443
+  server: 162.159.153.162
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_189
+  network: ws
+  port: 443
+  server: 162.159.153.154
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_190
+  network: ws
+  port: 587
+  server: 47.79.86.103
+  servername: ageda.ambercc.filegear-sg.me
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: ee6774c0-9b19-4ff1-8b30-2da4b71977e2
+  ws-opts:
+    headers:
+      host: ageda.ambercc.filegear-sg.me
+    path: /?ed=2560
+- name: 🇺🇸_美国_192
+  network: ws
+  port: 443
+  server: 162.159.153.132
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇰🇷_韩国_38
+  network: ws
+  port: 443
+  server: 193.122.125.223
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- name: 🇺🇸_美国_197
+  network: tcp
+  port: 443
+  server: 135.148.163.90
+  servername: 147135001178.sec22org.com
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: e20ebe01-1815-4c09-8e77-fb2f168263ce
+- name: 🇹🇼 中转•台湾100•高速 - 飞翔吧
+  password: 6055ac6a-2962-3dc2-a50c-998393c9dbac
+  port: 59021
+  server: gy.58n.net
+  skip-cert-verify: true
+  sni: x100.flybar.work
+  type: trojan
+  udp: true
+- name: 🇹🇼 中转•台湾91•原生 - 飞翔吧
+  password: 6055ac6a-2962-3dc2-a50c-998393c9dbac
+  port: 21247
+  server: gy.58n.net
+  skip-cert-verify: true
+  sni: x91.flybar.work
+  type: trojan
+  udp: true
+- name: 🇹🇼 广港•台湾261•高速 - 飞翔吧
+  password: 6055ac6a-2962-3dc2-a50c-998393c9dbac
+  port: 33323
+  server: gy.58n.net
+  skip-cert-verify: true
+  sni: z261.hongkongnode.top
+  type: trojan
+  udp: true
+- name: 🇹🇼 广港•台湾262•高速 - 飞翔吧
+  password: 6055ac6a-2962-3dc2-a50c-998393c9dbac
+  port: 36821
+  server: gy.58n.net
+  skip-cert-verify: true
+  sni: z262.hongkongnode.top
+  type: trojan
+  udp: true
+- name: 🇯🇵 日本•高速71•高速 - 飞翔吧
+  password: 6055ac6a-2962-3dc2-a50c-998393c9dbac
+  port: 20071
+  server: gy.58n.net
+  skip-cert-verify: true
+  sni: x71.flybar.work
+  type: trojan
+  udp: true
+- delay: 1894
+  name: 美国 - 聖荷西 - Cloudflare, Inc. - 9
+  network: ws
+  port: 443
+  server: 198.41.221.186
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      Host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- client-fingerprint: chrome
+  delay: 770
+  name: 英国 - 豪恩斯洛 - Cloudflare, Inc. - 3
+  network: ws
+  port: 80
+  server: 104.21.69.44
+  tls: false
+  type: vless
+  uuid: d342d11e-d424-4583-b36e-524ab1f0afa4
+  ws-opts:
+    headers:
+      Host: a.xn--i-sx6a60i.us.kg.
+    path: /tmevpnAndroid2/?ed=2560
+- delay: 1167
+  name: 韩国 - Yeongdong-gun - Cloudflare, Inc. - 2
+  network: ws
+  port: 30001
+  server: 220.86.175.229
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      Host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- delay: 1054
+  name: 韩国 - Yeongdong-gun - Cloudflare, Inc. - 3
+  network: ws
+  port: 12020
+  server: 175.213.146.92
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      Host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- delay: 2145
+  name: 韩国 - Yeongdong-gun - Cloudflare, Inc. - 5
+  network: ws
+  port: 443
+  server: 132.145.94.80
+  servername: c01.ylkszy.eu.org
+  skip-cert-verify: true
+  tls: true
+  type: vless
+  udp: true
+  uuid: 06e4425e-a8cb-4b63-929f-2105604ab0a9
+  ws-opts:
+    headers:
+      Host: c01.ylkszy.eu.org
+    path: /?ed=2560
+- cipher: aes-128-gcm
+  name: '@MxlShare 加拿大 | CAN 3'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12046
+  server: mdss-other.04z3susick.download
+  type: ss
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 台湾 | TWN 8'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12029
+  server: mdss-tw.04z3susick.download
+  type: ss
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 台湾 | TWN 9'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12032
+  server: mdss-tw.04z3susick.download
+  type: ss
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 台湾 | TWN 10'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12033
+  server: mdss-tw.04z3susick.download
+  type: ss
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 德国 | DEU 5'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12038
+  server: mdss-other.04z3susick.download
+  type: ss
+  udp: true
+- auth: eW5oOg9YEcNI3wvLqbSrnTEi0J8
+  name: '@MxlShare 德国 | DEU 6'
+  password: eW5oOg9YEcNI3wvLqbSrnTEi0J8
+  port: 7286
+  server: 3.67.194.37
+  skip-cert-verify: true
+  sni: bing.com
+  type: hysteria2
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 英国 | GBR 5'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12044
+  server: mdss-other.04z3susick.download
+  type: ss
+  udp: true
+- cipher: rc4-md5
+  name: '@MxlShare 香港 | HKG 17'
+  obfs: plain
+  obfs-param: cd2b692902.6602b8463464108506.microsoft.com
+  password: ENZ52K
+  port: 40206
+  protocol: auth_aes128_md5
+  protocol-param: 92902:pFWGOQ
+  server: 2.hublink.pro
+  type: ssr
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 印度 | IND'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12042
+  server: mdss-other.04z3susick.download
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 日本 | JPN 9'
+  password: amazonskr05
+  port: 443
+  server: 18.179.9.121
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 日本 | JPN 12'
+  password: amazonskr05
+  port: 443
+  server: 54.250.174.86
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 日本 | JPN 13'
+  password: amazonskr05
+  port: 443
+  server: 13.112.102.215
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 日本 | JPN 14'
+  password: amazonskr05
+  port: 443
+  server: 18.179.198.70
+  type: ss
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 日本 | JPN 25'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12014
+  server: mdss-jp.04z3susick.download
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 韩国 | KOR 6'
+  password: amazonskr05
+  port: 443
+  server: 43.203.244.103
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 韩国 | KOR 7'
+  password: amazonskr05
+  port: 443
+  server: 3.38.190.30
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 韩国 | KOR 8'
+  password: amazonskr05
+  port: 443
+  server: 52.78.120.105
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 韩国 | KOR 9'
+  password: amazonskr05
+  port: 443
+  server: 54.180.238.108
+  type: ss
+  udp: true
+- cipher: aes-128-gcm
+  name: '@MxlShare 荷兰 | NLD 4'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12040
+  server: mdss-other.04z3susick.download
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 新加坡 | SGP 8'
+  password: amazonskr05
+  port: 443
+  server: 54.169.244.122
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 新加坡 | SGP 10'
+  password: amazonskr05
+  port: 443
+  server: 13.250.31.57
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 新加坡 | SGP 11'
+  password: amazonskr05
+  port: 443
+  server: 54.169.244.24
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 美国 | USA 2'
+  password: amazonskr05
+  port: 443
+  server: 35.91.235.173
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 美国 | USA 3'
+  password: amazonskr05
+  port: 443
+  server: 18.236.156.97
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 美国 | USA 4'
+  password: amazonskr05
+  port: 443
+  server: 52.13.119.156
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 美国 | USA 6'
+  password: amazonskr05
+  port: 443
+  server: 34.217.73.31
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 美国 | USA 7'
+  password: amazonskr05
+  port: 443
+  server: 18.236.83.127
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 美国 | USA 8'
+  password: amazonskr05
+  port: 443
+  server: 35.91.198.93
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: '@MxlShare 美国 | USA 10'
+  password: amazonskr05
+  port: 443
+  server: 35.86.89.247
+  type: ss
+  udp: true
+- name: '@MxlShare 美国 | USA 25'
+  network: tcp
+  port: 443
+  server: 135.148.211.86
+  servername: 147135004002.sec20org.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: 54694a33-a8dc-47dd-bc38-acd3971e0055
+- name: '@MxlShare 美国 | USA 32'
+  network: ws
+  port: 443
+  server: 172.66.44.245
+  servername: mAHDIseRVer-PjA.pages.DEv
+  tls: true
+  type: vless
+  udp: true
+  uuid: 1d7a7b23-725f-41a4-96e8-517c4af78e58
+  ws-opts:
+    headers:
+      Host: mAHDIseRVer-PjA.pages.DEv
+    path: /
+- name: '@MxlShare 美国 | USA 37'
+  network: tcp
+  port: 443
+  server: 51.81.36.243
+  servername: 147135001178.sec22org.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: e20ebe01-1815-4c09-8e77-fb2f168263ce
+- name: '@MxlShare 美国 | USA 38'
+  network: tcp
+  port: 443
+  server: 135.148.152.105
+  servername: 147135001195.sec22org.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: ea286109-d20f-415e-849e-4af20ab04b65
+- cipher: aes-128-gcm
+  name: '@MxlShare 美国 | USA 40'
+  password: 8cc065a7-fada-4628-9397-b9bd614261a5
+  port: 12024
+  server: mdss-us.04z3susick.download
+  type: ss
+  udp: true
+- name: '@MxlShare 美国 | USA 41'
+  network: ws
+  port: 443
+  server: 20.63.139.155
+  servername: jp.ocn.lol
+  tls: true
+  type: vless
+  udp: true
+  uuid: 3768f838-d33b-4f0b-aabb-5475b9ba74d8
+  ws-opts:
+    headers:
+      Host: jp.ocn.lol
+    path: /bing
+- auth: pPgOLFwmkmYYBZi6q6ZjzK6gJTQ
+  name: '@MxlShare 美国 | USA 42'
+  password: pPgOLFwmkmYYBZi6q6ZjzK6gJTQ
+  port: 8243
+  server: 64.23.178.208
+  skip-cert-verify: true
+  sni: bing.com
+  type: hysteria2
+  udp: true
+- name: '@MxlShare 越南 | VNM'
+  network: ws
+  port: 443
+  server: 162.247.5.96
+  servername: vn.officeov.com
+  tls: true
+  type: vless
+  udp: true
+  uuid: c52868b1-d14f-4be9-9c80-c0b79140083d
+  ws-opts:
+    headers:
+      Host: vn.officeov.com
+    path: /bing
+- cipher: chacha20-ietf-poly1305
+  client-fingerprint: chrome
+  name: 🇯🇵 日本 | JPN 2
+  password: 83174382-9c7c-4302-83bb-90d5fba18e3f
+  port: 20004
+  server: gy.666666222.shop
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  client-fingerprint: chrome
+  name: 🇺🇸 美国 | USA 7
+  password: 83174382-9c7c-4302-83bb-90d5fba18e3f
+  port: 20016
+  server: gy.666666222.shop
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  client-fingerprint: chrome
+  name: 🇺🇸 美国 | USA 24
+  password: 83174382-9c7c-4302-83bb-90d5fba18e3f
+  port: 20013
+  server: gy.666666222.shop
+  type: ss
+  udp: true
+- name: 🇩🇪[openproxylist.com] vless-DE
+  network: ws
+  port: 22222
+  security: tls
+  server: 3.121.255.219
+  skip-cert-verify: false
+  sni: telegram-channel-vlessconfig.sohala.uk
+  tls: true
+  type: vless
+  uuid: 05519058-d2ac-4f28-9e4a-2b2a1386749e
+  ws-opts:
+    headers:
+      Host: telegram-channel-vlessconfig.sohala.uk
+    path: /telegram-channel-vlessconfig-ws
 proxy-groups:
 - name: 节点选择
-  type: select
   proxies:
   - 自动选择
   - 故障转移
   - DIRECT
   - 手动选择
-- name: 自动选择
-  type: url-test
-  exclude-filter: (?i)中国|China|CN|电信|移动|联通
-  proxies:
-  - 日本JP-T-TzPC
-  - 日本JP-T-SiE6
-  - 日本JP-T-Rvm8
-  - 日本JP-T-KwGS
-  - 日本JP-T-CjtL
-  - 日本JP-T-ZtHY
-  - 日本JP-T-gEwa
-  - 台湾WAP-T-GPT-IPsy
-  - 台湾WAP-T-GPT-OMOZ
-  - 台湾WAP-T-GPT-OuC9
-  - 台湾WAP-T-GPT-Orqz
-  - 台湾WAP-T-GPT-gfRi
-  - 台湾WAP-T-GPT-D5GQ
-  - 日本JP-T-7fs6
-  - 台湾WAP-T-GPT-PMfx
-  - 日本JP-T-pR3s
-  - 台湾WAP-T-GPT-7DFd
-  - 日本JP-T-oUJn
-  - 台湾WAP-T-GPT-YsHI
-  - 台湾WAP-T-GPT
-  - 越南VN-T-DdWP
-  - 澳大利亚AU-T-zgZq
-  - 澳大利亚AU-T-ulWr
-  - 澳大利亚AU-T-QzUC
-  - 澳大利亚AU-T-FTDp
-  - 澳大利亚AU-T
-  - 澳大利亚AU-T-Ue1W
-  - 澳大利亚AU-T-B4AQ
-  - 澳大利亚AU-T-WtWF
-  - 澳大利亚AU-T-CdpO
-  - 越南VN-T-sNz8
-  - 越南VN-T-Al51
-  - 越南VN-T-7IHa
-  - 越南VN-T-3peq
-  - 澳大利亚AU-T-vXXU
-  - 澳大利亚AU-T-gcKK
-  - 澳大利亚AU-T-3ZjF
-  url: http://www.pinterest.com
-  interval: 300
-  tolerance: 50
-- name: 故障转移
-  type: fallback
-  exclude-filter: (?i)中国|China|CN|电信|移动|联通
-  proxies:
-  - 日本JP-T-TzPC
-  - 日本JP-T-SiE6
-  - 日本JP-T-Rvm8
-  - 日本JP-T-KwGS
-  - 日本JP-T-CjtL
-  - 日本JP-T-ZtHY
-  - 日本JP-T-gEwa
-  - 台湾WAP-T-GPT-IPsy
-  - 台湾WAP-T-GPT-OMOZ
-  - 台湾WAP-T-GPT-OuC9
-  - 台湾WAP-T-GPT-Orqz
-  - 台湾WAP-T-GPT-gfRi
-  - 台湾WAP-T-GPT-D5GQ
-  - 日本JP-T-7fs6
-  - 台湾WAP-T-GPT-PMfx
-  - 日本JP-T-pR3s
-  - 台湾WAP-T-GPT-7DFd
-  - 日本JP-T-oUJn
-  - 台湾WAP-T-GPT-YsHI
-  - 台湾WAP-T-GPT
-  - 越南VN-T-DdWP
-  - 澳大利亚AU-T-zgZq
-  - 澳大利亚AU-T-ulWr
-  - 澳大利亚AU-T-QzUC
-  - 澳大利亚AU-T-FTDp
-  - 澳大利亚AU-T
-  - 澳大利亚AU-T-Ue1W
-  - 澳大利亚AU-T-B4AQ
-  - 澳大利亚AU-T-WtWF
-  - 澳大利亚AU-T-CdpO
-  - 越南VN-T-sNz8
-  - 越南VN-T-Al51
-  - 越南VN-T-7IHa
-  - 越南VN-T-3peq
-  - 澳大利亚AU-T-vXXU
-  - 澳大利亚AU-T-gcKK
-  - 澳大利亚AU-T-3ZjF
-  url: http://www.pinterest.com
-  interval: 300
-- name: 手动选择
   type: select
+- exclude-filter: (?i)中国|China|CN|电信|移动|联通
+  interval: 300
+  name: 自动选择
   proxies:
-  - 日本JP-T-TzPC
-  - 日本JP-T-SiE6
-  - 日本JP-T-Rvm8
-  - 日本JP-T-KwGS
-  - 日本JP-T-CjtL
-  - 日本JP-T-ZtHY
-  - 日本JP-T-gEwa
-  - 台湾WAP-T-GPT-IPsy
-  - 台湾WAP-T-GPT-OMOZ
-  - 台湾WAP-T-GPT-OuC9
-  - 台湾WAP-T-GPT-Orqz
-  - 台湾WAP-T-GPT-gfRi
-  - 台湾WAP-T-GPT-D5GQ
-  - 日本JP-T-7fs6
-  - 台湾WAP-T-GPT-PMfx
-  - 日本JP-T-pR3s
-  - 台湾WAP-T-GPT-7DFd
-  - 日本JP-T-oUJn
-  - 台湾WAP-T-GPT-YsHI
-  - 台湾WAP-T-GPT
-  - 越南VN-T-DdWP
-  - 澳大利亚AU-T-zgZq
-  - 澳大利亚AU-T-ulWr
-  - 澳大利亚AU-T-QzUC
-  - 澳大利亚AU-T-FTDp
-  - 澳大利亚AU-T
-  - 澳大利亚AU-T-Ue1W
-  - 澳大利亚AU-T-B4AQ
-  - 澳大利亚AU-T-WtWF
-  - 澳大利亚AU-T-CdpO
-  - 越南VN-T-sNz8
-  - 越南VN-T-Al51
-  - 越南VN-T-7IHa
-  - 越南VN-T-3peq
-  - 澳大利亚AU-T-vXXU
-  - 澳大利亚AU-T-gcKK
-  - 澳大利亚AU-T-3ZjF
+  - 🇭🇰HK-103.149.182.61-6189
+  - 🇭🇰HK-43.154.83.213-0784
+  - '@MxlShare 日本 | JPN 13'
+  - '@MxlShare 日本 | JPN 14'
+  - 🇯🇵JP-13.230.110.170-6022
+  - '@MxlShare 日本 | JPN 12'
+  - '@MxlShare 日本 | JPN 9'
+  - 🇺🇸_美国_1
+  - '@MxlShare 新加坡 | SGP 10'
+  - 🇸🇬SG-54.255.224.231-6208
+  - '@MxlShare 新加坡 | SGP 11'
+  - 🇸🇬SG-54.179.221.27-0803
+  - 🇸🇬SG-54.255.230.67-6060
+  - '@MxlShare 新加坡 | SGP 8'
+  - 🇸🇬SG-13.229.110.23-0802
+  - 订阅随时会失效，请加电报群防止失联
+  - 🇯🇵JP-54.95.114.157-0335
+  - 🇺🇸_美国_2
+  - 🇯🇵JP-18.183.232.26-6024
+  - 🇯🇵JP-57.180.54.251-0326
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_90
+  - '@MxlShare 韩国 | KOR 6'
+  - 🇺🇸 United States - NA 🌎 TR-TCP-TLS 4⃣_2
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_87
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_3
+  - '@MxlShare 韩国 | KOR 9'
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_91
+  - 🇰🇷KR-3.35.20.107-6201
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_58
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_34
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_8
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_30
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_28
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_21
+  - 🇯🇵JP-18.179.10.10-6023
+  - 🇰🇷KR-52.78.87.5-0752
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_81
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_140
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_49
+  - '@MxlShare 韩国 | KOR 8'
+  - 🇸🇬_新加坡_6
+  - 🇹🇼 台湾 02 | 1x TW
+  - 🇸🇬_新加坡_1
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_2
+  - 🇯🇵 Japan - Osaka 🌏 TR-TCP-TLS 4⃣_1
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_53
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_62
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_47
+  - '@MxlShare 韩国 | KOR 7'
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_89
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_100
+  - 🇹🇼 台湾 03 | 1x TW
+  - US_16e67_0069
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_98
+  - 新加坡 001
+  - 🇺🇸_美国_145
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_101
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_55
+  - '@MxlShare 越南 | VNM'
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_50
+  - '@MxlShare 印度 | IND'
+  - 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_2
+  - 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_1
+  - 🇲🇾马来西亚 01 | 1x MY
+  - 🇵🇭 菲律宾 01 | 1x PH
+  - 15|🇹🇼 台湾|@ripaojiedian
+  - 🇸🇬 新加坡 03 | 1x SG
+  - 🇭🇰 香港住宅IP 03 | 1x HK
+  - 🇸🇬 新加坡 01 | 1x SG
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_155
+  - 🇰🇷 韩国 02 | 1x KR
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_148
+  - 🇷🇺 Russian Federation - NA 🌍 TR-TCP-TLS 4⃣
+  - SC_16e67_0050
+  - 🇻🇳 越南 01 | 1x VN
+  - NL_16e67_0029
+  - 🇭🇰 香港 02 | 1x HK
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_84
+  - 美国 078
+  - 英国 - 豪恩斯洛 - Cloudflare, Inc. - 3
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_133
+  - 美国 074
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_7
+  - '@MxlShare 美国 | USA 8'
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 美国 | USA 6'
+  - 美国 115
+  - 美国 067
+  - 🇺🇸US-34.219.164.232-6211
+  - '@MxlShare 美国 | USA 7'
+  - 美国 049
+  - '@MxlShare 美国 | USA 4'
+  - '@MxlShare 美国 | USA 2'
+  - '@MxlShare 美国 | USA 3'
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_3
+  - 香港1
+  - 🇰🇷_韩国_8
+  - '@MxlShare 美国 | USA 10'
+  - 🇯🇵 日本 03 | 1x JP
+  - SSR-美国-NF解锁自制剧-ChatGPT-TikTok-YouTube-34.219.164.232:443
+  - 🇺🇸_美国_24
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_3
+  - US美国(mibei77.com 米贝节点分享) 8
+  - '@MxlShare 台湾 | TWN 8'
+  - 美国 158
+  - 🇯🇵 日本 01 | 1x JP
+  - 🇰🇷_韩国_1
+  - 🇺🇸_美国_18
+  - 🇯🇵JP-13.115.246.98-0333
+  - 🇹🇭泰国 01 | 1x TH
+  - 🇺🇸_美国_10
+  - 🇺🇸_美国_25
+  - 🇺🇸_美国_9
+  - 🇰🇷_韩国_13
+  - 剩余流量：568.18 MB
+  - 🇺🇸_美国_20
+  - 🇺🇸_美国_17
+  - 🇰🇷_韩国_3
+  - 🇺🇸_美国_13
+  - 🇺🇸_美国_19
+  - 🇺🇸_美国_22
+  - 🇺🇸_美国_16
+  - '@MxlShare 德国 | DEU 6'
+  - 🇺🇸_美国_23
+  - 🇺🇸_美国_5
+  - 🇺🇸_美国_7
+  - 🇺🇸_美国_8
+  - 🇺🇸_美国_26
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_1
+  - 🇮🇳 India - Bengaluru 🌏 TR-TCP-TLS 4⃣
+  - 🇰🇷 韩国 01 | 1x KR
+  - 美国 010
+  - 🇰🇷_韩国_10
+  - US美国(mibei77.com 米贝节点分享)
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_99
+  - 🇺🇸_美国_192
+  - 美国 016
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_1
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 3
+  - 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_1
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_188
+  - 美国 069
+  - 🇹🇼 广港•台湾262•高速 - 飞翔吧
+  - 🇺🇸_美国_189
+  - US美国(mibei77.com 米贝节点分享) 14
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_13
+  - 美国 011
+  - 🇺🇸_美国_96
+  - 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_3
+  - 🇰🇷_韩国_11
+  - '@MxlShare 美国 | USA 41'
+  - 🇸🇬SG-188.166.177.201-6206
+  - 🇹🇼 中转•台湾100•高速 - 飞翔吧
+  - 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_2
+  - '@MxlShare 日本 | JPN 25'
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_3
+  - 🇸🇪 Sweden - Stockholm 🌍 TR-TCP-TLS 4⃣_1
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_2
+  - 🇹🇼 台湾 01 | 1x TW
+  - 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_1
+  - 🇮🇱 Israel - Tel Aviv 🌏 SS-TCP-NA 4⃣
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-NONE 4⃣_1
+  - 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_3
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_5
+  - 🇺🇸 美国 | USA 7
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_1
+  - 🇩🇪 Germany - NA 🌍 TR-TCP-TLS 4⃣_2
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_4
+  - 🇺🇸_美国_102
+  - 🇺🇸 美国 03 | 1x US Washington
+  - 🇺🇸_美国_178
+  - 🇦🇹_奥地利_2
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 2
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_4
+  - 🇺🇸 United States - San Jose 🌎 TR-TCP-TLS 4⃣_1
+  - 美国 012
+  - 🇺🇸_美国_40
+  - 美国 - 聖荷西 - Cloudflare, Inc. - 9
+  - 🇦🇹_奥地利_4
+  - 美国 109
+  - 🇬🇧_英国_2
+  - 🇺🇸_美国_123
+  - 🇦🇹_奥地利_1
+  - 🇺🇸_美国_134
+  - 🇩🇪_德国_2
+  - 🇺🇸_美国_36
+  - 🇺🇸 美国 01 | 1x US Los Angeles
+  - 🇳🇱_荷兰_3
+  - 🇮🇪IE-54.228.251.216-6146
+  - 日本 007
+  - 日本 006
+  - 🇺🇸_美国_82
+  - 🇺🇸_美国_140
+  - 荷兰 001
+  - 🇦🇹_奥地利_3
+  - 🏁RELAY-104.18.24.41-0740
+  - 🇷🇺_俄罗斯_2
+  - 🇺🇸_美国_79
+  - 🇳🇱_荷兰_4
+  - 🇺🇸_美国_118
+  - 🇺🇸_美国_126
+  - 🇬🇧_英国_1
+  - 🇺🇸_美国_130
+  - 🇺🇸_美国_88
+  - '@MxlShare 美国 | USA 40'
+  - 🇺🇸_美国_127
+  - 🏳️_未知
+  - 🇯🇵 日本•高速71•高速 - 飞翔吧
+  - 🇫🇷FR-13.38.180.105-6142
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_9
+  - 🇺🇸_美国_87
+  - 🇺🇸_美国_144
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_1
+  - 🇺🇸_美国_47
+  - 🇳🇿_新西兰
+  - 🇺🇸_美国_133
+  - 🇺🇸_美国_72
+  - 🇺🇦_乌克兰_1
+  - 🇺🇸_美国_99
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_6
+  - 🇺🇸_美国_63
+  - 🇺🇸_美国_75
+  - 🇺🇸_美国_97
+  - 🇳🇱_荷兰_5
+  - 🇺🇸_美国_113
+  - 🇩🇪_德国_1
+  - 🇺🇸_美国_71
+  - 🇺🇸_美国_106
+  - 🇸🇪SE-13.53.219.38-0736
+  - 🇷🇺 Russian Federation - NA 🌍 TR-TCP-NONE 4⃣_1
+  - 🇺🇸_美国_146
+  - 🇳🇱_荷兰_2
+  - 🇷🇺_俄罗斯_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_101
+  - 🇩🇪[openproxylist.com] vless-DE
+  - 🇺🇸_美国_81
+  - 🇺🇸_美国_84
+  - 🇺🇸 美国 | USA 24
+  - 🇺🇸_美国_80
+  - 🇺🇦_乌克兰_2
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 5
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_2
+  - 🇺🇸_美国_70
+  - 🇳🇱_荷兰_1
+  - 🇺🇸 美国住宅IP 02 | 1x US Los Angeles
+  - 🇰🇷_韩国_38
+  - '@MxlShare 加拿大 | CAN 3'
+  - 美国 023
+  - 🇺🇸_美国_65
+  - 🇻🇳 Vietnam - NA 🌏 TR-TCP-TLS 4⃣_1
+  - US美国(mibei77.com 米贝节点分享) 2
+  - 🇬🇧 英国住宅IP 01 | 1x UK
+  - 🇺🇸_美国_98
+  - 🇺🇸_美国_42
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_6
+  - '@MxlShare 英国 | GBR 5'
+  - 🇺🇸_美国_30
+  - 🇨🇦 Canada - Toronto 🌎 TR-TCP-TLS 4⃣_5
+  - 🇨🇦 加拿大 01 | 1x CA
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_5
+  - '@MxlShare 荷兰 | NLD 4'
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_9
+  - 意大利 001
+  - 🇹🇼 广港•台湾261•高速 - 飞翔吧
+  - 🇨🇭_瑞士_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_8
+  - 🇦🇺 澳大利亚 01 | 1x AU
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_1
+  - 🇹🇷 土耳其 01 | 1x TR
+  - 🇺🇸_US_美国->🇩🇪_DE_德国
+  - 🇺🇸_美国_31
+  - 🇺🇸_美国_66
+  - 美国 150
+  - 🇺🇸_美国_38
+  - 🇺🇸_US_美国_2
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_7
+  - 🇺🇸_US_美国->🇨🇦_CA_加拿大
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_4
+  - 🇺🇸_美国_44
+  - 🇺🇸_美国_67
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_67
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_2
+  - 🇺🇸 United States - Ashburn 🌎 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 美国 | USA 37'
+  - 🇯🇵 日本 | JPN 2
+  - '@MxlShare 美国 | USA 42'
+  - 🇺🇸_美国_91
+  - 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_1
+  - 🇺🇸_美国_55
+  - 🇺🇸_美国_197
+  - 🇺🇸_美国_61
+  - 🇬🇧 United Kingdom - Coventry 🌍 TR-TCP-TLS 4⃣_1
+  - 🇺🇸 United States - North Bergen 🌎 TR-TCP-TLS 4⃣
+  - 🇲🇩 Moldova, Republic of - Chisinau 🌍 TR-TCP-TLS 4⃣
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_6
+  - '@MxlShare 美国 | USA 38'
+  - 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_18
+  - 🇸🇬 Singapore - NA 🌏 TR-TCP-TLS 4⃣_3
+  - 美国 024
+  - 🇺🇸 United States - Staten Island 🌎 TR-TCP-TLS 4⃣_1
+  - 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_10
+  - '@MxlShare 香港 | HKG 17'
+  - '@MxlShare 美国 | USA 25'
+  - 🇫🇷 France - Paris 🌍 TR-TCP-TLS 4⃣_1
+  - 11|🇺🇸美国 加利福尼亚州 圣克拉拉 DIGITALOCEAN-...
+  - 🇳🇱 Netherlands - Amsterdam 🌍 TR-TCP-TLS 4⃣_1
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_18
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 台湾 | TWN 9'
+  - 🇺🇸_美国_48
+  - 🇫🇮 Finland - Helsinki 🌍 TR-TCP-TLS 4⃣
+  - 🇹🇼 中转•台湾91•原生 - 飞翔吧
+  - '@MxlShare 德国 | DEU 5'
+  - 🇺🇸_美国_174
+  - 美国 124
+  - 🇩🇰 Denmark - Copenhagen 🌍 TR-TCP-TLS 4⃣
+  - xiaoer886_US_63
+  - 🇺🇸 United States - Fremont 🌎 TR-TCP-TLS 4⃣_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_4
+  - SSR-丹麦-NF解锁丹麦自制剧-ChatGPT-TikTok-YouTube-185.186.79.53:989
+  - 🇳🇴 Norway - Oslo 🌍 TR-TCP-TLS 4⃣
+  - 🇺🇸_美国_190
+  - '@MxlShare 台湾 | TWN 10'
+  - '@MxlShare 美国 | USA 32'
+  - 🇺🇸_US_美国_3
+  - 🇦🇺 Australia - Sydney 🌏 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_168
+  - 🏁RELAY-104.17.148.22-0741
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_5
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_29
+  tolerance: 50
+  type: url-test
+  url: http://www.pinterest.com
+- exclude-filter: (?i)中国|China|CN|电信|移动|联通
+  interval: 300
+  name: 故障转移
+  proxies:
+  - 🇭🇰HK-103.149.182.61-6189
+  - 🇭🇰HK-43.154.83.213-0784
+  - '@MxlShare 日本 | JPN 13'
+  - '@MxlShare 日本 | JPN 14'
+  - 🇯🇵JP-13.230.110.170-6022
+  - '@MxlShare 日本 | JPN 12'
+  - '@MxlShare 日本 | JPN 9'
+  - 🇺🇸_美国_1
+  - '@MxlShare 新加坡 | SGP 10'
+  - 🇸🇬SG-54.255.224.231-6208
+  - '@MxlShare 新加坡 | SGP 11'
+  - 🇸🇬SG-54.179.221.27-0803
+  - 🇸🇬SG-54.255.230.67-6060
+  - '@MxlShare 新加坡 | SGP 8'
+  - 🇸🇬SG-13.229.110.23-0802
+  - 订阅随时会失效，请加电报群防止失联
+  - 🇯🇵JP-54.95.114.157-0335
+  - 🇺🇸_美国_2
+  - 🇯🇵JP-18.183.232.26-6024
+  - 🇯🇵JP-57.180.54.251-0326
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_90
+  - '@MxlShare 韩国 | KOR 6'
+  - 🇺🇸 United States - NA 🌎 TR-TCP-TLS 4⃣_2
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_87
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_3
+  - '@MxlShare 韩国 | KOR 9'
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_91
+  - 🇰🇷KR-3.35.20.107-6201
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_58
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_34
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_8
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_30
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_28
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_21
+  - 🇯🇵JP-18.179.10.10-6023
+  - 🇰🇷KR-52.78.87.5-0752
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_81
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_140
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_49
+  - '@MxlShare 韩国 | KOR 8'
+  - 🇸🇬_新加坡_6
+  - 🇹🇼 台湾 02 | 1x TW
+  - 🇸🇬_新加坡_1
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_2
+  - 🇯🇵 Japan - Osaka 🌏 TR-TCP-TLS 4⃣_1
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_53
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_62
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_47
+  - '@MxlShare 韩国 | KOR 7'
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_89
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_100
+  - 🇹🇼 台湾 03 | 1x TW
+  - US_16e67_0069
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_98
+  - 新加坡 001
+  - 🇺🇸_美国_145
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_101
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_55
+  - '@MxlShare 越南 | VNM'
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_50
+  - '@MxlShare 印度 | IND'
+  - 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_2
+  - 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_1
+  - 🇲🇾马来西亚 01 | 1x MY
+  - 🇵🇭 菲律宾 01 | 1x PH
+  - 15|🇹🇼 台湾|@ripaojiedian
+  - 🇸🇬 新加坡 03 | 1x SG
+  - 🇭🇰 香港住宅IP 03 | 1x HK
+  - 🇸🇬 新加坡 01 | 1x SG
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_155
+  - 🇰🇷 韩国 02 | 1x KR
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_148
+  - 🇷🇺 Russian Federation - NA 🌍 TR-TCP-TLS 4⃣
+  - SC_16e67_0050
+  - 🇻🇳 越南 01 | 1x VN
+  - NL_16e67_0029
+  - 🇭🇰 香港 02 | 1x HK
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_84
+  - 美国 078
+  - 英国 - 豪恩斯洛 - Cloudflare, Inc. - 3
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_133
+  - 美国 074
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_7
+  - '@MxlShare 美国 | USA 8'
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 美国 | USA 6'
+  - 美国 115
+  - 美国 067
+  - 🇺🇸US-34.219.164.232-6211
+  - '@MxlShare 美国 | USA 7'
+  - 美国 049
+  - '@MxlShare 美国 | USA 4'
+  - '@MxlShare 美国 | USA 2'
+  - '@MxlShare 美国 | USA 3'
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_3
+  - 香港1
+  - 🇰🇷_韩国_8
+  - '@MxlShare 美国 | USA 10'
+  - 🇯🇵 日本 03 | 1x JP
+  - SSR-美国-NF解锁自制剧-ChatGPT-TikTok-YouTube-34.219.164.232:443
+  - 🇺🇸_美国_24
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_3
+  - US美国(mibei77.com 米贝节点分享) 8
+  - '@MxlShare 台湾 | TWN 8'
+  - 美国 158
+  - 🇯🇵 日本 01 | 1x JP
+  - 🇰🇷_韩国_1
+  - 🇺🇸_美国_18
+  - 🇯🇵JP-13.115.246.98-0333
+  - 🇹🇭泰国 01 | 1x TH
+  - 🇺🇸_美国_10
+  - 🇺🇸_美国_25
+  - 🇺🇸_美国_9
+  - 🇰🇷_韩国_13
+  - 剩余流量：568.18 MB
+  - 🇺🇸_美国_20
+  - 🇺🇸_美国_17
+  - 🇰🇷_韩国_3
+  - 🇺🇸_美国_13
+  - 🇺🇸_美国_19
+  - 🇺🇸_美国_22
+  - 🇺🇸_美国_16
+  - '@MxlShare 德国 | DEU 6'
+  - 🇺🇸_美国_23
+  - 🇺🇸_美国_5
+  - 🇺🇸_美国_7
+  - 🇺🇸_美国_8
+  - 🇺🇸_美国_26
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_1
+  - 🇮🇳 India - Bengaluru 🌏 TR-TCP-TLS 4⃣
+  - 🇰🇷 韩国 01 | 1x KR
+  - 美国 010
+  - 🇰🇷_韩国_10
+  - US美国(mibei77.com 米贝节点分享)
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_99
+  - 🇺🇸_美国_192
+  - 美国 016
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_1
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 3
+  - 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_1
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_188
+  - 美国 069
+  - 🇹🇼 广港•台湾262•高速 - 飞翔吧
+  - 🇺🇸_美国_189
+  - US美国(mibei77.com 米贝节点分享) 14
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_13
+  - 美国 011
+  - 🇺🇸_美国_96
+  - 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_3
+  - 🇰🇷_韩国_11
+  - '@MxlShare 美国 | USA 41'
+  - 🇸🇬SG-188.166.177.201-6206
+  - 🇹🇼 中转•台湾100•高速 - 飞翔吧
+  - 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_2
+  - '@MxlShare 日本 | JPN 25'
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_3
+  - 🇸🇪 Sweden - Stockholm 🌍 TR-TCP-TLS 4⃣_1
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_2
+  - 🇹🇼 台湾 01 | 1x TW
+  - 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_1
+  - 🇮🇱 Israel - Tel Aviv 🌏 SS-TCP-NA 4⃣
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-NONE 4⃣_1
+  - 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_3
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_5
+  - 🇺🇸 美国 | USA 7
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_1
+  - 🇩🇪 Germany - NA 🌍 TR-TCP-TLS 4⃣_2
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_4
+  - 🇺🇸_美国_102
+  - 🇺🇸 美国 03 | 1x US Washington
+  - 🇺🇸_美国_178
+  - 🇦🇹_奥地利_2
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 2
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_4
+  - 🇺🇸 United States - San Jose 🌎 TR-TCP-TLS 4⃣_1
+  - 美国 012
+  - 🇺🇸_美国_40
+  - 美国 - 聖荷西 - Cloudflare, Inc. - 9
+  - 🇦🇹_奥地利_4
+  - 美国 109
+  - 🇬🇧_英国_2
+  - 🇺🇸_美国_123
+  - 🇦🇹_奥地利_1
+  - 🇺🇸_美国_134
+  - 🇩🇪_德国_2
+  - 🇺🇸_美国_36
+  - 🇺🇸 美国 01 | 1x US Los Angeles
+  - 🇳🇱_荷兰_3
+  - 🇮🇪IE-54.228.251.216-6146
+  - 日本 007
+  - 日本 006
+  - 🇺🇸_美国_82
+  - 🇺🇸_美国_140
+  - 荷兰 001
+  - 🇦🇹_奥地利_3
+  - 🏁RELAY-104.18.24.41-0740
+  - 🇷🇺_俄罗斯_2
+  - 🇺🇸_美国_79
+  - 🇳🇱_荷兰_4
+  - 🇺🇸_美国_118
+  - 🇺🇸_美国_126
+  - 🇬🇧_英国_1
+  - 🇺🇸_美国_130
+  - 🇺🇸_美国_88
+  - '@MxlShare 美国 | USA 40'
+  - 🇺🇸_美国_127
+  - 🏳️_未知
+  - 🇯🇵 日本•高速71•高速 - 飞翔吧
+  - 🇫🇷FR-13.38.180.105-6142
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_9
+  - 🇺🇸_美国_87
+  - 🇺🇸_美国_144
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_1
+  - 🇺🇸_美国_47
+  - 🇳🇿_新西兰
+  - 🇺🇸_美国_133
+  - 🇺🇸_美国_72
+  - 🇺🇦_乌克兰_1
+  - 🇺🇸_美国_99
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_6
+  - 🇺🇸_美国_63
+  - 🇺🇸_美国_75
+  - 🇺🇸_美国_97
+  - 🇳🇱_荷兰_5
+  - 🇺🇸_美国_113
+  - 🇩🇪_德国_1
+  - 🇺🇸_美国_71
+  - 🇺🇸_美国_106
+  - 🇸🇪SE-13.53.219.38-0736
+  - 🇷🇺 Russian Federation - NA 🌍 TR-TCP-NONE 4⃣_1
+  - 🇺🇸_美国_146
+  - 🇳🇱_荷兰_2
+  - 🇷🇺_俄罗斯_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_101
+  - 🇩🇪[openproxylist.com] vless-DE
+  - 🇺🇸_美国_81
+  - 🇺🇸_美国_84
+  - 🇺🇸 美国 | USA 24
+  - 🇺🇸_美国_80
+  - 🇺🇦_乌克兰_2
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 5
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_2
+  - 🇺🇸_美国_70
+  - 🇳🇱_荷兰_1
+  - 🇺🇸 美国住宅IP 02 | 1x US Los Angeles
+  - 🇰🇷_韩国_38
+  - '@MxlShare 加拿大 | CAN 3'
+  - 美国 023
+  - 🇺🇸_美国_65
+  - 🇻🇳 Vietnam - NA 🌏 TR-TCP-TLS 4⃣_1
+  - US美国(mibei77.com 米贝节点分享) 2
+  - 🇬🇧 英国住宅IP 01 | 1x UK
+  - 🇺🇸_美国_98
+  - 🇺🇸_美国_42
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_6
+  - '@MxlShare 英国 | GBR 5'
+  - 🇺🇸_美国_30
+  - 🇨🇦 Canada - Toronto 🌎 TR-TCP-TLS 4⃣_5
+  - 🇨🇦 加拿大 01 | 1x CA
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_5
+  - '@MxlShare 荷兰 | NLD 4'
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_9
+  - 意大利 001
+  - 🇹🇼 广港•台湾261•高速 - 飞翔吧
+  - 🇨🇭_瑞士_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_8
+  - 🇦🇺 澳大利亚 01 | 1x AU
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_1
+  - 🇹🇷 土耳其 01 | 1x TR
+  - 🇺🇸_US_美国->🇩🇪_DE_德国
+  - 🇺🇸_美国_31
+  - 🇺🇸_美国_66
+  - 美国 150
+  - 🇺🇸_美国_38
+  - 🇺🇸_US_美国_2
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_7
+  - 🇺🇸_US_美国->🇨🇦_CA_加拿大
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_4
+  - 🇺🇸_美国_44
+  - 🇺🇸_美国_67
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_67
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_2
+  - 🇺🇸 United States - Ashburn 🌎 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 美国 | USA 37'
+  - 🇯🇵 日本 | JPN 2
+  - '@MxlShare 美国 | USA 42'
+  - 🇺🇸_美国_91
+  - 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_1
+  - 🇺🇸_美国_55
+  - 🇺🇸_美国_197
+  - 🇺🇸_美国_61
+  - 🇬🇧 United Kingdom - Coventry 🌍 TR-TCP-TLS 4⃣_1
+  - 🇺🇸 United States - North Bergen 🌎 TR-TCP-TLS 4⃣
+  - 🇲🇩 Moldova, Republic of - Chisinau 🌍 TR-TCP-TLS 4⃣
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_6
+  - '@MxlShare 美国 | USA 38'
+  - 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_18
+  - 🇸🇬 Singapore - NA 🌏 TR-TCP-TLS 4⃣_3
+  - 美国 024
+  - 🇺🇸 United States - Staten Island 🌎 TR-TCP-TLS 4⃣_1
+  - 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_10
+  - '@MxlShare 香港 | HKG 17'
+  - '@MxlShare 美国 | USA 25'
+  - 🇫🇷 France - Paris 🌍 TR-TCP-TLS 4⃣_1
+  - 11|🇺🇸美国 加利福尼亚州 圣克拉拉 DIGITALOCEAN-...
+  - 🇳🇱 Netherlands - Amsterdam 🌍 TR-TCP-TLS 4⃣_1
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_18
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 台湾 | TWN 9'
+  - 🇺🇸_美国_48
+  - 🇫🇮 Finland - Helsinki 🌍 TR-TCP-TLS 4⃣
+  - 🇹🇼 中转•台湾91•原生 - 飞翔吧
+  - '@MxlShare 德国 | DEU 5'
+  - 🇺🇸_美国_174
+  - 美国 124
+  - 🇩🇰 Denmark - Copenhagen 🌍 TR-TCP-TLS 4⃣
+  - xiaoer886_US_63
+  - 🇺🇸 United States - Fremont 🌎 TR-TCP-TLS 4⃣_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_4
+  - SSR-丹麦-NF解锁丹麦自制剧-ChatGPT-TikTok-YouTube-185.186.79.53:989
+  - 🇳🇴 Norway - Oslo 🌍 TR-TCP-TLS 4⃣
+  - 🇺🇸_美国_190
+  - '@MxlShare 台湾 | TWN 10'
+  - '@MxlShare 美国 | USA 32'
+  - 🇺🇸_US_美国_3
+  - 🇦🇺 Australia - Sydney 🌏 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_168
+  - 🏁RELAY-104.17.148.22-0741
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_5
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_29
+  type: fallback
+  url: http://www.gstatic.com/generate_204
+- name: 手动选择
+  proxies:
+  - 🇭🇰HK-103.149.182.61-6189
+  - 🇭🇰HK-43.154.83.213-0784
+  - '@MxlShare 日本 | JPN 13'
+  - '@MxlShare 日本 | JPN 14'
+  - 🇯🇵JP-13.230.110.170-6022
+  - '@MxlShare 日本 | JPN 12'
+  - '@MxlShare 日本 | JPN 9'
+  - 🇺🇸_美国_1
+  - '@MxlShare 新加坡 | SGP 10'
+  - 🇸🇬SG-54.255.224.231-6208
+  - '@MxlShare 新加坡 | SGP 11'
+  - 🇸🇬SG-54.179.221.27-0803
+  - 🇸🇬SG-54.255.230.67-6060
+  - '@MxlShare 新加坡 | SGP 8'
+  - 🇸🇬SG-13.229.110.23-0802
+  - 订阅随时会失效，请加电报群防止失联
+  - 🇯🇵JP-54.95.114.157-0335
+  - 🇺🇸_美国_2
+  - 🇯🇵JP-18.183.232.26-6024
+  - 🇯🇵JP-57.180.54.251-0326
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_90
+  - '@MxlShare 韩国 | KOR 6'
+  - 🇺🇸 United States - NA 🌎 TR-TCP-TLS 4⃣_2
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_87
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_3
+  - '@MxlShare 韩国 | KOR 9'
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_91
+  - 🇰🇷KR-3.35.20.107-6201
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_58
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_34
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_8
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_30
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_28
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_21
+  - 🇯🇵JP-18.179.10.10-6023
+  - 🇰🇷KR-52.78.87.5-0752
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_81
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_140
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_49
+  - '@MxlShare 韩国 | KOR 8'
+  - 🇸🇬_新加坡_6
+  - 🇹🇼 台湾 02 | 1x TW
+  - 🇸🇬_新加坡_1
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_2
+  - 🇯🇵 Japan - Osaka 🌏 TR-TCP-TLS 4⃣_1
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_53
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_62
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_47
+  - '@MxlShare 韩国 | KOR 7'
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_89
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_100
+  - 🇹🇼 台湾 03 | 1x TW
+  - US_16e67_0069
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_98
+  - 新加坡 001
+  - 🇺🇸_美国_145
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_101
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_55
+  - '@MxlShare 越南 | VNM'
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_50
+  - '@MxlShare 印度 | IND'
+  - 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_2
+  - 🇰🇷 Korea, Republic of - NA 🌏 TR-TCP-TLS 4⃣_1
+  - 🇲🇾马来西亚 01 | 1x MY
+  - 🇵🇭 菲律宾 01 | 1x PH
+  - 15|🇹🇼 台湾|@ripaojiedian
+  - 🇸🇬 新加坡 03 | 1x SG
+  - 🇭🇰 香港住宅IP 03 | 1x HK
+  - 🇸🇬 新加坡 01 | 1x SG
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_155
+  - 🇰🇷 韩国 02 | 1x KR
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_148
+  - 🇷🇺 Russian Federation - NA 🌍 TR-TCP-TLS 4⃣
+  - SC_16e67_0050
+  - 🇻🇳 越南 01 | 1x VN
+  - NL_16e67_0029
+  - 🇭🇰 香港 02 | 1x HK
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_84
+  - 美国 078
+  - 英国 - 豪恩斯洛 - Cloudflare, Inc. - 3
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_133
+  - 美国 074
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_7
+  - '@MxlShare 美国 | USA 8'
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 美国 | USA 6'
+  - 美国 115
+  - 美国 067
+  - 🇺🇸US-34.219.164.232-6211
+  - '@MxlShare 美国 | USA 7'
+  - 美国 049
+  - '@MxlShare 美国 | USA 4'
+  - '@MxlShare 美国 | USA 2'
+  - '@MxlShare 美国 | USA 3'
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_3
+  - 香港1
+  - 🇰🇷_韩国_8
+  - '@MxlShare 美国 | USA 10'
+  - 🇯🇵 日本 03 | 1x JP
+  - SSR-美国-NF解锁自制剧-ChatGPT-TikTok-YouTube-34.219.164.232:443
+  - 🇺🇸_美国_24
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_3
+  - US美国(mibei77.com 米贝节点分享) 8
+  - '@MxlShare 台湾 | TWN 8'
+  - 美国 158
+  - 🇯🇵 日本 01 | 1x JP
+  - 🇰🇷_韩国_1
+  - 🇺🇸_美国_18
+  - 🇯🇵JP-13.115.246.98-0333
+  - 🇹🇭泰国 01 | 1x TH
+  - 🇺🇸_美国_10
+  - 🇺🇸_美国_25
+  - 🇺🇸_美国_9
+  - 🇰🇷_韩国_13
+  - 剩余流量：568.18 MB
+  - 🇺🇸_美国_20
+  - 🇺🇸_美国_17
+  - 🇰🇷_韩国_3
+  - 🇺🇸_美国_13
+  - 🇺🇸_美国_19
+  - 🇺🇸_美国_22
+  - 🇺🇸_美国_16
+  - '@MxlShare 德国 | DEU 6'
+  - 🇺🇸_美国_23
+  - 🇺🇸_美国_5
+  - 🇺🇸_美国_7
+  - 🇺🇸_美国_8
+  - 🇺🇸_美国_26
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_1
+  - 🇮🇳 India - Bengaluru 🌏 TR-TCP-TLS 4⃣
+  - 🇰🇷 韩国 01 | 1x KR
+  - 美国 010
+  - 🇰🇷_韩国_10
+  - US美国(mibei77.com 米贝节点分享)
+  - 🇯🇵 Japan - Tokyo 🌏 TR-TCP-TLS 4⃣_99
+  - 🇺🇸_美国_192
+  - 美国 016
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_1
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 3
+  - 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_1
+  - 🇹🇼 Taiwan - Kaohsiung 🌏 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_188
+  - 美国 069
+  - 🇹🇼 广港•台湾262•高速 - 飞翔吧
+  - 🇺🇸_美国_189
+  - US美国(mibei77.com 米贝节点分享) 14
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_13
+  - 美国 011
+  - 🇺🇸_美国_96
+  - 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_3
+  - 🇰🇷_韩国_11
+  - '@MxlShare 美国 | USA 41'
+  - 🇸🇬SG-188.166.177.201-6206
+  - 🇹🇼 中转•台湾100•高速 - 飞翔吧
+  - 🇹🇼 Taiwan - Banqiao 🌏 TR-TCP-TLS 4⃣_2
+  - '@MxlShare 日本 | JPN 25'
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_3
+  - 🇸🇪 Sweden - Stockholm 🌍 TR-TCP-TLS 4⃣_1
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_2
+  - 🇹🇼 台湾 01 | 1x TW
+  - 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_1
+  - 🇮🇱 Israel - Tel Aviv 🌏 SS-TCP-NA 4⃣
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-NONE 4⃣_1
+  - 🇺🇸 United States - San Diego 🌎 TR-TCP-TLS 4⃣_3
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_5
+  - 🇺🇸 美国 | USA 7
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_1
+  - 🇩🇪 Germany - NA 🌍 TR-TCP-TLS 4⃣_2
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_4
+  - 🇺🇸_美国_102
+  - 🇺🇸 美国 03 | 1x US Washington
+  - 🇺🇸_美国_178
+  - 🇦🇹_奥地利_2
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 2
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_4
+  - 🇺🇸 United States - San Jose 🌎 TR-TCP-TLS 4⃣_1
+  - 美国 012
+  - 🇺🇸_美国_40
+  - 美国 - 聖荷西 - Cloudflare, Inc. - 9
+  - 🇦🇹_奥地利_4
+  - 美国 109
+  - 🇬🇧_英国_2
+  - 🇺🇸_美国_123
+  - 🇦🇹_奥地利_1
+  - 🇺🇸_美国_134
+  - 🇩🇪_德国_2
+  - 🇺🇸_美国_36
+  - 🇺🇸 美国 01 | 1x US Los Angeles
+  - 🇳🇱_荷兰_3
+  - 🇮🇪IE-54.228.251.216-6146
+  - 日本 007
+  - 日本 006
+  - 🇺🇸_美国_82
+  - 🇺🇸_美国_140
+  - 荷兰 001
+  - 🇦🇹_奥地利_3
+  - 🏁RELAY-104.18.24.41-0740
+  - 🇷🇺_俄罗斯_2
+  - 🇺🇸_美国_79
+  - 🇳🇱_荷兰_4
+  - 🇺🇸_美国_118
+  - 🇺🇸_美国_126
+  - 🇬🇧_英国_1
+  - 🇺🇸_美国_130
+  - 🇺🇸_美国_88
+  - '@MxlShare 美国 | USA 40'
+  - 🇺🇸_美国_127
+  - 🏳️_未知
+  - 🇯🇵 日本•高速71•高速 - 飞翔吧
+  - 🇫🇷FR-13.38.180.105-6142
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_9
+  - 🇺🇸_美国_87
+  - 🇺🇸_美国_144
+  - 🇦🇺 Australia - NA 🌏 TR-TCP-TLS 4⃣_1
+  - 🇺🇸_美国_47
+  - 🇳🇿_新西兰
+  - 🇺🇸_美国_133
+  - 🇺🇸_美国_72
+  - 🇺🇦_乌克兰_1
+  - 🇺🇸_美国_99
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_6
+  - 🇺🇸_美国_63
+  - 🇺🇸_美国_75
+  - 🇺🇸_美国_97
+  - 🇳🇱_荷兰_5
+  - 🇺🇸_美国_113
+  - 🇩🇪_德国_1
+  - 🇺🇸_美国_71
+  - 🇺🇸_美国_106
+  - 🇸🇪SE-13.53.219.38-0736
+  - 🇷🇺 Russian Federation - NA 🌍 TR-TCP-NONE 4⃣_1
+  - 🇺🇸_美国_146
+  - 🇳🇱_荷兰_2
+  - 🇷🇺_俄罗斯_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_101
+  - 🇩🇪[openproxylist.com] vless-DE
+  - 🇺🇸_美国_81
+  - 🇺🇸_美国_84
+  - 🇺🇸 美国 | USA 24
+  - 🇺🇸_美国_80
+  - 🇺🇦_乌克兰_2
+  - 韩国 - Yeongdong-gun - Cloudflare, Inc. - 5
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_2
+  - 🇺🇸_美国_70
+  - 🇳🇱_荷兰_1
+  - 🇺🇸 美国住宅IP 02 | 1x US Los Angeles
+  - 🇰🇷_韩国_38
+  - '@MxlShare 加拿大 | CAN 3'
+  - 美国 023
+  - 🇺🇸_美国_65
+  - 🇻🇳 Vietnam - NA 🌏 TR-TCP-TLS 4⃣_1
+  - US美国(mibei77.com 米贝节点分享) 2
+  - 🇬🇧 英国住宅IP 01 | 1x UK
+  - 🇺🇸_美国_98
+  - 🇺🇸_美国_42
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_6
+  - '@MxlShare 英国 | GBR 5'
+  - 🇺🇸_美国_30
+  - 🇨🇦 Canada - Toronto 🌎 TR-TCP-TLS 4⃣_5
+  - 🇨🇦 加拿大 01 | 1x CA
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_5
+  - '@MxlShare 荷兰 | NLD 4'
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_9
+  - 意大利 001
+  - 🇹🇼 广港•台湾261•高速 - 飞翔吧
+  - 🇨🇭_瑞士_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_8
+  - 🇦🇺 澳大利亚 01 | 1x AU
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_1
+  - 🇹🇷 土耳其 01 | 1x TR
+  - 🇺🇸_US_美国->🇩🇪_DE_德国
+  - 🇺🇸_美国_31
+  - 🇺🇸_美国_66
+  - 美国 150
+  - 🇺🇸_美国_38
+  - 🇺🇸_US_美国_2
+  - 🇭🇰 Hong Kong - NA 🌏 TR-TCP-TLS 4⃣_7
+  - 🇺🇸_US_美国->🇨🇦_CA_加拿大
+  - 🇭🇰 Hong Kong - Hong Kong 🌏 TR-TCP-TLS 4⃣_4
+  - 🇺🇸_美国_44
+  - 🇺🇸_美国_67
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_67
+  - 🇺🇸 United States - Los Angeles 🌎 TR-TCP-TLS 4⃣_2
+  - 🇺🇸 United States - Ashburn 🌎 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 美国 | USA 37'
+  - 🇯🇵 日本 | JPN 2
+  - '@MxlShare 美国 | USA 42'
+  - 🇺🇸_美国_91
+  - 🇺🇸 United States - Santa Clara 🌎 TR-TCP-TLS 4⃣_1
+  - 🇺🇸_美国_55
+  - 🇺🇸_美国_197
+  - 🇺🇸_美国_61
+  - 🇬🇧 United Kingdom - Coventry 🌍 TR-TCP-TLS 4⃣_1
+  - 🇺🇸 United States - North Bergen 🌎 TR-TCP-TLS 4⃣
+  - 🇲🇩 Moldova, Republic of - Chisinau 🌍 TR-TCP-TLS 4⃣
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_6
+  - '@MxlShare 美国 | USA 38'
+  - 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_18
+  - 🇸🇬 Singapore - NA 🌏 TR-TCP-TLS 4⃣_3
+  - 美国 024
+  - 🇺🇸 United States - Staten Island 🌎 TR-TCP-TLS 4⃣_1
+  - 🇫🇷 France - NA 🌍 TR-TCP-TLS 4⃣_10
+  - '@MxlShare 香港 | HKG 17'
+  - '@MxlShare 美国 | USA 25'
+  - 🇫🇷 France - Paris 🌍 TR-TCP-TLS 4⃣_1
+  - 11|🇺🇸美国 加利福尼亚州 圣克拉拉 DIGITALOCEAN-...
+  - 🇳🇱 Netherlands - Amsterdam 🌍 TR-TCP-TLS 4⃣_1
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_18
+  - 🇩🇪 Germany - Frankfurt am Main 🌍 TR-TCP-TLS 4⃣_1
+  - '@MxlShare 台湾 | TWN 9'
+  - 🇺🇸_美国_48
+  - 🇫🇮 Finland - Helsinki 🌍 TR-TCP-TLS 4⃣
+  - 🇹🇼 中转•台湾91•原生 - 飞翔吧
+  - '@MxlShare 德国 | DEU 5'
+  - 🇺🇸_美国_174
+  - 美国 124
+  - 🇩🇰 Denmark - Copenhagen 🌍 TR-TCP-TLS 4⃣
+  - xiaoer886_US_63
+  - 🇺🇸 United States - Fremont 🌎 TR-TCP-TLS 4⃣_1
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_4
+  - SSR-丹麦-NF解锁丹麦自制剧-ChatGPT-TikTok-YouTube-185.186.79.53:989
+  - 🇳🇴 Norway - Oslo 🌍 TR-TCP-TLS 4⃣
+  - 🇺🇸_美国_190
+  - '@MxlShare 台湾 | TWN 10'
+  - '@MxlShare 美国 | USA 32'
+  - 🇺🇸_US_美国_3
+  - 🇦🇺 Australia - Sydney 🌏 TR-TCP-TLS 4⃣_3
+  - 🇺🇸_美国_168
+  - 🏁RELAY-104.17.148.22-0741
+  - 🇺🇸 United States - Richardson 🌎 TR-TCP-TLS 4⃣_5
+  - 🇸🇬 Singapore - Singapore 🌏 TR-TCP-TLS 4⃣_29
+  type: select
+redir-port: 7892
 rules:
 - DOMAIN,app.adjust.com,DIRECT
 - DOMAIN,bdtj.tagtic.cn,DIRECT
@@ -1532,3 +5748,4 @@ rules:
 - IP-CIDR6,fd00::/8,DIRECT,no-resolve
 - GEOIP,CN,DIRECT
 - MATCH,节点选择
+socks-port: 7891

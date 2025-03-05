@@ -1357,20 +1357,39 @@ def parse_ss_sub(link):
 
 def parse_md_link(link):
     try:
-        # 发送请求并获取内容
-        response = requests.get(link)
-        response.raise_for_status()  # 检查请求是否成功
+        # 直接使用requests获取内容
+        response = requests.get(link, headers=headers, verify=False, timeout=5)
+        response.raise_for_status()
         content = response.text
         content = urllib.parse.unquote(content)
+        
         # 定义正则表达式模式，匹配所需的协议链接
-        pattern = r'(?:vless|vmess|trojan|hysteria2|ss):\/\/[^#\s]*(?:#[^\s]*)?'
-
-        # 使用re.findall()提取所有匹配的链接
-        matches = re.findall(pattern, content)
+        # 支持多行匹配，因为README.md中的链接可能跨行
+        patterns = [
+            r'(?:vless|vmess|trojan|hysteria2|hy2|ss)://[A-Za-z0-9+/=_-]+(?:[?#][^\\s<]*)?',  # 基本格式
+            r'`(?:vless|vmess|trojan|hysteria2|hy2|ss)://[^`]+`',  # markdown代码块中的格式
+            r'"(?:vless|vmess|trojan|hysteria2|hy2|ss)://[^"]+\"'  # 引号包裹的格式
+        ]
+        
+        matches = []
+        for pattern in patterns:
+            found = re.findall(pattern, content, re.MULTILINE)
+            # 清理匹配结果中的特殊字符
+            cleaned = [link.strip('`"\' \n') for link in found]
+            matches.extend(cleaned)
+            
+        # 去重
+        matches = list(set(matches))
+        
+        if matches:
+            print(f"从{link}成功提取到{len(matches)}个节点链接")
+        else:
+            print(f"从{link}未提取到任何节点链接")
+            
         return matches
 
-    except requests.RequestException as e:
-        print(f"请求错误: {e}")
+    except Exception as e:
+        print(f"解析{link}时出错: {str(e)}")
         return []
 
 # js渲染页面
@@ -1492,13 +1511,62 @@ def parse_proxy_link(link):
 
 # 根据server和port共同约束去重
 def deduplicate_proxies(proxies_list):
+    """去重并验证节点有效性"""
+    if not proxies_list:
+        return []
+        
     unique_proxies = []
     seen = set()
+    
+    def is_valid_proxy(proxy):
+        """检查节点是否有效"""
+        try:
+            if not isinstance(proxy, dict):
+                return False
+                
+            # 检查必要字段
+            required_fields = ["type", "server", "port", "name"]
+            if not all(field in proxy for field in required_fields):
+                print(f"节点缺少必要字段: {proxy.get('name', 'unknown')}")
+                return False
+                
+            # 根据不同类型检查特定字段
+            proxy_type = proxy["type"]
+            if proxy_type == "vmess" and "uuid" not in proxy:
+                print(f"vmess节点缺少uuid: {proxy.get('name')}")
+                return False
+            elif proxy_type == "vless" and "uuid" not in proxy:
+                print(f"vless节点缺少uuid: {proxy.get('name')}")
+                return False
+            elif proxy_type == "trojan" and "password" not in proxy:
+                print(f"trojan节点缺少password: {proxy.get('name')}")
+                return False
+            elif proxy_type == "ss" and ("cipher" not in proxy or "password" not in proxy):
+                print(f"ss节点缺少cipher或password: {proxy.get('name')}")
+                return False
+            elif proxy_type in ["hysteria2", "hy2"] and "password" not in proxy:
+                print(f"hysteria2节点缺少password: {proxy.get('name')}")
+                return False
+                
+            return True
+        except Exception as e:
+            print(f"验证节点时出错: {str(e)}")
+            return False
+    
     for proxy in proxies_list:
-        key = (proxy['server'], proxy['port'], proxy['type'], proxy['password']) if proxy.get("password") else (proxy['server'], proxy['port'], proxy['type'])
-        if key not in seen:
-            seen.add(key)
-            unique_proxies.append(proxy)
+        try:
+            if not is_valid_proxy(proxy):
+                continue
+                
+            key = f"{proxy['type']}_{proxy['server']}_{proxy['port']}"
+            if key not in seen:
+                seen.add(key)
+                unique_proxies.append(proxy)
+        except Exception as e:
+            print(f"处理节点时出错: {str(e)}")
+            continue
+            
+    print(f"节点去重: {len(proxies_list)} -> {len(unique_proxies)}")
     return unique_proxies
 
 # 出现节点name相同时，加上4位随机字符串
@@ -1650,11 +1718,24 @@ def generate_clash_config(links,load_nodes):
             config["proxy-groups"][3]["proxies"].append(name)
     config["proxies"] = final_nodes
     if config["proxies"]:
+        # 生成clash配置(仅yaml格式)
         with open(CONFIG_FILE, "w", encoding="utf-8") as f:
             yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
-        with open(f'{CONFIG_FILE}.json', "w", encoding="utf-8") as f:
-            json.dump(config,f,ensure_ascii=False)
-        print(f"已经生成Clash配置文件{CONFIG_FILE}|{CONFIG_FILE}.json")
+            
+        try:
+            # 生成v2ray订阅
+            v2ray_sub = generate_v2ray_subscription(config["proxies"])
+            if v2ray_sub:
+                v2ray_sub_file = "v2ray_sub.txt"
+                with open(v2ray_sub_file, "w", encoding="utf-8") as f:
+                    f.write(v2ray_sub)
+                print(f"已经生成V2ray订阅文件{v2ray_sub_file}")
+            else:
+                print("生成V2ray订阅失败")
+            print(f"已经生成Clash配置文件{CONFIG_FILE}")
+        except Exception as e:
+            print(f"生成V2ray订阅时出错: {e}")
+            print(f"已经生成Clash配置文件{CONFIG_FILE}")
     else:
         print('没有节点数据更新')
 
@@ -2130,7 +2211,6 @@ async def proxy_clean():
     print(f"并发数量: {MAX_CONCURRENT_TESTS}")
     print(f"超时时间: {TIMEOUT}秒")
     print(f"保留节点：最多保留{LIMIT}个延迟最小的有效节点")
-    print(f"下载测速：测试延迟最小的前100个节点，每个节点测试5秒")
 
     # 加载配置
     print(f'加载配置文件{CONFIG_FILE}')
@@ -2381,6 +2461,234 @@ def get_subscription_with_retry(url, max_retries=3):
             time.sleep(2 ** i)  # 指数退避
     return None
 
+# V2ray配置转换相关函数
+def get_v2ray_stream_settings(proxy):
+    """转换传输协议相关配置为v2ray格式"""
+    network = proxy.get("network", "tcp")
+    stream_settings = {
+        "network": network,
+        "security": "tls" if proxy.get("tls", False) else "none" 
+    }
+    
+    if proxy.get("tls", False):
+        stream_settings["tlsSettings"] = {
+            "serverName": proxy.get("sni", ""),
+            "allowInsecure": proxy.get("skip-cert-verify", False)
+        }
+    
+    if network == "ws":
+        stream_settings["wsSettings"] = {
+            "path": proxy.get("ws-opts", {}).get("path", ""),
+            "headers": proxy.get("ws-opts", {}).get("headers", {})
+        }
+    elif network == "http":
+        stream_settings["httpSettings"] = {
+            "path": proxy.get("http-opts", {}).get("path", ["/"])[0],
+            "host": proxy.get("http-opts", {}).get("headers", {}).get("Host", [])
+        }
+    
+    return stream_settings
+
+def convert_to_v2ray_outbound(clash_proxy):
+    """将clash代理配置转换为v2ray outbound格式"""
+    proxy_type = clash_proxy["type"]
+    
+    if proxy_type == "vmess":
+        return {
+            "protocol": "vmess",
+            "settings": {
+                "vnext": [{
+                    "address": clash_proxy["server"],
+                    "port": int(clash_proxy["port"]),
+                    "users": [{
+                        "id": clash_proxy["uuid"],
+                        "alterId": clash_proxy.get("alterId", 0),
+                        "security": clash_proxy.get("cipher", "auto")
+                    }]
+                }]
+            },
+            "streamSettings": get_v2ray_stream_settings(clash_proxy),
+            "tag": clash_proxy.get("name", "vmess")
+        }
+    
+    elif proxy_type == "vless":
+        return {
+            "protocol": "vless",
+            "settings": {
+                "vnext": [{
+                    "address": clash_proxy["server"],
+                    "port": int(clash_proxy["port"]),
+                    "users": [{
+                        "id": clash_proxy["uuid"],
+                        "encryption": "none",
+                        "flow": clash_proxy.get("flow", "")
+                    }]
+                }]
+            },
+            "streamSettings": get_v2ray_stream_settings(clash_proxy),
+            "tag": clash_proxy.get("name", "vless")
+        }
+    
+    elif proxy_type == "trojan":
+        return {
+            "protocol": "trojan",
+            "settings": {
+                "servers": [{
+                    "address": clash_proxy["server"],
+                    "port": int(clash_proxy["port"]),
+                    "password": clash_proxy["password"]
+                }]
+            },
+            "streamSettings": get_v2ray_stream_settings(clash_proxy),
+            "tag": clash_proxy.get("name", "trojan")
+        }
+    
+    elif proxy_type == "shadowsocks":
+        return {
+            "protocol": "shadowsocks",
+            "settings": {
+                "servers": [{
+                    "address": clash_proxy["server"],
+                    "port": int(clash_proxy["port"]),
+                    "method": clash_proxy["cipher"],
+                    "password": clash_proxy["password"]
+                }]
+            },
+            "tag": clash_proxy.get("name", "shadowsocks")
+        }
+    
+    return None
+
+def convert_proxy_to_v2ray_link(proxy):
+    """将clash代理配置转换为v2ray链接格式"""
+    try:
+        # 检查必要字段
+        if not isinstance(proxy, dict) or "type" not in proxy or "server" not in proxy or "port" not in proxy:
+            print(f"节点缺少必要字段: {proxy.get('name', 'unknown')}")
+            return None
+            
+        proxy_type = proxy["type"]
+        
+        if proxy_type == "vmess":
+            if "uuid" not in proxy:
+                print(f"vmess节点缺少uuid: {proxy.get('name', 'unknown')}")
+                return None
+                
+            # 构造vmess配置json
+            config = {
+                "v": "2",
+                "ps": proxy.get("name", "vmess"),
+                "add": proxy["server"],
+                "port": str(proxy["port"]),
+                "id": proxy["uuid"],
+                "aid": str(proxy.get("alterId", 0)),
+                "net": proxy.get("network", "tcp"),
+                "type": "none",
+                "host": proxy.get("ws-opts", {}).get("headers", {}).get("Host", ""),
+                "path": proxy.get("ws-opts", {}).get("path", ""),
+                "tls": "tls" if proxy.get("tls", False) else ""
+            }
+            return f"vmess://{base64.b64encode(json.dumps(config).encode()).decode()}"
+            
+        elif proxy_type == "vless":
+            if "uuid" not in proxy:
+                print(f"vless节点缺少uuid: {proxy.get('name', 'unknown')}")
+                return None
+                
+            uuid = proxy["uuid"]
+            address = proxy["server"]
+            port = proxy["port"]
+            params = {
+                "type": proxy.get("network", "tcp"),
+                "security": proxy.get("tls", "none"),
+                "path": proxy.get("ws-opts", {}).get("path", ""),
+                "host": proxy.get("ws-opts", {}).get("headers", {}).get("Host", ""),
+                "sni": proxy.get("sni", "")
+            }
+            query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
+            return f"vless://{uuid}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'vless'))}"
+            
+        elif proxy_type == "trojan":
+            if "password" not in proxy:
+                print(f"trojan节点缺少password: {proxy.get('name', 'unknown')}")
+                return None
+                
+            password = proxy["password"]
+            address = proxy["server"]
+            port = proxy["port"]
+            params = {
+                "sni": proxy.get("sni", ""),
+                "type": proxy.get("network", "tcp"),
+                "security": "tls" if proxy.get("tls", False) else "none"
+            }
+            query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
+            return f"trojan://{password}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'trojan'))}"
+            
+        elif proxy_type == "ss":
+            if "cipher" not in proxy or "password" not in proxy:
+                print(f"ss节点缺少cipher或password: {proxy.get('name', 'unknown')}")
+                return None
+                
+            method = proxy["cipher"]
+            password = proxy["password"]
+            address = proxy["server"]
+            port = proxy["port"]
+            
+            # base64编码 method:password 部分
+            user_info = base64.b64encode(f"{method}:{password}".encode()).decode()
+            return f"ss://{user_info}@{address}:{port}#{urllib.parse.quote(proxy.get('name', 'ss'))}"
+            
+        elif proxy_type in ["hysteria2", "hy2"]:
+            if "password" not in proxy:
+                print(f"hysteria2节点缺少password: {proxy.get('name', 'unknown')}")
+                return None
+                
+            password = proxy["password"]
+            address = proxy["server"]
+            port = proxy["port"]
+            params = {
+                "sni": proxy.get("sni", ""),
+                "insecure": "1" if proxy.get("skip-cert-verify", False) else "0"
+            }
+            query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
+            return f"hysteria2://{password}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'hysteria2'))}"
+            
+    except Exception as e:
+        print(f"转换节点 {proxy.get('name', 'unknown')} 失败: {str(e)}")
+        return None
+
+def generate_v2ray_subscription(proxies):
+    """生成v2ray订阅内容"""
+    if not isinstance(proxies, list):
+        print("proxies不是有效的列表")
+        return None
+        
+    v2ray_links = []
+    valid_count = 0
+    
+    for proxy in proxies:
+        try:
+            if not isinstance(proxy, dict):
+                continue
+                
+            link = convert_proxy_to_v2ray_link(proxy)
+            if link:
+                v2ray_links.append(link)
+                valid_count += 1
+                
+        except Exception as e:
+            print(f"处理节点失败: {str(e)}")
+            continue
+            
+    if not v2ray_links:
+        print("没有有效的节点可以生成订阅")
+        return None
+        
+    print(f"成功转换 {valid_count} 个节点")
+    # 将所有链接用换行符连接并base64编码
+    content = '\n'.join(v2ray_links)
+    return base64.b64encode(content.encode()).decode()
+
 if __name__ == '__main__':
     links = ["https://slink.ltd/https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml",
         "https://slink.ltd/https://raw.githubusercontent.com/Roywaller/clash_subscription/refs/heads/main/clash_subscription.txt",
@@ -2392,11 +2700,9 @@ if __name__ == '__main__':
         "https://slink.ltd/https://raw.githubusercontent.com/xiaoji235/airport-free/refs/heads/main/clash/naidounode.txt",
         "https://slink.ltd/https://raw.githubusercontent.com/xiaoer8867785/jddy5/refs/heads/main/data/{Y_m_d}/{x}.yaml",
         "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/LogInfo.txt|links",
-        "https://slink.ltd/https://raw.githubusercontent.com/tglaoshiji/nodeshare/refs/heads/main/{Y}/{m}/{Ymd}.yaml",
         "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/SSAggregator/master/sub/sub_merge_yaml.yml",
         "https://slink.ltd/https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/Eternity.yml",
         "https://slink.ltd/https://raw.githubusercontent.com/vxiaov/free_proxies/main/clash/clash.provider.yaml",
-        "https://slink.ltd/https://raw.githubusercontent.com/wangyingbo/yb_clashgithub_sub/main/clash_sub.yml",
         "https://slink.ltd/https://raw.githubusercontent.com/ljlfct01/ljlfct01.github.io/refs/heads/main/节点",
         "https://slink.ltd/https://raw.githubusercontent.com/snakem982/proxypool/main/source/clash-meta.yaml",
         "https://slink.ltd/https://raw.githubusercontent.com/leetomlee123/freenode/refs/heads/main/README.md",
@@ -2418,7 +2724,7 @@ if __name__ == '__main__':
         "https://slink.ltd/https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.yml",
         "https://slink.ltd/https://raw.githubusercontent.com/mfbpn/tg_mfbpn_sub/main/trial.yaml",
         "https://slink.ltd/https://raw.githubusercontent.com/Ruk1ng001/freeSub/main/clash.yaml",
-        "https://raw.githubusercontent.com/SoliSpirit/v2ray-configs/main/all_configs.txt|links"
+        "https://slink.ltd/https://raw.githubusercontent.com/SoliSpirit/v2ray-configs/main/all_configs.txt"
         "https://slink.ltd/https://raw.githubusercontent.com/ripaojiedian/freenode/main/clash",
         "https://slink.ltd/https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml",
         "https://slink.ltd/https://raw.githubusercontent.com/mfuu/v2ray/master/clash.yaml",
@@ -2435,5 +2741,13 @@ if __name__ == '__main__':
         "https://proxypool.link/vmess/sub",
         "https://mxlsub.me/newfull",
         "https://igdux.top/5Hna",
+        'https://slink.ltd/https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub',
+        'https://slink.ltd/https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt',
+        'https://slink.ltd/https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2',
+        'https://slink.ltd/https://raw.githubusercontent.com/roosterkid/openproxylist/main/V2RAY_BASE64.txt',
+        'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify1.txt',
+        'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify2.txt',
+        'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify3.txt',
     ]
+
     work(links, check=True, only_check=False, allowed_types=["ss","hysteria2","hy2","vless","vmess","trojan"])
