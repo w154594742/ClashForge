@@ -29,8 +29,6 @@ ssl._create_default_https_context = ssl._create_unverified_context
 import warnings
 warnings.filterwarnings('ignore')
 from requests_html import HTMLSession
-from queue import Queue, Empty
-from threading import Thread
 
 # TEST_URL = "http://www.gstatic.com/generate_204"
 TEST_URL = "http://www.pinterest.com"
@@ -39,7 +37,7 @@ CLASH_API_HOST = "127.0.0.1"
 CLASH_API_SECRET = ""
 TIMEOUT = 1
 MAX_CONCURRENT_TESTS = 100
-LIMIT = 1000 # 最多保留LIMIT个节点
+LIMIT = 10000 # 最多保留LIMIT个节点
 CLASH_CONFIG_FILE = 'clash.yaml' # Clash配置文件
 V2RAY_CONFIG_FILE = 'v2ray.txt' # V2ray订阅文件
 INPUT = "input" # 从文件中加载代理节点，支持yaml/yml、txt(每条代理链接占一行)
@@ -1726,13 +1724,14 @@ def generate_clash_config(links,load_nodes):
             yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
             
         try:
-            # 无论节点是否经过测试，都生成v2ray订阅
-            print(f"正在生成V2ray订阅，包含 {len(config['proxies'])} 个节点")
+            # 生成v2ray订阅 - 注意这里使用的是全部节点，后续测试后会被更新为有效节点
+            # 在此阶段生成的是未经测试的全部节点订阅
             v2ray_sub = generate_v2ray_subscription(config["proxies"])
             if v2ray_sub:
-                with open(V2RAY_CONFIG_FILE, "w", encoding="utf-8") as f:
+                v2ray_sub_file = V2RAY_CONFIG_FILE
+                with open(v2ray_sub_file, "w", encoding="utf-8") as f:
                     f.write(v2ray_sub)
-                print(f"已保存V2ray订阅文件到 {V2RAY_CONFIG_FILE}")
+                print(f"已生成初始V2ray订阅文件，包含 {len(config['proxies'])} 个节点")
                 print("注意：运行 'python ClashForge.py --check' 可测试节点有效性并更新订阅")
         except Exception as e:
             print(f"生成V2ray订阅时出错: {e}")
@@ -1889,91 +1888,68 @@ def read_output(pipe, output_lines):
 
 
 def start_clash():
-    """启动clash并等待API就绪"""
-    print('===================启动clash并初始化配置======================')
-    
-    # 获取clash可执行文件路径
-    if platform.system().lower() == 'windows':
-        clash_path = os.path.join(os.getcwd(), "clash-windows-amd64.exe")
+    download_and_extract_latest_release()
+    system_platform = platform.system().lower()
+
+    if system_platform == 'windows':
+        clash_binary = '.\\clash.exe'
+    elif system_platform in ["linux", "darwin"]:
+        clash_binary = f'./clash-{system_platform}'
+        ensure_executable(clash_binary)
     else:
-        clash_path = os.path.join(os.getcwd(), "clash-linux-amd64")
-        
-    ensure_executable(clash_path)
-    
-    # 检查clash是否已经在运行
-    if is_clash_api_running():
-        print("Clash已经在运行")
-        return True
-        
-    try:
-        # 启动clash进程
-        process = subprocess.Popen(
-            [clash_path, '-f', CLASH_CONFIG_FILE],
+        raise OSError("Unsupported operating system.")
+
+    not_started = True
+
+    global CLASH_CONFIG_FILE
+    CLASH_CONFIG_FILE = f'{CLASH_CONFIG_FILE}.json' if os.path.exists(f'{CLASH_CONFIG_FILE}.json') else CLASH_CONFIG_FILE
+    while not_started:
+        # print(f'加载配置{CLASH_CONFIG_FILE}')
+        clash_process = subprocess.Popen(
+            [clash_binary, '-f', CLASH_CONFIG_FILE],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            universal_newlines=True
+            text=True,
+            encoding='utf-8'
         )
-        
-        # 创建队列存储输出行
-        output_lines = Queue()
-        
-        # 创建线程读取输出
-        stdout_thread = Thread(target=read_output, args=(process.stdout, output_lines))
-        stderr_thread = Thread(target=read_output, args=(process.stderr, output_lines))
-        
-        stdout_thread.daemon = True
-        stderr_thread.daemon = True
+
+        output_lines = []
+
+        # 启动线程来读取标准输出和标准错误
+        stdout_thread = threading.Thread(target=read_output, args=(clash_process.stdout, output_lines))
+
         stdout_thread.start()
-        stderr_thread.start()
-        
-        # 等待API就绪
+
+        timeout = 3
         start_time = time.time()
-        while time.time() - start_time < 30:  # 30秒超时
-            try:
-                # 检查是否有错误输出
-                try:
-                    line = output_lines.get_nowait()
-                    if "error" in line.lower():
-                        if handle_clash_error(line, CLASH_CONFIG_FILE):
-                            # 如果错误被处理，重启clash
-                            process.terminate()
-                            return start_clash()
-                        else:
-                            print(f"Clash启动错误: {line}")
-                            return False
-                except Empty:
-                    pass
-                    
-                # 检查API是否就绪
-                if is_clash_api_running():
-                    print("Clash API启动成功，开始批量检测")
-                    return process  # 返回进程对象以便后续关闭
-                    
-                time.sleep(1)
-            except Exception as e:
-                print(f"检查Clash状态时出错: {e}")
-                
-        print("Clash启动超时")
-        process.terminate()  # 终止进程
-        return False
-        
-    except Exception as e:
-        print(f"启动Clash时出错: {e}")
-        return False
+        while time.time() - start_time < timeout:
+            stdout_thread.join(timeout=0.5)
+            if output_lines:
+                # 检查输出是否包含错误信息
+                if 'GeoIP.dat' in output_lines[-1]:
+                    print(output_lines[-1])
+                    time.sleep(5)
+                    if is_clash_api_running():
+                        return clash_process
+
+                if "Parse config error" in output_lines[-1]:
+                    if handle_clash_error(output_lines[-1], CLASH_CONFIG_FILE):
+                        clash_process.kill()
+                        output_lines = []
+            if is_clash_api_running():
+                return clash_process
+
 
 def is_clash_api_running():
-    """检查Clash API是否在运行"""
     try:
-        # 设置超时更短，避免长时间等待
-        response = requests.get("http://127.0.0.1:9090/version", timeout=3)
-        if response.status_code == 200:
-            version_info = response.json()
-            print(f"成功连接到 Clash API (端口 9090)，版本: {version_info.get('version', '未知')}")
-            return True
+        url = f"http://{CLASH_API_HOST}:{CLASH_API_PORTS[0]}/configs"
+        response = requests.get(url)
+        # 检查响应状态码，200表示正常
+        print(f'Clash API启动成功，开始批量检测')
+        return response.status_code == 200
     except requests.exceptions.RequestException:
-        # 忽略连接错误
-        pass
-    return False
+        # 捕获所有请求异常，包括连接错误等
+        return False
 
 # 切换到指定代理节点
 def switch_proxy(proxy_name='DIRECT'):
@@ -2247,17 +2223,12 @@ async def test_group_proxies(clash_api: ClashAPI, proxies: List[str]) -> List[Pr
     return results
 
 async def proxy_clean():
-    # 更新全局配置
-    global CLASH_CONFIG_FILE
-    
     print('\n===================开始测试节点延迟======================\n')
     
     start_time = datetime.now()
-    clash_process = None
     
     # 启动clash
-    clash_process = start_clash()
-    if not clash_process:
+    if not start_clash():
         return False
         
     try:
@@ -2364,15 +2335,16 @@ async def proxy_clean():
                     try:
                         # 生成v2ray订阅，只使用有效且在限制内的节点
                         filtered_proxies = [p for p in config.config["proxies"] if p["name"] in proxy_names]
-                        print(f"正在生成有效节点的V2ray订阅，包含 {len(filtered_proxies)} 个有效节点")
+                        print(f"正在生成V2ray订阅，使用 {len(filtered_proxies)} 个有效节点")
                         v2ray_sub = generate_v2ray_subscription(filtered_proxies)
                         if v2ray_sub:
-                            with open(V2RAY_CONFIG_FILE, "w", encoding="utf-8") as f:
+                            v2ray_sub_file = V2RAY_CONFIG_FILE
+                            with open(v2ray_sub_file, "w", encoding="utf-8") as f:
                                 f.write(v2ray_sub)
-                            print(f"已更新V2ray订阅文件 {V2RAY_CONFIG_FILE}，只包含有效节点")
+                            print(f"已保存V2ray订阅文件到 {v2ray_sub_file}")
                     except Exception as e:
                         print(f"生成V2ray订阅时出错: {e}")
-                        
+                    
                     # 显示总耗时
                     total_time = (datetime.now() - start_time).total_seconds()
                     print(f"\n总耗时: {total_time:.2f} 秒")
@@ -2387,34 +2359,12 @@ async def proxy_clean():
                 else:
                     print(f"Clash API错误: {e}，已达到最大重试次数")
                     return False
-        
+                    
         return True
             
     except Exception as e:
         print(f"发生错误: {e}")
         return False
-    finally:
-        # 确保在函数结束时停止Clash进程
-        try:
-            print("停止Clash进程...")
-            # 尝试优雅地结束进程
-            if clash_process and hasattr(clash_process, 'terminate'):
-                clash_process.terminate()
-                # 等待进程结束，最多等待5秒
-                try:
-                    clash_process.wait(timeout=5)
-                except subprocess.TimeoutExpired:
-                    # 如果超时，强制结束进程
-                    clash_process.kill()
-                print("Clash进程已停止")
-            
-            # 额外检查并结束所有Clash进程
-            if platform.system().lower() == 'windows':
-                os.system('taskkill /f /im clash-windows-amd64.exe > nul 2>&1')
-            else:
-                os.system('pkill -f clash-linux-amd64 > /dev/null 2>&1')
-        except Exception as e:
-            print(f"停止Clash进程时出错: {e}")
 
 # 获取当前时间的各个组成部分
 def parse_datetime_variables():
@@ -2536,64 +2486,48 @@ def resolve_template_url(template_url):
     return resolved_url
 
 def work(links, check=False, allowed_types=[], only_check=False):
-    """
-    处理订阅链接并生成配置
-    :param links: 订阅链接列表
-    :param check: 是否进行节点测试
-    :param allowed_types: 过滤类型
-    :param only_check: 只检查节点有效性，不获取新的节点
-    :return: 节点列表
-    """
-    # 处理各种类型的链接，并根据参数决定是否进行冲突解决
-    load_nodes = []
-    if not only_check:
-        if os.path.exists(INPUT):
-            # 处理目录
-            if os.path.isdir(INPUT):
-                # 从文件夹载入节点
-                load_nodes = merge_lists(
-                    read_yaml_files(INPUT) or [],
-                    read_txt_files(INPUT) or []
-                )
-            # 处理单个文件
-            elif INPUT.endswith(('.yaml', '.yml')):
-                with open(INPUT, 'r', encoding='utf-8') as f:
-                    cfg = yaml.safe_load(f)
-                    if cfg and cfg.get("proxies"):
-                        load_nodes = cfg["proxies"]
-            elif INPUT.endswith('.txt'):
-                # 处理txt文件中的节点链接
-                with open(INPUT, 'r', encoding='utf-8') as f:
-                    links_in_file = [line.strip() for line in f if line.strip()]
-                    handle_links(links_in_file, lambda x: load_nodes.append(x))
+    try:
+        if not only_check:
+            load_nodes = read_yaml_files(folder_path=INPUT)
+            if allowed_types:
+                load_nodes = filter_by_types_alt(allowed_types, nodes=load_nodes)
+            links = merge_lists(read_txt_files(folder_path=INPUT), links)
+            if links or load_nodes:
+                try:
+                    generate_clash_config(links, load_nodes)
+                except Exception as e:
+                    print(f"生成配置文件时出错: {e}")
+                    # 不要直接退出，继续执行后续操作
+                    if not check and not only_check:
+                        return
 
-        # 过滤类型
-        if allowed_types:
-            load_nodes = filter_by_types_alt(allowed_types, load_nodes)
-        
-        load_nodes = deduplicate_proxies(load_nodes)
-        print(f"从 {INPUT} 加载 {len(load_nodes)} 个节点")
+        if check or only_check:
+            clash_process = None
+            try:
+                print(f"===================启动clash并初始化配置======================")
+                clash_process = start_clash()
+                switch_proxy('DIRECT')
+                asyncio.run(proxy_clean())
+                print(f'批量检测完毕')
+            except Exception as e:
+                print(f"Clash API 调用错误: {e}")
+            finally:
+                print(f'准备关闭Clash API')
+                if clash_process is not None:
+                    print(f'开始关闭Clash API')
+                    clash_process.kill()
+                    print(f'Clash API已关闭')
+                else:
+                    print(f'Clash API未启动')
+                os._exit(0)  # 强制退出，谨慎使用
 
-        generate_clash_config(links,load_nodes)
-
-    if check:
-        try:
-            result = asyncio.run(proxy_clean())
-            print(f"节点测试完成，结果: {'成功' if result else '失败'}")
-        except Exception as e:
-            print(f"节点测试过程中发生错误: {e}")
-        finally:
-            # 确保所有Clash进程都被关闭
-            print("确认清理所有Clash进程...")
-            if platform.system().lower() == 'windows':
-                os.system('taskkill /f /im clash-windows-amd64.exe > nul 2>&1')
-            else:
-                os.system('pkill -f clash-linux-amd64 > /dev/null 2>&1')
-    
-    print("程序执行完毕")
-    return load_nodes
-    
-# ... 其他代码保持不变 ...
+    except KeyboardInterrupt:
+        print("\n用户中断执行")
+        sys.exit(0)
+    except Exception as e:
+        print(f"程序执行出现错误: {e}")
+        # 不要直接退出
+        return
 
 def get_subscription_with_retry(url, max_retries=3):
     for i in range(max_retries):
@@ -2949,8 +2883,10 @@ if __name__ == '__main__':
         'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify3.txt',
     ]
 
-    # 开发环境时的测试链接
+    # 开发环境测试使用
     # links = ["https://slink.ltd/https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml",
+    #     "https://slink.ltd/https://raw.githubusercontent.com/Roywaller/clash_subscription/refs/heads/main/clash_subscription.txt",
+    #     "https://www.freeclashnode.com/uploads/{Y}/{m}/0-{Ymd}.yaml",
     #     'https://slink.ltd/https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2',
     #     'https://slink.ltd/https://raw.githubusercontent.com/roosterkid/openproxylist/main/V2RAY_BASE64.txt',
     #     'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify1.txt',
