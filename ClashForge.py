@@ -37,7 +37,7 @@ CLASH_API_HOST = "127.0.0.1"
 CLASH_API_SECRET = ""
 TIMEOUT = 1
 MAX_CONCURRENT_TESTS = 100
-LIMIT = 10000 # 最多保留LIMIT个节点
+LIMIT = 1000 # 最多保留LIMIT个节点
 CLASH_CONFIG_FILE = 'clash.yaml' # Clash配置文件
 V2RAY_CONFIG_FILE = 'v2ray.txt' # V2ray订阅文件
 INPUT = "input" # 从文件中加载代理节点，支持yaml/yml、txt(每条代理链接占一行)
@@ -1724,18 +1724,18 @@ def generate_clash_config(links,load_nodes):
             yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
             
         try:
-            # 生成v2ray订阅
+            # 无论节点是否经过测试，都生成v2ray订阅
+            print(f"正在生成V2ray订阅，包含 {len(config['proxies'])} 个节点")
             v2ray_sub = generate_v2ray_subscription(config["proxies"])
             if v2ray_sub:
                 with open(V2RAY_CONFIG_FILE, "w", encoding="utf-8") as f:
                     f.write(v2ray_sub)
-                print(f"已经生成V2ray订阅文件{V2RAY_CONFIG_FILE}")
-            else:
-                print("生成V2ray订阅失败")
-            print(f"已经生成Clash配置文件{CLASH_CONFIG_FILE}")
+                print(f"已保存V2ray订阅文件到 {V2RAY_CONFIG_FILE}")
+                print("注意：运行 'python ClashForge.py --check' 可测试节点有效性并更新订阅")
         except Exception as e:
             print(f"生成V2ray订阅时出错: {e}")
-            print(f"已经生成Clash配置文件{CLASH_CONFIG_FILE}")
+            
+        print(f"已经生成Clash配置文件{CLASH_CONFIG_FILE}")
     else:
         print('没有节点数据更新')
 
@@ -2101,24 +2101,26 @@ class ClashConfig:
         return []
 
     def remove_invalid_proxies(self, results: List[ProxyTestResult]):
-        """从配置中完全移除失效的节点"""
-        # 获取所有失效节点名称
-        invalid_proxies = {r.name for r in results if not r.is_valid}
-
-        if not invalid_proxies:
+        """从配置中移除无效节点"""
+        if not results:
             return
 
-        # 从 proxies 部分移除失效节点
-        valid_proxies = []
-        if "proxies" in self.config:
-            valid_proxies = [p for p in self.config["proxies"]
-                             if p.get("name") not in invalid_proxies]
-            self.config["proxies"] = valid_proxies
+        # 获取无效节点名称集合
+        invalid_proxies = {r.name for r in results if not r.is_valid}
+        
+        # 获取有效节点名称集合
+        valid_proxies = {r.name for r in results if r.is_valid}
+        
+        # 只保留有效的节点
+        self.config["proxies"] = [p for p in self.config["proxies"] 
+                                if p.get("name") in valid_proxies]
 
         # 从所有代理组中移除失效节点
         for group in self.proxy_groups:
             if "proxies" in group:
-                group["proxies"] = [p for p in group["proxies"] if p not in invalid_proxies]
+                group["proxies"] = [p for p in group["proxies"] 
+                                  if p not in invalid_proxies]
+                                  
         global LIMIT
         LIMIT = LIMIT if len(self.config['proxies']) > LIMIT else len(self.config['proxies'])
         print(f"已从配置中移除 {len(invalid_proxies)} 个失效节点，最终保留{LIMIT}个延迟最小的节点")
@@ -2158,6 +2160,24 @@ class ClashConfig:
             sys.exit(1)
 
 # 打印测试结果摘要
+def update_proxy_name_with_delay(proxy_name: str, delay: Optional[float]) -> str:
+    """
+    更新节点名称，添加延迟信息
+    例如: "香港节点" -> "香港节点(200ms)"
+    """
+    # 首先移除可能存在的旧的延迟信息
+    name = re.sub(r'\s*\(\d+m?s\)$', '', proxy_name)
+    
+    # 如果有延迟，添加延迟信息
+    if delay is not None:
+        if delay >= 1000:
+            # 如果延迟大于1000ms，显示为秒
+            return f"{name}({delay/1000:.1f}s)"
+        else:
+            # 否则显示为ms
+            return f"{name}({int(delay)}ms)"
+    return name
+
 def print_test_summary(group_name: str, results: List[ProxyTestResult]):
     """打印测试结果摘要"""
     valid_results = [r for r in results if r.is_valid]
@@ -2203,92 +2223,149 @@ async def test_group_proxies(clash_api: ClashAPI, proxies: List[str]) -> List[Pr
 
 async def proxy_clean():
     # 更新全局配置
-    global MAX_CONCURRENT_TESTS, TIMEOUT, CLASH_API_SECRET, LIMIT, CLASH_CONFIG_FILE
-    CLASH_CONFIG_FILE = f'{CLASH_CONFIG_FILE}.json' if os.path.exists(f'{CLASH_CONFIG_FILE}.json') else CLASH_CONFIG_FILE
-    print(f"===================节点批量检测基本信息======================")
-    print(f"配置文件: {CLASH_CONFIG_FILE}")
-    print(f"API 端口: {CLASH_API_PORTS[0]}")
-    print(f"并发数量: {MAX_CONCURRENT_TESTS}")
-    print(f"超时时间: {TIMEOUT}秒")
-    print(f"保留节点：最多保留{LIMIT}个延迟最小的有效节点")
-
-    # 加载配置
-    print(f'加载配置文件{CLASH_CONFIG_FILE}')
-    config = ClashConfig(CLASH_CONFIG_FILE)
-    available_groups = config.get_group_names()[1:]
-
-    # 确定要测试的策略组
-    groups_to_test = available_groups
-    invalid_groups = set(groups_to_test) - set(available_groups)
-    if invalid_groups:
-        print(f"警告: 以下策略组不存在: {', '.join(invalid_groups)}")
-        groups_to_test = list(set(groups_to_test) & set(available_groups))
-
-    if not groups_to_test:
-        print("错误: 没有找到要测试的有效策略组")
-        print(f"可用的策略组: {', '.join(available_groups)}")
-        return
-
-    print(f"\n将测试以下策略组: {', '.join(groups_to_test)}")
-
-    # 开始测试
+    global CLASH_CONFIG_FILE
+    
+    print('\n===================开始测试节点延迟======================\n')
+    
     start_time = datetime.now()
-
-    # 创建支持多端口的API实例
-    async with ClashAPI(CLASH_API_HOST, CLASH_API_PORTS, CLASH_API_SECRET) as clash_api:
-        if not await clash_api.check_connection():
-            return
-
-        try:
-            all_test_results = []  # 收集所有测试结果
-
-            # 测试策略组，只需要测试其中一个即可
-            group_name = groups_to_test[0]
-            print(f"\n======================== 开始测试策略组: {group_name} ====================")
-            proxies = config.get_group_proxies(group_name)
-
-            if not proxies:
-                print(f"策略组 '{group_name}' 中没有代理节点")
-            else:
-                # 测试该组的所有节点
-                results = await test_group_proxies(clash_api, proxies)
-                all_test_results.extend(results)
-                # 打印测试结果摘要
-                print_test_summary(group_name, results)
-
-            print('\n===================移除失效节点并按延迟排序======================\n')
-            # 一次性移除所有失效节点并更新配置
-            config.remove_invalid_proxies(all_test_results)
-
-            # 为每个组更新有效节点的顺序
-            proxy_names = set()
-            # 只对一个group的proxies排序即可
-            group_proxies = config.get_group_proxies(group_name)
-            group_results = [r for r in all_test_results if r.name in group_proxies]
-            if LIMIT:
-                group_results = group_results[:LIMIT]
-            for r in group_results:
-                proxy_names.add(r.name)
-
-            for group_name in groups_to_test:
-                config.update_group_proxies(group_name, group_results)
-                print(f"'{group_name}'已按延迟大小重新排序")
-
-            if LIMIT:
-                config.keep_proxies_by_limit(proxy_names)
-
-            # 保存更新后的配置
-            config.save()
-
-            # 显示总耗时
-            total_time = (datetime.now() - start_time).total_seconds()
-            print(f"\n总耗时: {total_time:.2f} 秒")
-
-        except ClashAPIException as e:
-            print(f"Clash API 错误: {e}")
-        except Exception as e:
-            print(f"发生错误: {e}")
-            raise
+    
+    # 启动clash
+    if not start_clash():
+        return False
+        
+    try:
+        # 尝试连接Clash API，支持重试
+        max_retries = 3
+        retry_delay = 2  # 秒
+        
+        for retry in range(max_retries):
+            try:
+                async with ClashAPI("127.0.0.1", [9090]) as clash_api:
+                    # 检查连接
+                    if not await clash_api.check_connection():
+                        if retry < max_retries - 1:
+                            print(f"无法连接到Clash API，将在{retry_delay}秒后重试...")
+                            await asyncio.sleep(retry_delay)
+                            continue
+                        else:
+                            print("无法连接到Clash API，已达到最大重试次数")
+                            return False
+                    
+                    # 加载配置
+                    config = ClashConfig(CLASH_CONFIG_FILE)
+                    
+                    # 获取所有需要测试的策略组
+                    groups_to_test = []
+                    for group in config._get_proxy_groups():
+                        if group["type"] in ["url-test", "fallback", "load-balance"]:
+                            groups_to_test.append(group["name"])
+                            
+                    if not groups_to_test:
+                        print("没有找到需要测试的策略组")
+                        return False
+                        
+                    # 存储所有测试结果
+                    all_test_results = []
+                    
+                    # 获取第一个策略组的名称
+                    group_name = groups_to_test[0]
+                    
+                    # 获取该组的所有代理
+                    proxies = config.get_group_proxies(group_name)
+                    
+                    if not proxies:
+                        print(f"策略组 '{group_name}' 中没有代理节点")
+                    else:
+                        # 测试该组的所有节点
+                        results = await test_group_proxies(clash_api, proxies)
+                        all_test_results.extend(results)
+                        # 打印测试结果摘要
+                        print_test_summary(group_name, results)
+                        
+                    print('\n===================移除失效节点并按延迟排序======================\n')
+                    
+                    # 根据延迟排序测试结果
+                    valid_results = [r for r in all_test_results if r.is_valid]
+                    valid_results.sort(key=lambda x: x.delay)
+                    
+                    # 应用LIMIT限制
+                    if LIMIT and len(valid_results) > LIMIT:
+                        print(f"根据LIMIT={LIMIT}限制，仅保留延迟最小的{LIMIT}个节点")
+                        valid_results = valid_results[:LIMIT]
+                    
+                    # 一次性移除所有失效节点并更新配置 (只调用一次)
+                    config.remove_invalid_proxies(all_test_results)
+                    
+                    # 只使用保留的有效节点
+                    proxy_names = set()
+                    name_mapping = {}  # 存储原名称到新名称的映射
+                    
+                    # 首先处理所有有效节点的名称映射
+                    for result in valid_results:
+                        new_name = update_proxy_name_with_delay(result.name, result.delay)
+                        name_mapping[result.name] = new_name
+                        result.name = new_name
+                        proxy_names.add(new_name)
+                    
+                    # 更新配置文件中的节点名称
+                    for proxy in config.config["proxies"]:
+                        if proxy["name"] in name_mapping:
+                            proxy["name"] = name_mapping[proxy["name"]]
+                    
+                    # 更新所有策略组中的节点名称
+                    for group in config.config["proxy-groups"]:
+                        if "proxies" in group:
+                            # 使用列表推导式以保持原有顺序
+                            group["proxies"] = [name_mapping.get(p, p) for p in group["proxies"]]
+                    
+                    # 仅保留有效节点
+                    if LIMIT:
+                        config.keep_proxies_by_limit(proxy_names)
+                    
+                    # 重新更新策略组代理列表，但不再过滤节点 (避免重复过滤)
+                    for group_name in groups_to_test:
+                        # 使用已经处理过的结果，不再调用remove_invalid_proxies
+                        for group in config.proxy_groups:
+                            if group["name"] == group_name:
+                                group["proxies"] = [r.name for r in valid_results]
+                                break
+                        print(f"'{group_name}'已按延迟大小重新排序")
+                    
+                    # 保存更新后的配置
+                    config.save()
+                    
+                    try:
+                        # 生成v2ray订阅，只使用有效且在限制内的节点
+                        filtered_proxies = [p for p in config.config["proxies"] if p["name"] in proxy_names]
+                        print(f"正在生成有效节点的V2ray订阅，包含 {len(filtered_proxies)} 个有效节点")
+                        v2ray_sub = generate_v2ray_subscription(filtered_proxies)
+                        if v2ray_sub:
+                            with open(V2RAY_CONFIG_FILE, "w", encoding="utf-8") as f:
+                                f.write(v2ray_sub)
+                            print(f"已更新V2ray订阅文件 {V2RAY_CONFIG_FILE}，只包含有效节点")
+                    except Exception as e:
+                        print(f"生成V2ray订阅时出错: {e}")
+                        
+                    # 显示总耗时
+                    total_time = (datetime.now() - start_time).total_seconds()
+                    print(f"\n总耗时: {total_time:.2f} 秒")
+                
+                # 连接成功，跳出重试循环
+                break
+                
+            except ClashAPIException as e:
+                if retry < max_retries - 1:
+                    print(f"Clash API错误: {e}，将在{retry_delay}秒后重试...")
+                    await asyncio.sleep(retry_delay)
+                else:
+                    print(f"Clash API错误: {e}，已达到最大重试次数")
+                    return False
+                    
+        return True
+            
+    except Exception as e:
+        print(f"发生错误: {e}")
+        return False
 
 # 获取当前时间的各个组成部分
 def parse_datetime_variables():
@@ -2410,43 +2487,51 @@ def resolve_template_url(template_url):
     return resolved_url
 
 def work(links, check=False, allowed_types=[], only_check=False):
-    try:
-        if not only_check:
-            load_nodes = read_yaml_files(folder_path=INPUT)
-            if allowed_types:
-                load_nodes = filter_by_types_alt(allowed_types, nodes=load_nodes)
-            links = merge_lists(read_txt_files(folder_path=INPUT), links)
-            if links or load_nodes:
-                try:
-                    generate_clash_config(links, load_nodes)
-                except Exception as e:
-                    print(f"生成配置文件时出错: {e}")
-                    # 不要直接退出，继续执行后续操作
-                    if not check and not only_check:
-                        return
+    """
+    处理订阅链接并生成配置
+    :param links: 订阅链接列表
+    :param check: 是否进行节点测试
+    :param allowed_types: 过滤类型
+    :param only_check: 只检查节点有效性，不获取新的节点
+    :return: 节点列表
+    """
+    # 处理各种类型的链接，并根据参数决定是否进行冲突解决
+    load_nodes = []
+    if not only_check:
+        if os.path.exists(INPUT):
+            # 处理目录
+            if os.path.isdir(INPUT):
+                # 从文件夹载入节点
+                load_nodes = merge_lists(
+                    read_yaml_files(INPUT) or [],
+                    read_txt_files(INPUT) or []
+                )
+            # 处理单个文件
+            elif INPUT.endswith(('.yaml', '.yml')):
+                with open(INPUT, 'r', encoding='utf-8') as f:
+                    cfg = yaml.safe_load(f)
+                    if cfg and cfg.get("proxies"):
+                        load_nodes = cfg["proxies"]
+            elif INPUT.endswith('.txt'):
+                # 处理txt文件中的节点链接
+                with open(INPUT, 'r', encoding='utf-8') as f:
+                    links_in_file = [line.strip() for line in f if line.strip()]
+                    handle_links(links_in_file, lambda x: load_nodes.append(x))
 
-        if check or only_check:
-            clash_process = None
-            try:
-                print(f"===================启动clash并初始化配置======================")
-                clash_process = start_clash()
-                switch_proxy('DIRECT')
-                asyncio.run(proxy_clean())
-                print(f'批量检测完毕')
-            except Exception as e:
-                print(f"Clash API 调用错误: {e}")
-            finally:
-                print(f'关闭Clash API')
-                if clash_process is not None:
-                    clash_process.kill()
+        # 过滤类型
+        if allowed_types:
+            load_nodes = filter_by_types_alt(allowed_types, load_nodes)
+        
+        load_nodes = deduplicate_proxies(load_nodes)
+        print(f"从 {INPUT} 加载 {len(load_nodes)} 个节点")
 
-    except KeyboardInterrupt:
-        print("\n用户中断执行")
-        sys.exit(0)
-    except Exception as e:
-        print(f"程序执行出现错误: {e}")
-        # 不要直接退出
-        return
+        generate_clash_config(links,load_nodes)
+
+    if check:
+        asyncio.run(proxy_clean())
+    return load_nodes
+    
+# ... 其他代码保持不变 ...
 
 def get_subscription_with_retry(url, max_retries=3):
     for i in range(max_retries):
@@ -2563,11 +2648,22 @@ def convert_proxy_to_v2ray_link(proxy):
     """将clash代理配置转换为v2ray链接格式"""
     try:
         # 检查必要字段
-        if not isinstance(proxy, dict) or "type" not in proxy or "server" not in proxy or "port" not in proxy:
-            print(f"节点缺少必要字段: {proxy.get('name', 'unknown')}")
+        if not isinstance(proxy, dict):
+            print(f"节点格式错误，不是字典类型: {proxy}")
+            return None
+            
+        if "type" not in proxy:
+            print(f"节点缺少类型信息: {proxy.get('name', 'unknown')}")
             return None
             
         proxy_type = proxy["type"]
+        
+        # 检查基本字段是否存在
+        required_fields = ["server", "port", "name"]
+        for field in required_fields:
+            if field not in proxy:
+                print(f"{proxy_type}节点缺少{field}字段: {proxy.get('name', 'unknown')}")
+                return None
         
         if proxy_type == "vmess":
             if "uuid" not in proxy:
@@ -2588,7 +2684,12 @@ def convert_proxy_to_v2ray_link(proxy):
                 "path": proxy.get("ws-opts", {}).get("path", ""),
                 "tls": "tls" if proxy.get("tls", False) else ""
             }
-            return f"vmess://{base64.b64encode(json.dumps(config).encode()).decode()}"
+            try:
+                encoded = base64.b64encode(json.dumps(config).encode()).decode()
+                return f"vmess://{encoded}"
+            except Exception as e:
+                print(f"vmess节点编码失败: {proxy.get('name', 'unknown')}, 错误: {e}")
+                return None
             
         elif proxy_type == "vless":
             if "uuid" not in proxy:
@@ -2605,8 +2706,12 @@ def convert_proxy_to_v2ray_link(proxy):
                 "host": proxy.get("ws-opts", {}).get("headers", {}).get("Host", ""),
                 "sni": proxy.get("sni", "")
             }
-            query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
-            return f"vless://{uuid}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'vless'))}"
+            try:
+                query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
+                return f"vless://{uuid}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'vless'))}"
+            except Exception as e:
+                print(f"vless节点URL编码失败: {proxy.get('name', 'unknown')}, 错误: {e}")
+                return None
             
         elif proxy_type == "trojan":
             if "password" not in proxy:
@@ -2621,8 +2726,12 @@ def convert_proxy_to_v2ray_link(proxy):
                 "type": proxy.get("network", "tcp"),
                 "security": "tls" if proxy.get("tls", False) else "none"
             }
-            query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
-            return f"trojan://{password}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'trojan'))}"
+            try:
+                query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
+                return f"trojan://{password}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'trojan'))}"
+            except Exception as e:
+                print(f"trojan节点URL编码失败: {proxy.get('name', 'unknown')}, 错误: {e}")
+                return None
             
         elif proxy_type == "ss":
             if "cipher" not in proxy or "password" not in proxy:
@@ -2634,9 +2743,13 @@ def convert_proxy_to_v2ray_link(proxy):
             address = proxy["server"]
             port = proxy["port"]
             
-            # base64编码 method:password 部分
-            user_info = base64.b64encode(f"{method}:{password}".encode()).decode()
-            return f"ss://{user_info}@{address}:{port}#{urllib.parse.quote(proxy.get('name', 'ss'))}"
+            try:
+                # base64编码 method:password 部分
+                user_info = base64.b64encode(f"{method}:{password}".encode()).decode()
+                return f"ss://{user_info}@{address}:{port}#{urllib.parse.quote(proxy.get('name', 'ss'))}"
+            except Exception as e:
+                print(f"ss节点编码失败: {proxy.get('name', 'unknown')}, 错误: {e}")
+                return None
             
         elif proxy_type in ["hysteria2", "hy2"]:
             if "password" not in proxy:
@@ -2650,8 +2763,15 @@ def convert_proxy_to_v2ray_link(proxy):
                 "sni": proxy.get("sni", ""),
                 "insecure": "1" if proxy.get("skip-cert-verify", False) else "0"
             }
-            query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
-            return f"hysteria2://{password}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'hysteria2'))}"
+            try:
+                query = urllib.parse.urlencode({k:v for k,v in params.items() if v})
+                return f"hysteria2://{password}@{address}:{port}?{query}#{urllib.parse.quote(proxy.get('name', 'hysteria2'))}"
+            except Exception as e:
+                print(f"hysteria2节点URL编码失败: {proxy.get('name', 'unknown')}, 错误: {e}")
+                return None
+        else:
+            print(f"不支持的节点类型: {proxy_type}, 节点名称: {proxy.get('name', 'unknown')}")
+            return None
             
     except Exception as e:
         print(f"转换节点 {proxy.get('name', 'unknown')} 失败: {str(e)}")
@@ -2659,35 +2779,52 @@ def convert_proxy_to_v2ray_link(proxy):
 
 def generate_v2ray_subscription(proxies):
     """生成v2ray订阅内容"""
+    if not proxies:
+        print("没有可用的节点来生成订阅")
+        return None
+        
     if not isinstance(proxies, list):
-        print("proxies不是有效的列表")
+        print(f"proxies不是有效的列表类型: {type(proxies)}")
         return None
         
     v2ray_links = []
     valid_count = 0
+    error_count = 0
+    skipped_count = 0
     
-    for proxy in proxies:
+    for i, proxy in enumerate(proxies):
         try:
             if not isinstance(proxy, dict):
+                skipped_count += 1
                 continue
                 
             link = convert_proxy_to_v2ray_link(proxy)
             if link:
                 v2ray_links.append(link)
                 valid_count += 1
+            else:
+                skipped_count += 1
                 
         except Exception as e:
-            print(f"处理节点失败: {str(e)}")
+            error_count += 1
+            print(f"处理第 {i+1} 个节点失败: {str(e)}")
             continue
             
     if not v2ray_links:
         print("没有有效的节点可以生成订阅")
         return None
         
-    print(f"成功转换 {valid_count} 个节点")
+    print(f"V2ray订阅转换结果: 成功 {valid_count} 个节点, 跳过 {skipped_count} 个节点, 错误 {error_count} 个节点")
+    
     # 将所有链接用换行符连接并base64编码
-    content = '\n'.join(v2ray_links)
-    return base64.b64encode(content.encode()).decode()
+    try:
+        content = '\n'.join(v2ray_links)
+        encoded = base64.b64encode(content.encode()).decode()
+        print(f"V2ray订阅生成成功，大小: {len(encoded) / 1024:.2f} KB")
+        return encoded
+    except Exception as e:
+        print(f"V2ray订阅编码失败: {e}")
+        return None
 
 if __name__ == '__main__':
     links = ["https://slink.ltd/https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml",
@@ -2749,5 +2886,12 @@ if __name__ == '__main__':
         'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify2.txt',
         'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify3.txt',
     ]
+
+    # 开发环境时的测试链接
+    # links = ["https://slink.ltd/https://raw.githubusercontent.com/firefoxmmx2/v2rayshare_subcription/main/subscription/clash_sub.yaml",
+    #     'https://slink.ltd/https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2',
+    #     'https://slink.ltd/https://raw.githubusercontent.com/roosterkid/openproxylist/main/V2RAY_BASE64.txt',
+    #     'https://slink.ltd/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify1.txt',
+    # ]
 
     work(links, check=True, only_check=False, allowed_types=["ss","hysteria2","hy2","vless","vmess","trojan"])
