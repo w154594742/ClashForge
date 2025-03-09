@@ -68,7 +68,7 @@ clash_config_template = {
     "log-level": "info",
     "external-controller": "127.0.0.1:9090",
     "geodata-mode": True,
-    'geox-url': {'geoip': 'https://gitdl.cn/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat', 'mmdb': 'https://gitdl.cn/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-Country.mmdb'},
+    'geox-url': {'geoip': 'https://ghproxy.net/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat', 'mmdb': 'https://ghproxy.net/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-Country.mmdb'},
     "dns": {
         "enable": True,
         "ipv6": False,
@@ -2477,13 +2477,13 @@ if __name__ == '__main__':
         "https://proxypool.link/vmess/sub",
         "https://mxlsub.me/newfull",
         "https://igdux.top/5Hna",
-        'https://ghproxy.net/https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub',
-        'https://ghproxy.net/https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt',
-        'https://ghproxy.net/https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2',
-        'https://ghproxy.net/https://raw.githubusercontent.com/roosterkid/openproxylist/main/V2RAY_BASE64.txt',
-        'https://ghproxy.net/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify1.txt',
-        'https://ghproxy.net/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify2.txt',
-        'https://ghproxy.net/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify3.txt',
+        "https://ghproxy.net/https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub",
+        "https://ghproxy.net/https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt",
+        "https://ghproxy.net/https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2",
+        "https://ghproxy.net/https://raw.githubusercontent.com/roosterkid/openproxylist/main/V2RAY_BASE64.txt",
+        "https://ghproxy.net/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify1.txt",
+        "https://ghproxy.net/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify2.txt",
+        "https://ghproxy.net/https://raw.githubusercontent.com/vpnmarket/sub/refs/heads/main/hiddify3.txt",
     ]
 
     # 开发环境测试使用
